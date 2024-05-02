@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Product_Card from "../../components/Product_Card/Product_Card";
-import Banner from "../../components/home_banner/Banner";
-import SecondaryBanner from "../../components/home_banner/SecondaryBanner";
+import Banner from "../../components/banner/Banner";
 import Categories from "../../components/categories/Categories";
 import Features from "../../components/Features/Features";
 import Discount from "../../components/Discount/Discount";
@@ -14,11 +13,10 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <SecondaryBanner />
+      <Categories />
       <Features />
       <Deal_Of_the_Week/>
       <Home_Page_Products />
-      <Categories />
       <Discount />
       <Newsletter/>
       <Brands />
