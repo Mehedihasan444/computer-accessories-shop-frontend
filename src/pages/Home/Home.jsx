@@ -13,7 +13,6 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <Categories />
       <Features />
       <Deal_Of_the_Week/>
       <Home_Page_Products />
