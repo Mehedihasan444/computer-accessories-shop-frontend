@@ -16,7 +16,6 @@ const Home = () => {
       <Features />
       <Deal_Of_the_Week/>
       <Home_Page_Products />
-      <Categories />
       <Discount />
       <Newsletter/>
       <Brands />
