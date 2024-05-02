@@ -1,17 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
-import SignIn from "../Pages/SignIn/SignIn";
+import SignIn from "../pages/SignIn/SignIn";
 import ProductDetails from "../components/product detail/ProductDetails";
 import AddProduct from "../dashboard/admin/AddProduct";
-import Home from "../Pages/Home/Home";
+import Home from "../pages/Home/Home";
 import App from "../App";
-import Register from "../Pages/Register/Register";
-import System_Access from "../Pages/System_Access/System_Access";
-import Products from "../Pages/Products/Products";
+import Register from "../pages/Register/Register";
+import System_Access from "../pages/System_Access/System_Access";
+import Products from "../pages/Products/Products";
 import Home_Page_Products from "../components/Home_Page_Products/Home_Page_Products";
-import New_Arrivals from "../Pages/New_Arrivals/New_Arrivals";
-import Featured from "../Pages/Featured/Featured";
-import Top_Selling from "../Pages/Top_Selling/Top_Selling";
-import About_Us from "../Pages/About_Us/About_Us";
+import New_Arrivals from "../pages/New_Arrivals/New_Arrivals";
+import Featured from "../pages/Featured/Featured";
+import Top_Selling from "../pages/Top_Selling/Top_Selling";
+import About_Us from "../pages/About_Us/About_Us";
 import Dashboard from "../dashboard/Dashboard";
 import All_Users from "../dashboard/admin/All_Users";
 import Admin_Home from "../dashboard/admin/Admin_Home";
@@ -24,9 +24,8 @@ import Purchase_History from "../dashboard/user/Purchase_History";
 import Wishlist from "../dashboard/user/Wishlist";
 import All_Products from "../dashboard/admin/All_Products";
 import Update_Product from "../dashboard/admin/Update_Product";
-import Blogs from "../Pages/blogs/Blogs";
 import Offers from "../dashboard/admin/Offers";
-import BlogDetails from "../Pages/blogs/BlogDetails";
+
 
 const Routes = createBrowserRouter([
   {
@@ -64,15 +63,7 @@ const Routes = createBrowserRouter([
       {
         path: "/about-us",
         element: <About_Us />,
-      },
-      {
-        path: "/blogs",
-        element: <Blogs />,
-      },
-      {
-        path: "blogs/blog-details/:id",
-        element: <BlogDetails />,
-      },
+      }
     ],
   },
   {
