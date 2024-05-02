@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+      "img": "https://i.ibb.co/Y0kVzSH/slider-11-1.jpg",
+      "title": "We Make Phone Repair Hassle Free",
+      "description": "Description for slider image 1",
+      "subHeading": "sales of this week",
+      "price": 199
+    },
+    {
+        "id": 4,
+      "img": "https://i.ibb.co/sJhyNYB/slider-09-1.jpg",
+      "title": "Slider Image 2",
+      "description": "Description for slider image 2",
+      "subHeading": "sales of this week",
+      "price": 199
+    },
+    {
+        "id": 5,
+      "img": "https://i.ibb.co/Fzq4GM8/slider-10-1.jpg",
+      "title": "Slider Image 3",
+      "description": "Description for slider image 3",
+      "subHeading": "sales of this week",
+      "price": 199
+    }
+  ]
+  
