@@ -309,51 +309,61 @@ const offers = client.db("XYZ").collection("offers");
 
 
     // get methods
-    // app.get("/api/v1/products", async (req, res) => {
-    //   let queryObj = {};
-    //   let sortObj = {};
-    //   const category = req.query.category;
-    //   const sortField = req.query.sortField;
-    //   const sortOrder = req.query.sortOrder;
-    //   const page = Number(req.query.page);
-    //   const limit = Number(req.query.limit);
-    //   const skip = (page - 1) * limit;
-    //   const foodName = req.query.foodName;
-    //   // console.log(category,sortField,sortOrder,page,limit,skip);
-    //   if (category) {
-    //     queryObj.foodCategory = category;
-    //   }
-    //   if (sortField && sortOrder) {
-    //     sortObj[sortField] = sortOrder;
-    //   }
-    //   if (foodName) {
-    //     const searchTerm = new RegExp(foodName, "i"); // 'i' for case-insensitive search
-    //     queryObj.foodName = searchTerm;
-    //   }
-    //   const result = await foodCollection
-    //     .find(queryObj)
-    //     .skip(skip)
-    //     .limit(limit)
-    //     .sort(sortObj)
-    //     .toArray();
-    //   const count = await foodCollection.estimatedDocumentCount();
-    //   // console.log({ result, count });
-    //   res.send({ result, count });
-    // });
     app.get("/api/v1/products", async (req, res) => {
       let queryObj = {};
-      
+      let sortObj = {};
+      const category = req.query.category;
+      const brand = req.query.brand;
+      const sortField = req.query.sortField;
+      const sortOrder = req.query.sortOrder;
+      const page = Number(req.query.page);
+      const limit = Number(req.query.limit);
+      const skip = (page - 1) * limit;
       const productName = req.query.productName;
-     console.log(productName);
+      // console.log(category, sortField, sortOrder,productName, limit,skip)
+      if (category) {
+        queryObj.category = category;
+      }
+      if (brand) {
+        queryObj.brand = brand;
+      }
+      if (sortField && sortOrder ) {
+        if (sortOrder=='rating' ) {
+          sortObj['rating'] = 'desc';
+        }else{
+
+          sortObj[sortField] = sortOrder;
+        }
+      }
       if (productName) {
         const searchTerm = new RegExp(productName, "i"); // 'i' for case-insensitive search
         queryObj.name = searchTerm;
       }
-      const result = await products.find(queryObj).toArray();
-
-      console.log(result)
-      res.send(result);
+      const result = await products
+        .find(queryObj)
+        .skip(skip)
+        .limit(limit)
+        .sort(sortObj)
+        .toArray();
+      const count = await products.estimatedDocumentCount();
+      res.send({ result, count });
     });
+
+
+    // app.get("/api/v1/products", async (req, res) => {
+    //   let queryObj = {};
+      
+    //   const productName = req.query.productName;
+    //  console.log(productName);
+    //   if (productName) {
+    //     const searchTerm = new RegExp(productName, "i"); // 'i' for case-insensitive search
+    //     queryObj.name = searchTerm;
+    //   }
+    //   const result = await products.find(queryObj).toArray();
+
+    //   console.log(result)
+    //   res.send(result);
+    // });
   
 
     app.get("/api/v1/products/:id", async (req, res) => {
