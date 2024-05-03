@@ -108,7 +108,12 @@ const Order = () => {
             </tr>
           </thead>
           <tbody className="">
-            {/* <AllParcelsTable bookings={bookings}></AllParcelsTable> */}
+          <tr className="hover">
+        <th>2</th>
+        <td>Hart Hagerty</td>
+        <td>Desktop Support Technician</td>
+        <td>Purple</td>
+      </tr>
           </tbody>
         </table>
       </div>

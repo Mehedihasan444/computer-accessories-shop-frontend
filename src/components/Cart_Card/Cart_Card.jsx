@@ -1,20 +1,16 @@
-import {  useState } from "react";
-import { FaRegPlusSquare } from "react-icons/fa";
+import { useState } from "react";
+import { FaEye, FaRegPlusSquare } from "react-icons/fa";
 import { FaRegSquareMinus } from "react-icons/fa6";
 import { FaRegTrashCan } from "react-icons/fa6";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CiWarning } from "react-icons/ci";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
-
-
-const Cart_card = ({ product, refetch, setTotalAmount, totalAmount }) => {
-  const { _id, name, description, price, image, stock, category } = product;
+const Cart_card = ({ product,DataFetch,  setTotalAmount, totalAmount }) => {
+  const { _id, name, description, price, images, stock, category } = product;
   const [quantity, setQuantity] = useState(1);
   const axiosSecure = useAxiosSecure();
-  const [delete_Product, setDelete_Product] = useState(false);
-
 
   const handleIncrease = (price) => {
     setQuantity(quantity + 1);
@@ -26,92 +22,50 @@ const Cart_card = ({ product, refetch, setTotalAmount, totalAmount }) => {
       setTotalAmount((totalAmount -= price));
     }
   };
-  const handleDelete = async (id) => {
-    document.getElementById("my_modal_5").showModal();
-
-    if (delete_Product) {
-      axiosSecure.delete(`/user/cart/delete-item/${id}`).then((res) => {
-        console.log(res.data);
-        if (res.data.deletedCount > 0) {
-          refetch();
-
-          toast.success("product delete  successfully!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
-        } else {
-          toast.error("Something went wrong!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
-        }
-      });
-    }
+  const handleDelete = async () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/cart/${_id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount > 0) {
+            DataFetch()
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong.",
+              icon: "error",
+            });
+          }
+        });
+      }
+    });
   };
-
-
-  
 
   return (
     <div
       className="flex items-center gap-5 w-[700px]  "
       onChange={() => setTotalAmount(totalAmount + parseInt(price))}
     >
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
-      {/* <button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button> */}
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <div className="flex text-center justify-center items-center flex-col">
-            <div className="flex text-red-500 justify-center items-center text-6xl">
-              <CiWarning />
-            </div>
-            <h3 className="font-bold text-lg">
-              Are you sure You want to delete it!
-            </h3>
-            <p className="py-4">
-              Press Delete if you want to delete otherwise click the button
-              below to cancel
-            </p>
-          </div>
-          <div className="modal-action">
-            <form method="dialog ">
-              {/* if there is a button in form, it will close the modal */}
-              <button
-                className="btn btn-error text-white mr-5"
-                onClick={() => setDelete_Product(true)}
-              >
-                Delete
-              </button>
-              <button type="submit" className="btn">Cancel</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
-
-      {/* <div className="p-5 ">
-        <input type="checkbox" className=" w-5 h-5" />
-      </div> */}
       <div
         className="flex gap-5 items-center  "
         style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 1px 3px 0px" }}
       >
         <div className="">
           <img
-            src={image}
+            src={images[0]}
             alt={name}
             className="h-40 ml-5 w-full object-cover"
           />
@@ -120,8 +74,14 @@ const Cart_card = ({ product, refetch, setTotalAmount, totalAmount }) => {
           <div className="flex justify-between items-center">
             <span className=" text-sm text-gray-400">{category}</span>
             <div className="btn bg-transparent text-xl">
-              <FaRegTrashCan onClick={() => handleDelete(_id)} className="" />
+              <FaRegTrashCan onClick={() => handleDelete()} className="" />
             </div>
+            <Link to={`/product-detail/${_id}`}>
+
+            <div className="btn bg-transparent text-xl">
+              <FaEye  className="" />
+            </div>
+            </Link>
           </div>
           <h2 className="font-semibold text-xl">{name}</h2>
           <span className="text-xs">stock: {stock}</span>

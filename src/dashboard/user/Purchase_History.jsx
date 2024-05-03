@@ -1,100 +1,26 @@
 
-import { useQuery } from "@tanstack/react-query";
-// import { DateRangePicker } from "react-date-range";
-import { useEffect, useState } from "react";
+
+import { useContext } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { DataContext } from "../../DataProvider/DataProvider";
 
 const Purchase_History = () => {
-  const axiosSecure = useAxiosSecure();
-  const [orders, setOrders] = useState([]);
+  const {allData}=useContext(DataContext)
 
-  const { data: users = [] } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/admin/users/collection");
-      return res.data;
-    },
-  });
 
-  const { data: allOrders = [], refetch } = useQuery({
-    queryKey: ["allOrders"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/users/admin/bookings");
-      return res.data;
-    },
-  });
+  
 
-  useEffect(() => {
-    const filteredOrders = [];
-    for (let i = 0; i < users?.length; i++) {
-      const filteredData = allOrders.filter(
-        (item) =>
-          item?.email.toLowerCase() === users[i]?.email.toLowerCase() &&
-          item?.status === "pending"
-        //"On The Way"
-      );
-      filteredOrders.push(...filteredData);
-    }
-    setOrders(filteredOrders);
-  }, [allOrders, users]);
+ 
 
-  const handleFilter = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const start = form.startingDate.value;
-    const end = form.endingDate.value;
 
-    const filteredByDate = orders.filter((item) => {
-      let itemDate = item?.requestedDeliveryDate;
-      return itemDate >= start && itemDate <= end;
-    });
-    console.log(filteredByDate);
-    setOrders(filteredByDate);
-    refetch();
-  };
 
   return (
     <div className="text-center">
         <p className="">....</p>
-      <h1 className="text-4xl font-bold">All Orders</h1>
-      <div className="flex justify-end items-center">
-      
-        <form onSubmit={handleFilter}>
-          <div className="flex justify-end  gap-5 my-5">
-            <div className="">
-              <label className="form-control w-full max-w-xs">
-                <div className="label">
-                  <span className="label-text font-medium">Staring date</span>
-                </div>
-                <input
-                  type="date"
-                  name="startingDate"
-                  className="input input-bordered w-full max-w-xs"
-                />
-              </label>
-            </div>
-            <div className="">
-              <label className="form-control w-full max-w-xs">
-                <div className="label">
-                  <span className="label-text font-medium">Ending date</span>
-                </div>
-                <input
-                  type="date"
-                  name="endingDate"
-                  className="input input-bordered w-full max-w-xs"
-                />
-              </label>
-            </div>
-            <div className="flex items-end">
-              <button type="submit" className="btn btn-info text-white ">
-                Filter
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <h1 className="text-4xl font-bold">Purchases History</h1>
+     
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mt-5">
         <table className="table table-md text-center border">
           <thead className="border">
             <tr className="text-base">
@@ -108,7 +34,15 @@ const Purchase_History = () => {
             </tr>
           </thead>
           <tbody className="">
-            {/* <AllParcelsTable bookings={bookings}></AllParcelsTable> */}
+            {/* {
+              allData[]
+            } */}
+          <tr className="hover">
+        <th>2</th>
+        <td>Hart Hagerty</td>
+        <td>Desktop Support Technician</td>
+        <td>Purple</td>
+      </tr>
           </tbody>
         </table>
       </div>
