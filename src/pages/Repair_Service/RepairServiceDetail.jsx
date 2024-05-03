@@ -7,9 +7,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import repair from '../../assets/repair-srvice/repair.jpg'
 import star from '../../assets/repair-srvice/star-shape.png'
 import { useState } from 'react';
+import { toast } from "react-toastify";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 const RepairServiceDetail = () => {
     const [booking, setBooking] = useState(new Date())
-    const handelSubmit = (e) => {
+    const axiosPublic = useAxiosPublic();
+    const handelSubmit = async(e) => {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
         const user_name = form.get('name');
@@ -20,7 +23,12 @@ const RepairServiceDetail = () => {
         const description = form.get('description');
 
         const Appointment={user_name,email,phone,device_type,booking_date,description}
-        
+        const productInfo = await axiosPublic.post("/appointment", Appointment);
+        if (productInfo?.data?.insertedId) {
+            toast.success("appointment Successfully added!!!");
+        } else {
+            toast.error("Something went wrong");
+        }
     }
     return (
         <section className='mt-10'>
