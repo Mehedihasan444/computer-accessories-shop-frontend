@@ -12,6 +12,7 @@ const Admin_Product_Card = ({ product }) => {
   const axiosSecure = useAxiosSecure();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalIdRef = useRef(null);
+  
 
   useEffect(() => {
     return () => {
@@ -77,6 +78,8 @@ const Admin_Product_Card = ({ product }) => {
           </div>
         </div>
       </div>
+      <Link to={`/product-detail/${product._id}`}>
+
       <div className="p-4">
         <h3 className="text-lg font-semibold mb-2">{product?.name}</h3>
         <div className="flex items-center mb-2">
@@ -102,6 +105,7 @@ const Admin_Product_Card = ({ product }) => {
           </span>
         </p>
       </div>
+      </Link>
     </div>
   );
 };

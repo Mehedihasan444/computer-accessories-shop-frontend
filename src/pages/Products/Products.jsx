@@ -7,6 +7,7 @@ import { DataContext } from "../../DataProvider/DataProvider";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import ProductsPageSideBer from "../../components/productsPageSideBer/ProductsPageSideBer";
+import { Link } from "react-router-dom";
 const Products = () => {
   const axiosPublic = useAxiosPublic();
   const [viewType, setViewType] = useState("grid");
@@ -153,13 +154,19 @@ const Products = () => {
         ) :viewType === "grid" ? (
             <>
               {products?.result?.map((product) => (
-                <Product_Card product={product} key={product._id} />
+                // <Link to={`/product-detail/${product._id}`} >
+                
+                <Product_Card product={product}  key={product._id}/>
+                // </Link>
               ))}
             </>
           ) : (
             <>
               {products?.result?.map((product) => (
-                <Product_Card_ListView product={product} key={product._id} />
+                // <Link to={`/product-detail/${product._id}`} >
+
+                  <Product_Card_ListView product={product}  key={product._id}/>
+                // </Link>
               ))}
             </>
           )}

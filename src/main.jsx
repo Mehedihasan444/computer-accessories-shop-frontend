@@ -26,11 +26,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       // transition:Bounce
     />
     <QueryClientProvider client={queryClient}>
-      <DataProvider>
         <AuthProvider>
+      <DataProvider>
           <RouterProvider router={Routes} />
-        </AuthProvider>
       </DataProvider>
+        </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

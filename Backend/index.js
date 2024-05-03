@@ -158,13 +158,23 @@ const offers = client.db("XYZ").collection("offers");
       res.send(result);
     });
     app.post("/api/v1/cart", async (req, res) => {
-      const test = req.body;
-      const result = await cart.insertOne(test);
+      const item = req.body;
+      const query={_id: item._id}
+      const isExist = await cart.findOne(query);
+      if (isExist) {
+        return res.send({message: 'already exists'})
+      }
+      const result = await cart.insertOne(item);
       res.send(result);
     });
     app.post("/api/v1/wishlist", async (req, res) => {
-      const test = req.body;
-      const result = await wishlist.insertOne(test);
+      const item = req.body;
+      const query={_id: item._id}
+      const isExist = await wishlist.findOne(query);
+      if (isExist) {
+        return res.send({message: 'already exists'})
+      }
+      const result = await wishlist.insertOne(item);
       res.send(result);
     });
     app.post("/api/v1/orders", async (req, res) => {

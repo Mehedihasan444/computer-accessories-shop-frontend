@@ -1,10 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import RatingStar from "../../Utilities/RatingStar/RatingStar";
 import { LuPackage } from "react-icons/lu";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { DataContext } from "../../DataProvider/DataProvider";
+import { toast } from "react-toastify";
 const Product_Card_ListView = ({product}) => {
-
+  const axiosPublic = useAxiosPublic();
+  const { user } = useContext(AuthContext);
+  const { DataFetch } = useContext(DataContext)
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalIdRef = useRef(null);
 
@@ -25,6 +32,37 @@ const Product_Card_ListView = ({product}) => {
     clearInterval(intervalIdRef.current);
     setCurrentImageIndex(0); // Reset to the first image when mouse leaves
   };
+
+  const handleWishlist = async () => {
+    const res = await axiosPublic.post(`/wishlist`, {
+      ...product,
+      email: user?.email,
+    });
+    if (res.data.insertedId) {
+      console.log(res.data);
+      toast.success(`${product?.name} has been added to the wishlist.`);
+      DataFetch();
+    } else if (res.data.message) {
+      toast.error(`${product?.name} ${res.data.message} in the wishlist`);
+    }
+  };
+  const handleCart = async () => {
+    const res = await axiosPublic.post(`/cart`, {
+      ...product,
+      email: user?.email,
+    });
+    if (res.data.insertedId) {
+      console.log(res.data);
+      toast.success(`${product?.name} has been added to the wishlist.`);
+      DataFetch();
+    } else if (res.data.message) {
+      toast.error(`${product?.name} ${res.data.message} in the wishlist`);
+    }
+  };
+
+
+
+
   return (
     <div
       className="flex justify-between  bg-white rounded-lg "
@@ -40,16 +78,18 @@ const Product_Card_ListView = ({product}) => {
         </div>
         <div className="absolute top-2 right-2 space-y-3">
 
-        <div className=" hover:text-red-500 hover:shadow-md  bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-2xl">
+        <div onClick={() => handleWishlist()} className="cursor-pointer hover:text-red-500 hover:shadow-md  bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-2xl">
           <IoMdHeartEmpty />
          
         </div>
-        <div className=" hover:text-red-500 hover:shadow-md  bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-2xl">
+        <div onClick={() => handleCart()} className="cursor-pointer hover:text-red-500 hover:shadow-md  bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-2xl">
           
           <IoCartOutline />
         </div>
         </div>
       </div>
+      <Link to={`/product-detail/${product._id}`}>
+
       <div className="p-4 flex-1">
         <h3 className="text-lg font-semibold mb-2">{product?.name}</h3>
         <div className="flex items-center mb-2">
@@ -73,6 +113,7 @@ const Product_Card_ListView = ({product}) => {
           <span>Add to Cart</span>
         </button> */}
       </div>
+      </Link>
     </div>
   ); 
 };
