@@ -10,6 +10,7 @@ import { MdOutlineGppGood } from "react-icons/md";
 import { MdAttachMoney } from "react-icons/md";
 import { GrUserExpert } from "react-icons/gr";
 import Quotes_Slider from "../../components/Quotes_Slider/Quotes_Slider";
+import { Link } from "react-router-dom";
 const RepairService = () => {
     return (
         <section>
@@ -46,48 +47,60 @@ const RepairService = () => {
                 <div className="flex justify-center items-center my-2 "><hr className="w-[50px] border-2 border-[#00BFA5]" /></div>
                 <p className="text-center mt-2">Overcome faithful endless salvation enlightenment salvation overcome pious merciful <br /> ascetic madness holiest joy passion zarathustra.</p>
                 <div className="grid grid-cols-3 gap-5 mt-10">
-                    <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
-                        <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
-                            <FaLaptopCode className="text-6xl mb-3" />
-                            <h3 className="text-3xl font-bold">Laptop Repair</h3>
+                    <Link to='/repair-services-details'>
+                        <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
+                            <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
+                                <FaLaptopCode className="text-6xl mb-3" />
+                                <h3 className="text-3xl font-bold">Laptop Repair</h3>
+                            </div>
+                            <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
-                        <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
-                    </div>
-                    <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
-                        <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
-                            <TbDeviceDesktopCog className="text-6xl mb-3" />
-                            <h3 className="text-3xl font-bold">Desktop Repair</h3>
+                    </Link>
+                    <Link to='/repair-services-details'>
+                        <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
+                            <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
+                                <TbDeviceDesktopCog className="text-6xl mb-3" />
+                                <h3 className="text-3xl font-bold">Desktop Repair</h3>
+                            </div>
+                            <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
-                        <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
-                    </div>
-                    <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
-                        <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
-                            <FiPrinter className="text-6xl mb-3" />
-                            <h3 className="text-3xl font-bold">Printer Repair</h3>
+                    </Link>
+                    <Link to='/repair-services-details'>
+                        <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
+                            <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
+                                <FiPrinter className="text-6xl mb-3" />
+                                <h3 className="text-3xl font-bold">Printer Repair</h3>
+                            </div>
+                            <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
-                        <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
-                    </div>
-                    <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
-                        <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
-                            <MdOutlineSmartphone className="text-6xl mb-3" />
-                            <h3 className="text-3xl font-bold">Smartphone Repair</h3>
+                    </Link>
+                    <Link to='/repair-services-details'>
+                        <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
+                            <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
+                                <MdOutlineSmartphone className="text-6xl mb-3" />
+                                <h3 className="text-3xl font-bold">Smartphone Repair</h3>
+                            </div>
+                            <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
-                        <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
-                    </div>
-                    <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
-                        <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
-                            <LuHardDriveUpload className="text-6xl mb-3" />
-                            <h3 className="text-3xl font-bold">Data Recovery</h3>
+                    </Link>
+                    <Link to='/repair-services-details'>
+                        <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
+                            <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
+                                <LuHardDriveUpload className="text-6xl mb-3" />
+                                <h3 className="text-3xl font-bold">Data Recovery</h3>
+                            </div>
+                            <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
-                        <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
-                    </div>
-                    <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
-                        <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
-                            <TbDeviceTabletCog className="text-6xl mb-3" />
-                            <h3 className="text-3xl font-bold">Tablet Repair</h3>
+                    </Link>
+                    <Link to='/repair-services-details'>
+                        <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
+                            <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
+                                <TbDeviceTabletCog className="text-6xl mb-3" />
+                                <h3 className="text-3xl font-bold">Tablet Repair</h3>
+                            </div>
+                            <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
-                        <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
-                    </div>
+                    </Link>
                 </div>
             </div>
             <div className="mt-20 grid grid-cols-4 bg-[#152F45] text-white ">
@@ -120,7 +133,7 @@ const RepairService = () => {
                 <h1 className="text-center font-bold text-4xl">WHAT OUR CUSTOMERS SAID</h1>
                 <div className="flex justify-center items-center my-2 "><hr className="w-[50px] border-2 border-[#00BFA5]" /></div>
                 <p className="text-center">Overcome faithful endless salvation enlightenment salvation overcome pious merciful <br />
-                ascetic madness holiest joy passion zarathustra suicide overcome snare.</p>
+                    ascetic madness holiest joy passion zarathustra suicide overcome snare.</p>
                 <div className="my-20 bg-slate-400 p-5">
                     <Quotes_Slider />
                 </div>
