@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
@@ -8,12 +8,14 @@ import useAdmin from "../../Hooks/useAdmin";
 // import './Navbar.css'
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const { setSearchValue } = useContext(DataContext);
+  const {allData, setSearchValue } = useContext(DataContext);
   const [isAdmin] = useAdmin();
   const navigate = useNavigate();
   const closeButtonRef = useRef(null);
-
-
+const [wishlistCount,setWishlistCount] = useState(0)
+const [wishlist,setWishlist]=useState([])
+const [cartCount,setCartCount] = useState(0)
+const [cart,setCart]=useState([])
   // handleSubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +25,22 @@ const Navbar = () => {
 
     navigate("/products");
   };
+
+  useEffect(() => {
+   
+      setWishlist(allData[4])
+      setWishlistCount(allData[4]?.length)
+      setCart(allData[5])
+      setCartCount(allData[5]?.length)
+    }, [allData])
+
+
+  const wishlistPrices = wishlist?.map((item) => item.price);
+  const wishlistSubtotal = wishlistPrices?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  
+  const cartPrices = cart?.map((item) => item.price);
+  const cartSubtotal = cartPrices?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  
 
 
   // handle_logOut
@@ -164,7 +182,7 @@ const Navbar = () => {
                     src="https://i.ibb.co/LY9MJK3/love.png"
                     alt=""
                   />
-                  <span className="badge badge-sm indicator-item">0</span>
+                  <span className="badge badge-sm indicator-item">{wishlistCount>0?wishlistCount:0}</span>
                 </div>
               </div>
               <div
@@ -172,8 +190,8 @@ const Navbar = () => {
                 className="mt-3 z-[50] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">0 Items</span>
-                  <span className="text-info">Subtotal: $0</span>
+                  <span className="font-bold text-lg">{wishlistCount>0?wishlistCount:0} Items</span>
+                  <span className="text-info">Subtotal: ${wishlistSubtotal>0?wishlistSubtotal:0}</span>
 
                   <div className="">
                     <Link
@@ -209,7 +227,7 @@ const Navbar = () => {
                       d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                     />
                   </svg>
-                  <span className="badge badge-sm indicator-item">8</span>
+                  <span className="badge badge-sm indicator-item">{cartCount>0?cartCount:0}</span>
                 </div>
               </div>
               <div
@@ -217,8 +235,8 @@ const Navbar = () => {
                 className="mt-3 z-[50] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">8 Items</span>
-                  <span className="text-info">Subtotal: $999</span>
+                  <span className="font-bold text-lg">{cartCount>0?cartCount:0} Items</span>
+                  <span className="text-info">Subtotal: ${cartSubtotal>0?cartSubtotal:0}</span>
                   <div className="">
                     <Link to="/dashboard/user/Cart" className="card-actions">
                       <button className="btn btn-primary btn-block">

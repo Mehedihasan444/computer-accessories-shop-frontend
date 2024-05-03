@@ -1,12 +1,14 @@
-import { createContext,  useState } from "react";
+import { createContext,  useContext,  useState } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 
 export const DataContext = createContext(null);
 const DataProvider = ({ children }) => {
   // const [loading,setLoading]=useState(true)
+  const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const [searchValue,setSearchValue]=useState([])
@@ -18,7 +20,10 @@ const DataProvider = ({ children }) => {
       const res2 = await axiosPublic.get("/products");
       const res3 = await axiosSecure.get(`/users`);
       const res4 = await axiosSecure.get(`/admin/products/offers`);
-      return [res1.data, res2.data.result, res3.data,res4.data];
+      const res5 = await axiosSecure.get(`/wishlist/${user?.email}`);
+      const res6 = await axiosSecure.get(`/cart/${user?.email}`);
+
+      return [res1.data, res2.data.result, res3.data,res4.data,res5.data,res6.data];
     },
   });
   //--------------------
@@ -28,13 +33,14 @@ const DataProvider = ({ children }) => {
 
     const reviews = await axiosSecure.get(`/reviews/${id}`);
 
-    return [product, reviews];
+    return [product.data, reviews.data];
   };
 
   // ----------
   const byEmail = async (email) => {
     const user = await axiosPublic.get(`/users/${email}`);
     const reviews = await axiosSecure.get(`/reviews/${email}`);
+    // const wishlist = await axiosSecure.get(`/wishlist/${email}`);
 
     return [user, reviews];
   };
