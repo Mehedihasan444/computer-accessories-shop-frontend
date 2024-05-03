@@ -22,12 +22,13 @@ const DataProvider = ({ children }) => {
       const res4 = await axiosSecure.get(`/offers`);
       const res5 = await axiosSecure.get(`/wishlist/${user?.email}`);
       const res6 = await axiosSecure.get(`/cart/${user?.email}`);
-
-      return [res1.data, res2.data.result, res3.data,res4.data,res5.data,res6.data];
+      const res7 = await axiosSecure.get(`/appointments`);
+     
+      return [res1.data, res2.data.result, res3.data,res4.data,res5.data,res6.data,res7.data];
     },
   });
   //--------------------
-console.log(allData)
+
   const byId = async (id) => {
     const product = await axiosPublic.get(`/products/${id}`);
 

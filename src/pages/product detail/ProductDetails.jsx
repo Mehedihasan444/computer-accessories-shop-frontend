@@ -37,7 +37,10 @@ const ProductDetails = () => {
       setCount(x);
     }
   };
-  console.log(ProductDetails);
+  console.log(ProductDetails.images?.map(item => ({
+      original: item,
+      thumbnail: item
+    })));
   const images = [
     {
       original:
@@ -52,7 +55,12 @@ const ProductDetails = () => {
         "https://754969b0.rocketcdn.me/partdo/phone/wp-content/uploads/sites/2/2022/11/2-33-500x500.jpg",
     },
   ];
-
+  // const images = ProductDetails?.images?.map(item => ({
+  //   original: item,
+  //   thumbnail: item
+  // }));
+  // const img=images
+  // console.log(images)
   return (
     <section className="mt-10">
       <div className="grid grid-cols-2 gap-5">

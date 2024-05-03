@@ -1,13 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const jwt=require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 // const cookieParser=require('cookie-parser')
 require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
-
-
 
 // ==========middleware==========
 app.use(
@@ -19,7 +17,6 @@ app.use(
 app.use(express.json());
 // const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.u9t7oll.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.mjmr8hf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -40,42 +37,43 @@ async function run() {
     const users = client.db("XYZ").collection("users");
     const reviews = client.db("XYZ").collection("reviews");
     const payments = client.db("XYZ").collection("payments");
-const offers = client.db("XYZ").collection("offers");
+    const offers = client.db("XYZ").collection("offers");
+    const appointments = client.db("XYZ").collection("appointments");
 
-
-    // security 
-    app.post('/jwt',async (req, res) => {
-
+    // security
+    app.post("/jwt", async (req, res) => {
       const user = req.body;
-      const token = jwt.sign(user,process.env.ACCESS_TOKEN,{expiresIn:'1h'});
-      res.send(token)
-    })
-    
-    const verifyToken = (req,res,next)=>{
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN, {
+        expiresIn: "1h",
+      });
+      res.send(token);
+    });
+
+    const verifyToken = (req, res, next) => {
       // console.log("inside VF",req.headers)
       if (!req.headers.authorization) {
-        return res.status(401).send({message: 'Access Denied'})
+        return res.status(401).send({ message: "Access Denied" });
       }
-      const token = req.headers.authorization.split(' ')[1]
-      jwt.verify(token,process.env.ACCESS_TOKEN,(err,decoded)=>{
+      const token = req.headers.authorization.split(" ")[1];
+      jwt.verify(token, process.env.ACCESS_TOKEN, (err, decoded) => {
         if (err) {
-          return res.status(401).send({message: 'Access Denied'})
+          return res.status(401).send({ message: "Access Denied" });
         }
         req.decoded = decoded;
         next();
-      })
-    }
-    const verifyAdmin =async (req,res,next)=>{
-    const email= req.decoded.email;
-    const query = {email: email};
-    const user = await users.findOne(query);
-    const isAdmin = user?.role ==='admin';
-    if (!isAdmin) {
-      return res.status(401).send({message: 'forbidden access'})
-    }
-    next();
-    }
-    
+      });
+    };
+    const verifyAdmin = async (req, res, next) => {
+      const email = req.decoded.email;
+      const query = { email: email };
+      const user = await users.findOne(query);
+      const isAdmin = user?.role === "admin";
+      if (!isAdmin) {
+        return res.status(401).send({ message: "forbidden access" });
+      }
+      next();
+    };
+
     // payment
 
     // app.post("/create-payment-intent", async (req, res) => {
@@ -98,7 +96,7 @@ const offers = client.db("XYZ").collection("offers");
     //   res.send(result);
     // })
     // app.get('/payments', verifyToken, async (req, res) => {
-      
+
     //   const result = await payments.find().toArray();
     //   res.send(result);
     // })
@@ -114,11 +112,11 @@ const offers = client.db("XYZ").collection("offers");
     //   const result =  await payments.updateOne(filter,updatedDoc);
     //   res.send(result);
     // })
-    
+
     // app.post('/payments', async (req, res) => {
     //   const payment = req.body;
     //   const paymentResult = await payments.insertOne(payment);
-    
+
     //   //  carefully delete each item from the cart
     //   console.log('payment info', payment);
     //   const query = {
@@ -127,7 +125,7 @@ const offers = client.db("XYZ").collection("offers");
     //     }
     //   };
     //   const deleteResult = await cart.deleteMany(query);
-    
+
     //   // send user email about payment confirmation
     //   // mg.messages
     //   //   .create(process.env.MAIL_SENDING_DOMAIN, {
@@ -145,13 +143,9 @@ const offers = client.db("XYZ").collection("offers");
     //   //   })
     //   //   .then(msg => console.log(msg)) // logs response data
     //   //   .catch(err => console.log(err)); // logs any error`;
-    
+
     //   res.send({ paymentResult, deleteResult });
     // })
-
-
-
-
 
     // post method for products
     app.post("/api/v1/products", async (req, res) => {
@@ -161,22 +155,57 @@ const offers = client.db("XYZ").collection("offers");
     });
     app.post("/api/v1/cart", async (req, res) => {
       const item = req.body;
-      const query={_id: item._id}
+      console.log(item);
+      const product = {
+        id:item._id,
+        name: item.name,
+        brand: item.brand,
+        model: item.model,
+        price: item.price,
+        discount_price: item.discount_price,
+        stock: item.stock,
+        rating: item.rating,
+        reviews: item.reviews,
+        description: item.description,
+        category: item.category,
+        tag: item.tag,
+        images: item.images,
+        email: item.email,
+      };
+
+      const query = { id: item._id, email: item.email };
       const isExist = await cart.findOne(query);
       if (isExist) {
-        return res.send({message: 'already exists'})
+        return res.send({ message: "already exists" });
       }
-      const result = await cart.insertOne(item);
+
+      const result = await cart.insertOne(product);
       res.send(result);
     });
     app.post("/api/v1/wishlist", async (req, res) => {
       const item = req.body;
-      const query={_id: item._id}
+      const product = {
+        id:item._id,
+        name: item.name,
+        brand: item.brand,
+        model: item.model,
+        price: item.price,
+        discount_price: item.discount_price,
+        stock: item.stock,
+        rating: item.rating,
+        reviews: item.reviews,
+        description: item.description,
+        category: item.category,
+        tag: item.tag,
+        images: item.images,
+        email: item.email,
+      };
+      const query = { id: item._id, email: item.email };
       const isExist = await wishlist.findOne(query);
       if (isExist) {
-        return res.send({message: 'already exists'})
+        return res.send({ message: "already exists" });
       }
-      const result = await wishlist.insertOne(item);
+      const result = await wishlist.insertOne(product);
       res.send(result);
     });
     app.post("/api/v1/orders", async (req, res) => {
@@ -204,13 +233,16 @@ const offers = client.db("XYZ").collection("offers");
       const result = await reviews.insertOne(test);
       res.send(result);
     });
-  
-
+    app.post("/api/v1/appointments", async (req, res) => {
+      const test = req.body;
+      const result = await appointments.insertOne(test);
+      res.send(result);
+    });
 
     // delete methods
     app.delete("/api/v1/users/admin/:email", async (req, res) => {
       const email = req.params.email;
-      const query = { email:email};
+      const query = { email: email };
       const result = await users.deleteOne(query);
       res.send(result);
     });
@@ -220,15 +252,16 @@ const offers = client.db("XYZ").collection("offers");
       const result = await products.deleteOne(query);
       res.send(result);
     });
-    app.delete("/api/v1/users/cart/:id", async (req, res) => {
+    app.delete("/api/v1/cart/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
+      console.log(id);
+      const query = { _id: id };
       const result = await cart.deleteOne(query);
       res.send(result);
     });
-    app.delete("/api/v1/users/wishlist/:id", async (req, res) => {
+    app.delete("/api/v1/wishlist/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
+      const query = { _id: id };
       const result = await wishlist.deleteOne(query);
       res.send(result);
     });
@@ -243,8 +276,7 @@ const offers = client.db("XYZ").collection("offers");
       const query = { _id: new ObjectId(id) };
       const result = await reviews.deleteOne(query);
       res.send(result);
-    })
-
+    });
 
     // update methods
     app.patch("/api/v1/users/admin/:email", async (req, res) => {
@@ -260,8 +292,8 @@ const offers = client.db("XYZ").collection("offers");
     });
     app.patch("/api/v1/users/updateProfile/:email", async (req, res) => {
       const email = req.params.email;
-      const data=req.body
-      const filter = { email: email};
+      const data = req.body;
+      const filter = { email: email };
       const updatedDoc = {
         $set: {
           name: data?.name,
@@ -273,7 +305,7 @@ const offers = client.db("XYZ").collection("offers");
       const result = await users.updateOne(filter, updatedDoc);
       res.send(result);
     });
-    
+
     app.patch("/api/v1/admin/products/:id", async (req, res) => {
       const id = req.params.id;
       const product = req.body;
@@ -298,8 +330,8 @@ const offers = client.db("XYZ").collection("offers");
       res.send(result);
     });
     app.patch("/api/v1/offers", async (req, res) => {
-      const data=req.body
-      const filter = { _id: new ObjectId('6635066cb684658033043d51')}
+      const data = req.body;
+      const filter = { _id: new ObjectId("6635066cb684658033043d51") };
       const updatedDoc = {
         $set: {
           // title:data.title,
@@ -310,15 +342,12 @@ const offers = client.db("XYZ").collection("offers");
           // seconds:data.seconds,
           // products:data.products,
           // category:data.category,
-          products:data.products,
+          products: data.products,
         },
       };
       const result = await offers.updateOne(filter, updatedDoc);
       res.send(result);
     });
-
-    
-
 
     // get methods
     app.get("/api/v1/products", async (req, res) => {
@@ -339,11 +368,10 @@ const offers = client.db("XYZ").collection("offers");
       if (brand) {
         queryObj.brand = brand;
       }
-      if (sortField && sortOrder ) {
-        if (sortOrder=='rating' ) {
-          sortObj['rating'] = 'desc';
-        }else{
-
+      if (sortField && sortOrder) {
+        if (sortOrder == "rating") {
+          sortObj["rating"] = "desc";
+        } else {
           sortObj[sortField] = sortOrder;
         }
       }
@@ -361,7 +389,6 @@ const offers = client.db("XYZ").collection("offers");
       res.send({ result, count });
     });
 
-
     app.get("/api/v1/products/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -378,23 +405,21 @@ const offers = client.db("XYZ").collection("offers");
       const result = await users.findOne(query);
       res.send(result);
     });
-    app.get("/api/v1/admin/:email",async (req, res) => {
-        const email = req.params.email;
-        const query = {
-          email: email,
-          role: "admin",
-        };
-        const result = await users.findOne(query);
-        //console.log(result);
-        if (result) {
-          res.send({ admin: true });
-        } else {
-          res.send({ admin: false });
-        }
-        // res.send(result);
+    app.get("/api/v1/admin/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = {
+        email: email,
+        role: "admin",
+      };
+      const result = await users.findOne(query);
+      //console.log(result);
+      if (result) {
+        res.send({ admin: true });
+      } else {
+        res.send({ admin: false });
       }
-    );
-
+      // res.send(result);
+    });
 
     app.get("/api/v1/cart/:email", async (req, res) => {
       const email = req.params.email;
@@ -418,9 +443,15 @@ const offers = client.db("XYZ").collection("offers");
       const result = await orders.find(query).toArray();
       res.send(result);
     });
-    
+
     app.get("/api/v1/reviews", async (req, res) => {
       const result = await reviews.find().toArray();
+      res.send(result);
+    });
+    app.get("/api/v1/reviews/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const result = await reviews.find(query).toArray();
       res.send(result);
     });
     app.get("/api/v1/reviews/:email", async (req, res) => {
@@ -440,12 +471,13 @@ const offers = client.db("XYZ").collection("offers");
       res.send(result);
     });
     app.get("/api/v1/offers", async (req, res) => {
-     
       const result = await offers.findOne();
       res.send(result);
     });
-
-
+    app.get("/api/v1/appointments", async (req, res) => {
+      const result = await appointments.findOne();
+      res.send(result);
+    });
 
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"

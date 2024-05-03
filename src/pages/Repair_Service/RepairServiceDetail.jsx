@@ -23,7 +23,7 @@ const RepairServiceDetail = () => {
         const description = form.get('description');
 
         const Appointment={user_name,email,phone,device_type,booking_date,description}
-        const productInfo = await axiosPublic.post("/appointment", Appointment);
+        const productInfo = await axiosPublic.post("/appointments", Appointment);
         if (productInfo?.data?.insertedId) {
             toast.success("appointment Successfully added!!!");
         } else {
