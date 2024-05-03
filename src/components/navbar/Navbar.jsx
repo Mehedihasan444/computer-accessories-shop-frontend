@@ -1,26 +1,42 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { DataContext } from "../../DataProvider/DataProvider";
+import useAdmin from "../../Hooks/useAdmin";
 
 // import './Navbar.css'
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext)
-  const admin = false;
+  const { user, logOut } = useContext(AuthContext);
+  const { setProducts } = useContext(DataContext);
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const closeButtonRef = useRef(null);
+
+
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const searchValue = e.target.search.value;
+    const res = await axiosPublic.get(`/products?productName=${searchValue}`);
+    setProducts(res.data);
+    closeButtonRef.current.click();
+    navigate("/products");
+  };
 
   const handle_logOut = () => {
-
     logOut()
       .then((res) => {
-        console.log(res)
-        toast.success('Successfully logOut!!!');
+        console.log(res);
+        toast.success("Successfully logOut!!!");
       })
       .catch((err) => {
-        console.log(err)
-        toast.error('Something went wrong');
-      })
-  }
-
+        console.log(err);
+        toast.error("Something went wrong");
+      });
+  };
 
   return (
     <div>
@@ -53,23 +69,13 @@ const Navbar = () => {
                   <a>Home</a>
                 </li>
               </Link>
-              <li>
-                <a className="font-bold">Categories</a>
-                <ul className="p-2">
-                <li>
-                    <a href="#">Laptop</a>
-                  </li>
-                  <li>
-                    <a href="#">Phones</a>
-                  </li>
-                </ul>
-              </li>
+
               <li className="font-bold">
                 <a>Products</a>
               </li>
-              <Link to='/blogs'>
+              <Link to="/repair">
                 <li className="font-bold">
-                  <a>Blogs</a>
+                  <a>Repair Service</a>
                 </li>
               </Link>
               <li className="font-bold">
@@ -86,26 +92,13 @@ const Navbar = () => {
                 <a>Home</a>
               </li>
             </Link>
-            <li>
-              <details>
-                <summary className="font-bold">Categories</summary>
-                <ul className="p-2">
-                  <li>
-                    <a href="#">Laptop</a>
-                  </li>
-                  <li>
-                    <a href="#">Phones</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
 
             <li className="font-bold">
               <a href="/products">Products</a>
             </li>
-            <Link to='/blogs'>
+            <Link to="/repair">
               <li className="font-bold">
-                <a>Blogs</a>
+                <a>Repair Service</a>
               </li>
             </Link>
             <li className="font-bold">
@@ -132,22 +125,28 @@ const Navbar = () => {
                       style={{ width: "100vw", height: "100vh" }}
                     >
                       <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 bg-slate-400">
+                        <button
+                          ref={closeButtonRef}
+                          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 bg-slate-400"
+                        >
                           ✕
                         </button>
                       </form>
-                      <div className="space-y-3">
-                        <h3 className=" text-lg">Whats on your mind?</h3>
-                        <input
-                          type="text"
-                          placeholder="Type here"
-                          className="input input-md w-[1100px] input-bordered border-black"
-                        />
-                        <br />
-                        <button className="btn bg-black text-white px-10">
-                          Search
-                        </button>
-                      </div>
+                      <form onSubmit={handleSubmit}>
+                        <div className="space-y-3">
+                          <h3 className=" text-lg">Whats on your mind?</h3>
+                          <input
+                            type="text"
+                            placeholder="Type here"
+                            name="search"
+                            className="input input-md w-[1100px] input-bordered border-black"
+                          />
+                          <br />
+                          <button className="btn bg-black text-white px-10">
+                            Search
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </dialog>
                 </div>
@@ -175,15 +174,16 @@ const Navbar = () => {
                 <div className="card-body">
                   <span className="font-bold text-lg">0 Items</span>
                   <span className="text-info">Subtotal: $0</span>
-                 
-                  <div className="">
-                    <Link to="/dashboard/user/wishlist" className="card-actions">
 
-                    <button className="btn btn-primary btn-block">
-                    View Wishlist
-                    </button>
+                  <div className="">
+                    <Link
+                      to="/dashboard/user/wishlist"
+                      className="card-actions"
+                    >
+                      <button className="btn btn-primary btn-block">
+                        View Wishlist
+                      </button>
                     </Link>
-  
                   </div>
                 </div>
               </div>
@@ -221,12 +221,10 @@ const Navbar = () => {
                   <span className="text-info">Subtotal: $999</span>
                   <div className="">
                     <Link to="/dashboard/user/Cart" className="card-actions">
-
-                    <button className="btn btn-primary btn-block">
-                      View cart
-                    </button>
+                      <button className="btn btn-primary btn-block">
+                        View cart
+                      </button>
                     </Link>
-  
                   </div>
                 </div>
               </div>
@@ -250,21 +248,26 @@ const Navbar = () => {
                     tabIndex={0}
                     className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-base-100 rounded-box w-52"
                   >
-                   
                     <li>
-                    <a href={`/dashboard/${admin?"admin_home":"user/profile"}`}>Dashboard</a>
+                      <a
+                        href={`/dashboard/${
+                          isAdmin ? "admin_home" : "user/profile"
+                        }`}
+                      >
+                        Dashboard
+                      </a>
                     </li>
                     <li>
                       <button onClick={handle_logOut}>Logout</button>
                     </li>
                   </ul>
                 </div>
-
-
               ) : (
                 <div className="">
                   <Link to="/system-access/signIn">
-                    <button className="btn btn-primary btn-sm mt-2 text-white text-xs bg-red-600 border-none">SignIn</button>
+                    <button className="btn btn-primary btn-sm mt-2 text-white text-xs bg-red-600 border-none">
+                      SignIn
+                    </button>
                   </Link>
                 </div>
               )}

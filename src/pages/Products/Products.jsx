@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoGrid } from "react-icons/io5";
 import { FaThList } from "react-icons/fa";
 import Product_Card from "../../components/Product_Card/Product_Card";
 import Product_Card_ListView from "../../components/Product_Card/Product_Card_ListView";
-import { useQuery } from "@tanstack/react-query";
+
+import { DataContext } from "../../DataProvider/DataProvider";
 const Products = () => {
+  const {allData,products}=useContext(DataContext)
   // State to manage filter options
   const [filters, setFilters] = useState({
     category: "",
@@ -35,17 +37,17 @@ const Products = () => {
     setViewType(value);
   };
 
-  const { isPending, error, data } = useQuery({
-    queryKey: ['data'],
-    queryFn: () =>
-      fetch('/products.json')
-      .then((res) =>
-        res.json(),
-      ),
-  })
+  // const { data: products = [], refetch } = useQuery({
+  //   queryKey: ["[products],"],
+  //   queryFn: async () => {
+  //     const res = await axiosPublic.get(
+  //       `/products?productName=${searchValue}&category=${categoryFilter}&sortField=price&sortOrder=${sortByPrice}&page=${currentPage}&limit=${itemsPerPage}`
+  //     );
 
+  //     return res.data;
+  //   },
+  // });
 
-console.log(data)
 
   return (
     <div className="flex">
@@ -184,7 +186,7 @@ console.log(data)
         <div className="flex justify-between items-center gap-10">
           <div className="flex justify-between items-center gap-5 mb-4 flex-1">
             {/* Render product list here */}
-            <h2 className="text-lg font-semibold">Product Found {data?.length}</h2>
+            <h2 className="text-lg font-semibold">Product Found {allData[1]?.length}</h2>
           </div>
 
           {/* Product cards will be rendered here */}
@@ -239,10 +241,9 @@ console.log(data)
         <div className={`mt-2 grid ${viewType==='grid'?"grid-cols-1 md:grid-cols-2 lg:grid-cols-4":"grid-cols-1"}   gap-3 mb-8`}>
           {/* <ProductCard product={product} /> */}
           {/* Display more product details */}
-          {
-            viewType === "grid"?<>
+          {products.length==0?  viewType === "grid"?<>
             {
-              data?.map((product) => (
+              allData[1]?.map((product) => (
                 <Product_Card product={product} key={product.id} />
               ))
             }
@@ -250,12 +251,29 @@ console.log(data)
             </>:
             <>
             {
-              data?.map((product) => (
+              allData[1]?.map((product) => (
+                <Product_Card_ListView product={product} key={product.id} />
+              ))
+            }
+            
+            </>:
+            viewType === "grid"?<>
+            {
+              products?.map((product) => (
+                <Product_Card product={product} key={product.id} />
+              ))
+            }
+          
+            </>:
+            <>
+            {
+              products?.map((product) => (
                 <Product_Card_ListView product={product} key={product.id} />
               ))
             }
             
             </>
+           
            
           }
           

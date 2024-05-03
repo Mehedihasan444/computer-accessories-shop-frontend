@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import Product_Card from "../../components/Product_Card/Product_Card";
 import Banner from "../../components/banner/Banner";
 import Categories from "../../components/categories/Categories";
 import Features from "../../components/Features/Features";
@@ -13,6 +11,7 @@ const Home = () => {
   return (
     <div>
       <Banner />
+      <Categories />
       <Features />
       <Deal_Of_the_Week/>
       <Home_Page_Products />

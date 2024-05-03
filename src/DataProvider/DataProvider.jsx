@@ -2,14 +2,14 @@ import { createContext, useEffect, useState } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
-import axios from "axios";
+
 
 export const DataContext = createContext(null);
 const DataProvider = ({ children }) => {
   // const [loading,setLoading]=useState(true)
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  const [blogs, setBlogs] = useState([]);
+  const [products,setProducts]=useState([])
   // --------------------
   const { data: allData = [], refetch } = useQuery({
     queryKey: ["allData,"],
@@ -46,16 +46,14 @@ const DataProvider = ({ children }) => {
     refetch();
   };
 
-  useEffect(() => {
-    axios.get("/blogs.json").then((response) => setBlogs(response.data));
-  }, [axiosPublic]);
 
   const all_data = {
     allData,
     DataFetch,
     byId,
     byEmail,
-    blogs,
+    products,
+    setProducts
   };
 
   return (
