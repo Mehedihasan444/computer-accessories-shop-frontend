@@ -7,6 +7,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
 
+
+
 // ==========middleware==========
 app.use(
   cors({
@@ -295,9 +297,9 @@ const offers = client.db("XYZ").collection("offers");
       const result = await products.updateOne(filter, updatedDoc);
       res.send(result);
     });
-    app.patch("/api/v1/admin/products/offers", async (req, res) => {
+    app.patch("/api/v1/offers", async (req, res) => {
       const data=req.body
-      const filter = { category:'offer'};
+      const filter = { _id: new ObjectId('6635066cb684658033043d51')}
       const updatedDoc = {
         $set: {
           // title:data.title,
@@ -359,22 +361,6 @@ const offers = client.db("XYZ").collection("offers");
       res.send({ result, count });
     });
 
-
-    // app.get("/api/v1/products", async (req, res) => {
-    //   let queryObj = {};
-      
-    //   const productName = req.query.productName;
-    //  console.log(productName);
-    //   if (productName) {
-    //     const searchTerm = new RegExp(productName, "i"); // 'i' for case-insensitive search
-    //     queryObj.name = searchTerm;
-    //   }
-    //   const result = await products.find(queryObj).toArray();
-
-    //   console.log(result)
-    //   res.send(result);
-    // });
-  
 
     app.get("/api/v1/products/:id", async (req, res) => {
       const id = req.params.id;
@@ -453,7 +439,7 @@ const offers = client.db("XYZ").collection("offers");
       const result = await payments.find(query).toArray();
       res.send(result);
     });
-    app.get("/api/v1/admin/products/offers", async (req, res) => {
+    app.get("/api/v1/offers", async (req, res) => {
      
       const result = await offers.findOne();
       res.send(result);

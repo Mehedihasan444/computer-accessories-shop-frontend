@@ -7,7 +7,7 @@ import { DataContext } from "../../DataProvider/DataProvider";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import ProductsPageSideBer from "../../components/productsPageSideBer/ProductsPageSideBer";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const Products = () => {
   const axiosPublic = useAxiosPublic();
   const [viewType, setViewType] = useState("grid");
@@ -19,7 +19,8 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [products, setProducts] = useState({});
-
+const location=useLocation()
+console.log(location)
   const { data,isPending, refetch } = useQuery({
     queryKey: ["data", searchValue, sortBy, currentPage, category, brand,itemsPerPage,numberOfPages],
     queryFn: async () => {
