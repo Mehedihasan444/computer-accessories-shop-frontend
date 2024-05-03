@@ -1,12 +1,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import RatingStar from "../../Utilities/RatingStar/RatingStar";
 import { LuPackage } from "react-icons/lu";
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import {  FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../DataProvider/DataProvider";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const Offer_Card = ({ product }) => {
-  const { allData } = useContext(DataContext);
+  const { allData,DataFetch } = useContext(DataContext);
   const axiosSecure = useAxiosSecure();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalIdRef = useRef(null);
@@ -30,14 +29,20 @@ const Offer_Card = ({ product }) => {
     clearInterval(intervalIdRef.current);
     setCurrentImageIndex(0); // Reset to the first image when mouse leaves
   };
-
-  const handle_add_product=(product)=>{
-    axiosSecure.patch('/admin/products/offers',{products:[...allData[3].products,product]})
-    .then((res) => {
-console.log(res.data)
-    })
-
-  }
+// console.log(allData[3]?.products)
+  const handle_add_product = async(product) => {
+    await axiosSecure
+      .patch("/offers", {
+        products: [...allData[3].products, product],
+      })
+      .then((res) => {
+        if (res.data.modifiedCount>0) {
+          
+          DataFetch()
+        }
+        console.log(res.data);
+      });
+  };
 
   return (
     <div
@@ -74,7 +79,10 @@ console.log(res.data)
           </span>
         </p>
         <div className="flex justify-center items-center py-2 ">
-          <div className="flex justify-center cursor-pointer items-center text-2xl border rounded-full w-10 h-10" onClick={()=>handle_add_product(product)}>
+          <div
+            className="flex justify-center cursor-pointer items-center text-2xl border rounded-full w-10 h-10"
+            onClick={() => handle_add_product(product)}
+          >
             <FaPlus className="" />
           </div>
         </div>

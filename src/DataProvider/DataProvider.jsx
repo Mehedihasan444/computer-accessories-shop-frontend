@@ -19,7 +19,7 @@ const DataProvider = ({ children }) => {
       const res1 = await axiosPublic.get("/reviews");
       const res2 = await axiosPublic.get("/products");
       const res3 = await axiosSecure.get(`/users`);
-      const res4 = await axiosSecure.get(`/admin/products/offers`);
+      const res4 = await axiosSecure.get(`/offers`);
       const res5 = await axiosSecure.get(`/wishlist/${user?.email}`);
       const res6 = await axiosSecure.get(`/cart/${user?.email}`);
 
@@ -27,7 +27,7 @@ const DataProvider = ({ children }) => {
     },
   });
   //--------------------
-
+console.log(allData)
   const byId = async (id) => {
     const product = await axiosPublic.get(`/products/${id}`);
 

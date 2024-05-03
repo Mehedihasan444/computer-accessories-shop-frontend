@@ -11,6 +11,11 @@ const Offers = () => {
   const { register, handleSubmit } = useForm();
   const axiosSecure = useAxiosSecure();
 
+const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj2 => obj1._id === obj2._id));
+
+
+  console.log(selectedProduct)
+
   const onSubmit = (data) => {
     console.log(data);
 
@@ -20,15 +25,15 @@ const Offers = () => {
       products: [],
     };
 
-    axiosSecure.patch("/admin/products/offers", info);
+    axiosSecure.patch("/offers", info);
   };
-  console.log(...allData[3].products)
+  // console.log(...allData[3].products)
   // const handle_add_product=()=>{
-  //   axiosSecure.patch('/admin/products/offers',[...offer.products,item])
+  //   axiosSecure.patch('/offers',[...offer.products,item])
 
   // }
   // const handle_remove_product = () => {
-  //   axiosSecure.patch("/admin/products/offers", info);
+  //   axiosSecure.patch("/offers", info);
   // };
   //   const durationInSeconds =
   //     days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
@@ -141,7 +146,7 @@ const Offers = () => {
             <h3 className="text-xl font-semibold">Selected Product</h3>
             <div className="overflow-y-auto h-[38vh] shadow-inner p-3 rounded-md mt-2">
               <div className="grid grid-cols-1 my-10 sm:grid-cols-2  gap-5 ">
-                {allData[3].products?.map((product) => (
+                {allData[3]?.products?.map((product) => (
                   <Offer_Card_Minus key={product._id} product={product} />
                 ))}
               </div>
@@ -163,7 +168,7 @@ const Offers = () => {
           <h3 className="text-xl font-semibold">Select Product</h3>
           <div className="overflow-y-auto h-[80vh] shadow-inner p-3 rounded-md mt-2">
             <div className="grid grid-cols-1 my-10 sm:grid-cols-2 lg:grid-cols-3  gap-5 ">
-              {allData[1]?.map((product) => (
+              {selectedProduct?.map((product) => (
                 <Offer_Card key={product._id} product={product} />
               ))}
             </div>
