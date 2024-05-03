@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext,  useState } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
@@ -9,7 +9,7 @@ const DataProvider = ({ children }) => {
   // const [loading,setLoading]=useState(true)
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  const [products,setProducts]=useState([])
+  const [searchValue,setSearchValue]=useState([])
   // --------------------
   const { data: allData = [], refetch } = useQuery({
     queryKey: ["allData,"],
@@ -18,7 +18,7 @@ const DataProvider = ({ children }) => {
       const res2 = await axiosPublic.get("/products");
       const res3 = await axiosSecure.get(`/users`);
       const res4 = await axiosSecure.get(`/admin/products/offers`);
-      return [res1.data, res2.data, res3.data,res4.data];
+      return [res1.data, res2.data.result, res3.data,res4.data];
     },
   });
   //--------------------
@@ -52,8 +52,8 @@ const DataProvider = ({ children }) => {
     DataFetch,
     byId,
     byEmail,
-    products,
-    setProducts
+    setSearchValue,
+    searchValue
   };
 
   return (

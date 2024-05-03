@@ -1,192 +1,89 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoGrid } from "react-icons/io5";
 import { FaThList } from "react-icons/fa";
 import Product_Card from "../../components/Product_Card/Product_Card";
 import Product_Card_ListView from "../../components/Product_Card/Product_Card_ListView";
-
 import { DataContext } from "../../DataProvider/DataProvider";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import ProductsPageSideBer from "../../components/productsPageSideBer/ProductsPageSideBer";
 const Products = () => {
-  const {allData,products}=useContext(DataContext)
-  // State to manage filter options
-  const [filters, setFilters] = useState({
-    category: "",
-    priceRange: "",
-    rating: "",
-  });
-  // State to manage sorting criteria
-  const [sortBy, setSortBy] = useState("default");
-
-  // State to manage view type
+  const axiosPublic = useAxiosPublic();
   const [viewType, setViewType] = useState("grid");
-  // Function to handle filter changes
-  const handleFilterChange = (filterType, value) => {
-    setFilters({ ...filters, [filterType]: value });
-    // Call a function to apply filters to product list
-    // For example: applyFilters(filters);
-  };
+  const { searchValue } = useContext(DataContext);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [numberOfPages, setNumberOfPages] = useState(1);
+  const [sortBy, setSortBy] = useState("");
+  const [category, setCategory] = useState("");
+  const [brand, setBrand] = useState("");
+  const [products, setProducts] = useState({});
 
-  // Function to handle sorting change
-  const handleSortChange = (value) => {
-    setSortBy(value);
-    // Call a function to apply sorting to product list
-    // For example: applySorting(sortBy);
-  };
+  const { data,isPending, refetch } = useQuery({
+    queryKey: ["data", searchValue, sortBy, currentPage, category, brand,itemsPerPage,numberOfPages],
+    queryFn: async () => {
+      const res = await axiosPublic.get(
+        `/products?productName=${searchValue}&category=${category}&brand=${brand}&sortField=price&sortOrder=${sortBy}&page=${currentPage}&limit=${itemsPerPage}`
+      );
 
+      return res.data;
+    },
+  });
   // Function to handle view change
   const handleViewChange = (value) => {
     setViewType(value);
   };
+  useEffect(() => {
+    if (data) {
+      setProducts(data);
+      const count = data.count;
+      // console.log(count);
+      const NumOfPages = Math.ceil(count / itemsPerPage);
+      setNumberOfPages(NumOfPages);
+    }
+  }, [itemsPerPage, data]);
 
-  // const { data: products = [], refetch } = useQuery({
-  //   queryKey: ["[products],"],
-  //   queryFn: async () => {
-  //     const res = await axiosPublic.get(
-  //       `/products?productName=${searchValue}&category=${categoryFilter}&sortField=price&sortOrder=${sortByPrice}&page=${currentPage}&limit=${itemsPerPage}`
-  //     );
+  const pages = [...Array(numberOfPages).keys()];
+  const handleItemsPerPage = (e) => {
+    const val = parseInt(e.target.value);
+    setItemsPerPage(val);
+    setCurrentPage(1);
+  };
 
-  //     return res.data;
-  //   },
-  // });
-
-
+  // console.log(data)
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const handleNextPage = () => {
+    if (currentPage < pages.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   return (
     <div className="flex">
       {/* Sidebar with filter options */}
       <div className="w-1/4 p-4 bg-gray-100">
-        <h2 className="text-lg font-semibold mb-4">Filter Options</h2>
-        {/* Category filter */}
-        <div className="mb-4">
-          <h3 className="text-sm font-semibold mb-2">Category</h3>
-          {/* Sample categories, you can fetch this from your API */}
-          <select
-            value={filters.category}
-            onChange={(e) => handleFilterChange("category", e.target.value)}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          >
-            <option value="">All Categories</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="books">Books</option>
-            {/* Add more options as needed */}
-          </select>
-        </div>
-        {/* Price range filter */}
-        <div className="mb-4">
-          <h3 className="text-sm font-semibold mb-2">Price Range</h3>
-          <input type="range" min={0} max="100" value="40" className="range range-xs" /> 
-          {/* Sample price range options, you can customize as needed */}
-          <input
-            type="radio"
-            id="price-range1"
-            name="price-range"
-            value="0-50"
-            checked={filters.priceRange === "0-50"}
-            onChange={() => handleFilterChange("priceRange", "0-50")}
-            className="mr-1"
-          />
-          <label htmlFor="price-range1">$0 - $50</label>
-          <br />
-          <input
-            type="radio"
-            id="price-range2"
-            name="price-range"
-            value="51-100"
-            checked={filters.priceRange === "51-100"}
-            onChange={() => handleFilterChange("priceRange", "51-100")}
-            className="mr-1"
-          />
-          <label htmlFor="price-range2">$51 - $100</label>
-          <br />
-          {/* Add more price range options as needed */}
-        </div>
-        {/* Rating filter */}
-        <div>
-          <h3 className="text-sm font-semibold mb-2">Rating</h3>
-          {/* Sample rating options, you can customize as needed */}
-          <input
-            type="checkbox"
-            id="rating1"
-            value="5"
-            checked={filters.rating === "5"}
-            onChange={() => handleFilterChange("rating", "5")}
-            className="mr-1"
-          />
-          <label htmlFor="rating1">5 Stars</label>
-          <br />
-          <input
-            type="checkbox"
-            id="rating2"
-            value="4"
-            checked={filters.rating === "4"}
-            onChange={() => handleFilterChange("rating", "4")}
-            className="mr-1"
-          />
-          <label htmlFor="rating2">4 Stars</label>
-          <br />
-          {/* Add more rating options as needed */}
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold mb-2">Brand</h3>
-          {/* Sample rating options, you can customize as needed */}
-          <input
-            type="checkbox"
-            id="brand1"
-            value="5"
-            checked={filters.rating === "5"}
-            onChange={() => handleFilterChange("Brand", "Apple")}
-            className="mr-1"
-          />
-          <label htmlFor="brand1">Apple</label>
-          <br />
-          <input
-            type="checkbox"
-            id="brand2"
-            value="4"
-            checked={filters.rating === "4"}
-            onChange={() => handleFilterChange("Brand", "Samsung")}
-            className="mr-1"
-          />
-          <label htmlFor="brand2">Samsung</label>
-          <br />
-          <input
-            type="checkbox"
-            id="brand3"
-            value="4"
-            checked={filters.rating === "4"}
-            onChange={() => handleFilterChange("Brand", "Vivo")}
-            className="mr-1"
-          />
-          <label htmlFor="brand3">Vivo</label>
-          <br />
-          <input
-            type="checkbox"
-            id="brand4"
-            value="4"
-            checked={filters.rating === "4"}
-            onChange={() => handleFilterChange("Brand", "Opp0")}
-            className="mr-1"
-          />
-          <label htmlFor="brand4">Opp0</label>
-          <br />
-          <input
-            type="checkbox"
-            id="brand5"
-            value="4"
-            checked={filters.rating === "4"}
-            onChange={() => handleFilterChange("Brand", "Xiaomi")}
-            className="mr-1"
-          />
-          <label htmlFor="brand5">Xiaomi</label>
-          <br />
-          {/* Add more rating options as needed */}
-        </div>
+        <ProductsPageSideBer
+          category={category}
+          setCategory={setCategory}
+          brand={brand}
+          setBrand={setBrand}
+        />
       </div>
       {/* Product list section */}
       <div className="w-3/4 p-4">
         <div className="flex justify-between items-center gap-10">
           <div className="flex justify-between items-center gap-5 mb-4 flex-1">
             {/* Render product list here */}
-            <h2 className="text-lg font-semibold">Product Found {allData[1]?.length}</h2>
+            <h2 className="text-lg font-semibold">
+              Product Found{" "}
+              {
+                products.result?.length
+            
+              }
+            </h2>
           </div>
 
           {/* Product cards will be rendered here */}
@@ -197,14 +94,16 @@ const Products = () => {
               <div className="">
                 <select
                   value={sortBy}
-                  onChange={(e) => handleSortChange(e.target.value)}
+                  onChange={(e) => setSortBy(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                 >
-                  <option value="default">Default</option>
-                  <option value="price-low-to-high">Price: Low to High</option>
-                  <option value="price-high-to-low">Price: High to Low</option>
+                  <option value="" disabled selected>
+                    Price
+                  </option>
+                  <option value="desc">High To Low</option>
+                  <option value="asc">Low To High</option>
                   <option value="rating">Rating</option>
-                  {/* Add more sorting options as needed */}
+               
                 </select>
               </div>
             </div>
@@ -220,7 +119,7 @@ const Products = () => {
                       : "bg-gray-200 text-gray-700"
                   }`}
                 >
-                  <IoGrid/>
+                  <IoGrid />
                 </button>
                 <button
                   onClick={() => handleViewChange("list")}
@@ -230,53 +129,81 @@ const Products = () => {
                       : "bg-gray-200 text-gray-700"
                   }`}
                 >
-                  <FaThList/>
+                  <FaThList />
                 </button>
-                {/* Add more view options as needed */}
+             
               </div>
             </div>
           </div>
         </div>
         <hr />
-        <div className={`mt-2 grid ${viewType==='grid'?"grid-cols-1 md:grid-cols-2 lg:grid-cols-4":"grid-cols-1"}   gap-3 mb-8`}>
-          {/* <ProductCard product={product} /> */}
-          {/* Display more product details */}
-          {products.length==0?  viewType === "grid"?<>
-            {
-              allData[1]?.map((product) => (
-                <Product_Card product={product} key={product.id} />
-              ))
-            }
+        <div
+          className={`mt-2 grid ${
+            viewType === "grid"
+              ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+              : "grid-cols-1"
+          }   gap-3 mb-8`}
+        >
           
-            </>:
+        
+          {isPending ? (
+          <div className="flex justify-center items-center w-[85vw]">
+            <h1 className="text-4xl font-semibold "> Loading...</h1>
+          </div>
+        ) :viewType === "grid" ? (
             <>
-            {
-              allData[1]?.map((product) => (
-                <Product_Card_ListView product={product} key={product.id} />
-              ))
-            }
-            
-            </>:
-            viewType === "grid"?<>
-            {
-              products?.map((product) => (
-                <Product_Card product={product} key={product.id} />
-              ))
-            }
-          
-            </>:
-            <>
-            {
-              products?.map((product) => (
-                <Product_Card_ListView product={product} key={product.id} />
-              ))
-            }
-            
+              {products?.result?.map((product) => (
+                <Product_Card product={product} key={product._id} />
+              ))}
             </>
-           
-           
-          }
-          
+          ) : (
+            <>
+              {products?.result?.map((product) => (
+                <Product_Card_ListView product={product} key={product._id} />
+              ))}
+            </>
+          )}
+        </div>
+        {/* pagination */}
+        <div className="flex justify-center sm:justify-end items-center pr-5">
+          <div className="py-10 text-center">
+            <button
+              className="btn btn-accent mr-3 text-white"
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1? true : false}
+            >
+              «
+            </button>
+            {pages?.map((page) => (
+              <button
+                className={`${
+                  currentPage === page + 1 ? "btn-disabled" : "text-white"
+                } mr-2 btn btn-accent`}
+                key={page}
+                
+                onClick={() => setCurrentPage(page + 1)}
+              >
+                {page + 1}
+              </button>
+            ))}
+            <button
+              className="btn btn-accent text-white"
+              onClick={handleNextPage}
+              disabled={currentPage === pages.length? true : false}
+            >
+              »
+            </button>
+            <select
+              value={itemsPerPage}
+              onChange={handleItemsPerPage}
+              className="rounded-md ml-2 select  input-bordered"
+            >
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

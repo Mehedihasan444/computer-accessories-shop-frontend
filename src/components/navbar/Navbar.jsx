@@ -2,30 +2,30 @@ import { useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { DataContext } from "../../DataProvider/DataProvider";
 import useAdmin from "../../Hooks/useAdmin";
 
 // import './Navbar.css'
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const { setProducts } = useContext(DataContext);
-  const [isAdmin, isAdminLoading] = useAdmin();
-  const axiosPublic = useAxiosPublic();
+  const { setSearchValue } = useContext(DataContext);
+  const [isAdmin] = useAdmin();
   const navigate = useNavigate();
   const closeButtonRef = useRef(null);
 
 
-  
+  // handleSubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
     const searchValue = e.target.search.value;
-    const res = await axiosPublic.get(`/products?productName=${searchValue}`);
-    setProducts(res.data);
+    setSearchValue(searchValue)
     closeButtonRef.current.click();
+
     navigate("/products");
   };
 
+
+  // handle_logOut
   const handle_logOut = () => {
     logOut()
       .then((res) => {
