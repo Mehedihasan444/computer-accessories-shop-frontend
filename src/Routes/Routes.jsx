@@ -25,6 +25,7 @@ import Wishlist from "../dashboard/user/Wishlist";
 import All_Products from "../dashboard/admin/All_Products";
 import Update_Product from "../dashboard/admin/Update_Product";
 import Offers from "../dashboard/admin/Offers";
+import RepairService from "../pages/Repair_Service/RepairService";
 
 const Routes = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const Routes = createBrowserRouter([
       {
         path: "/about-us",
         element: <About_Us />,
+      },
+      {
+        path: "/repair-services",
+        element: <RepairService />,
       },
     
       

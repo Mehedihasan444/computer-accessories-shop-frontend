@@ -91,13 +91,13 @@ const About_Us = () => {
           <p className="text-gray-300">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium mollis ex, vel interdum augue faucibus sit amet. Proin tempor purus ac suscipit sagittis. Nunc finibus euismod enim, eu finibus nunc ullamcorper et.</p>
         </div>
         <div className="flex-1">
-<img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2024/01/about-2.jpg" alt="" className="rounded-md" />
+          <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2024/01/about-2.jpg" alt="" className="rounded-md" />
         </div>
       </div>
 
       {/* ================= */}
       <div className="my-20 bg-slate-400 p-5">
-        <Quotes_Slider/>
+        <Quotes_Slider />
       </div>
     </div>
   );
