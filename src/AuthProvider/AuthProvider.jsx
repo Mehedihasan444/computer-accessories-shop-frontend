@@ -96,7 +96,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user]);
 
   const info = {
     signIn_Google,

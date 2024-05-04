@@ -23,8 +23,11 @@ const DataProvider = ({ children }) => {
       const res5 = await axiosSecure.get(`/wishlist/${user?.email}`);
       const res6 = await axiosSecure.get(`/cart/${user?.email}`);
       const res7 = await axiosSecure.get(`/appointments`);
+      const res8 = await axiosSecure.get(`/appointments/${user?.email}`);
+      const res9 = await axiosSecure.get(`/orders`);
+      const res10 = await axiosSecure.get(`/orders/${user?.email}`);
      
-      return [res1.data, res2.data.result, res3.data,res4.data,res5.data,res6.data,res7.data];
+      return [res1.data, res2.data.result, res3.data,res4.data,res5.data,res6.data,res7.data,res8.data,res9.data,res10.data];
     },
   });
   //--------------------
@@ -32,7 +35,7 @@ const DataProvider = ({ children }) => {
   const byId = async (id) => {
     const product = await axiosPublic.get(`/products/${id}`);
 
-    const reviews = await axiosSecure.get(`/reviews/${id}`);
+    const reviews = await axiosSecure.get(`/single/reviews/${id}`);
 
     return [product.data, reviews.data];
   };

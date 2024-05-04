@@ -1,16 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-
-
 import Count_Down from "./Count_Down";
 import Product_Card from "../Product_Card/Product_Card";
+import { useContext } from "react";
+import { DataContext } from "../../DataProvider/DataProvider";
 
 const Deal_Of_the_Week = () => {
-  const {
-    data: products = [],
-  } = useQuery({
-    queryKey: ["data"],
-    queryFn: () => fetch("/products.json").then((res) => res.json()),
-  });
+  const {allData}=useContext(DataContext)
+
 
   return (
     <section id="deals" className="space-y-5 sm:h-[80vh] flex flex-col justify-center px-5">
@@ -32,7 +27,7 @@ const Deal_Of_the_Week = () => {
         <div className="flex-1">
           <div className="overflow-y-scroll h-[400px]  p-5">
             <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3  gap-5">
-              {products?.map((product) => (
+              {allData[1]?.slice(0,6)?.map((product) => (
                 <Product_Card key={product.id} product={product} />
               ))}
             </div>

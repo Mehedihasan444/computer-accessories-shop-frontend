@@ -1,42 +1,10 @@
 
-import { useQuery } from "@tanstack/react-query";
 // import { DateRangePicker } from "react-date-range";
-import { useEffect, useState } from "react";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
-
+import { useContext, useEffect, useState } from "react";
+import { DataContext } from "../../DataProvider/DataProvider";
 const Order = () => {
-  const axiosSecure = useAxiosSecure();
+  const {allData}=useContext(DataContext)
   const [orders, setOrders] = useState([]);
-
-  const { data: users = [] } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/users");
-      return res.data;
-    },
-  });
-
-  const { data: allOrders = [], refetch } = useQuery({
-    queryKey: ["allOrders"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/orders");
-      return res.data;
-    },
-  });
-
-  useEffect(() => {
-    const filteredOrders = [];
-    for (let i = 0; i < users?.length; i++) {
-      const filteredData = allOrders.filter(
-        (item) =>
-          item?.email.toLowerCase() === users[i]?.email.toLowerCase() &&
-          item?.status === "pending"
-        //"On The Way"
-      );
-      filteredOrders.push(...filteredData);
-    }
-    setOrders(filteredOrders);
-  }, [allOrders, users]);
 
   const handleFilter = (e) => {
     e.preventDefault();
@@ -50,7 +18,6 @@ const Order = () => {
     });
     console.log(filteredByDate);
     setOrders(filteredByDate);
-    refetch();
   };
 
   return (
@@ -108,12 +75,20 @@ const Order = () => {
             </tr>
           </thead>
           <tbody className="">
-          <tr className="hover">
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
+            {
+              allData[9].map((order,i)=>    <tr className="hover" key={i}>
+         <th>{i+1}</th>
+        <td>{order?.user_name}</td>
+        <td>{order?.email}</td>
+        <td>{order?.phone}</td>
+        <td>{order?.device_type}</td>
+        <td>{order?.booking_date}</td>
+        <td>{order?.booking_date}</td>
+        <td>{order?.booking_date}</td>
+        <td>{order?.description}</td>
+      </tr>)
+            }
+      
           </tbody>
         </table>
       </div>

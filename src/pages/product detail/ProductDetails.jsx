@@ -10,6 +10,7 @@ import ProductDetails_Tabs from "./Product_Details_Tabs";
 import { Link, useParams } from "react-router-dom";
 import { DataContext } from "../../DataProvider/DataProvider";
 import Product_Card from "../../components/Product_Card/Product_Card";
+import Product_Details_Tabs from "./Product_Details_Tabs";
 
 
 const ProductDetails = () => {
@@ -108,6 +109,7 @@ const ProductDetails = () => {
         <div className="divider"></div>
 
         <div className="">
+          <Product_Details_Tabs id={ProductDetails?._id}/>
           <ProductDetails_Tabs />
         </div>
         <div className="divider"></div>
