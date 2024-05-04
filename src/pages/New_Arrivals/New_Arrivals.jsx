@@ -11,8 +11,8 @@ console.log(allData)
   return (
     <div className="">
       <hr />
-      <div className="grid grid-cols-4 gap-5 mt-10">
-        {New_Arrivals?.map((product, idx) => (
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
+        {New_Arrivals?.slice(0,7)?.map((product, idx) => (
             <Product_Card product={product} key={idx}/>
         ))}
       </div>

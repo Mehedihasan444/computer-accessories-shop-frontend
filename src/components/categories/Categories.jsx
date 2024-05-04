@@ -28,7 +28,7 @@ const handleSubmit = async (category) => {
         <div className=" space-y-3 my-20 lg:mb-20">
             <h1 className="text-4xl font-bold mb-2 text-center">Our Featured Category</h1>
             <p className="text-center">Get Your Desired Product from Featured Category!</p>
-            <div className="grid grid-cols-5 gap-3 lg:mx-52 pt-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-center items-center gap-3 lg:mx-52 pt-10 px-5">
                 
                 <div onClick={()=>handleSubmit()} style={mystyle}  className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={ac} alt="air condisonar" />
