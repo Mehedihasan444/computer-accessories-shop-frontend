@@ -6,7 +6,7 @@ import instagram from "../../assets/instagram.png";
 import twitter from "../../assets/twitter.png";
 import pinterast from "../../assets//social.png";
 import Product_Image from "./Product_Image/Product_Image";
-import Product_Details_Tabs from "./Product_Details_Tabs";
+import ProductDetails_Tabs from "./Product_Details_Tabs";
 import { Link, useParams } from "react-router-dom";
 import { DataContext } from "../../DataProvider/DataProvider";
 import Product_Card from "../../components/Product_Card/Product_Card";
@@ -27,13 +27,13 @@ const ProductDetails = () => {
     (product) => product?.category == ProductDetails?.category
   );
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const handelIncrease = () => {
     const x = count + 1;
     setCount(x);
   };
   const handelDecrease = () => {
-    if (count >= 1) {
+    if (count > 1) {
       const x = count - 1;
       setCount(x);
     }
@@ -45,6 +45,7 @@ const ProductDetails = () => {
     thumbnail: item
   }));
 
+
   return (
     <section className="mt-10">
       <div className="grid grid-cols-2 gap-5">
@@ -55,7 +56,7 @@ const ProductDetails = () => {
         <div className="space-y-5">
           <h1 className="text-5xl font-bold">{ProductDetails?.name}</h1>
           <h1 className="text-2xl text-red-600 font-bold">
-            <h1>Tk {ProductDetails?.price}</h1>
+            <h1>Tk {ProductDetails?.price*count}</h1>
           </h1>
           <p>{ProductDetails?.description} </p>
           <hr />
@@ -107,7 +108,7 @@ const ProductDetails = () => {
         <div className="divider"></div>
 
         <div className="">
-          <Product_Details_Tabs />
+          <ProductDetails_Tabs />
         </div>
         <div className="divider"></div>
         <div className=" mt-10 space-y-4">
