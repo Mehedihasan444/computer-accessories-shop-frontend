@@ -12,10 +12,10 @@ const Product_Details_Tabs = ({id}) => {
     </TabList>
 
     <TabPanel>
-      <h2>Any content 1</h2>
+      
+      <h2>Description</h2>
     </TabPanel>
     <TabPanel>
-      <h2>Any content 2</h2>
       <Reviews id={id}/>
     </TabPanel>
   </Tabs>

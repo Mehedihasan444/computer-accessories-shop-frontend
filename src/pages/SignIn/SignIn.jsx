@@ -2,15 +2,17 @@ import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 const SignIn = () => {
   const { signIn_with_email } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
-
+  const navigate=useNavigate()
   const onSubmit = (data) => {
     signIn_with_email(data?.email, data?.password)
       .then((res) => {
         console.log(res);
         toast.success('Successfully SignIn!!!');
+        navigate('/')
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +52,7 @@ const SignIn = () => {
           <div className="">
             <button className="w-full btn">SignIn</button>
           </div>
-          <h3 className="text-red-400">Lost your password?</h3>
+          <Link to='/system-access/ForgotPassword'><h3 className="text-red-400">Lost your password?</h3></Link>
         </form>
       </div>
     </div>

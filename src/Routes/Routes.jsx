@@ -31,6 +31,7 @@ import Appointments from "../dashboard/admin/Appointments";
 import My_Appointments from "../dashboard/user/My_Appointments";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 import PaymentFailed from "../pages/PaymentFailed/PaymentFailed ";
+import ForgotPassword from "../pages/SignIn/ForgotPassword";
 
 const Routes = createBrowserRouter([
   {
@@ -88,6 +89,10 @@ const Routes = createBrowserRouter([
       {
         path: "/system-access/signIn",
         element: <SignIn />,
+      },
+      {
+        path: "/system-access/ForgotPassword",
+        element: <ForgotPassword />,
       },
       {
         path: "/system-access/signUp",

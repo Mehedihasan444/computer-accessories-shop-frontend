@@ -47,11 +47,12 @@ const [cart,setCart]=useState([])
   // handle_logOut
   const handle_logOut = () => {
     logOut()
-      .then((res) => {
+     .then((res) => {
         console.log(res);
         toast.success("Successfully logOut!!!");
         window.location.reload(true);
 
+        navigate('/')
       })
       .catch((err) => {
         console.log(err);
