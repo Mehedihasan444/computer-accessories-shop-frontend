@@ -9,20 +9,30 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { useEffect } from "react";
-
+import { toast } from "react-toastify";
 export const AuthContext = createContext(null);
 const provider = new GoogleAuthProvider();
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   // create user with email and password
+
   const create_user_with_email = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
+    // .then((userCredential) => {
+      
+    //   return '/'
+    // })
+    // .catch((error) => {
+    //   const errorMessage = error.message;
+    //   toast.success(`${errorMessage}`);
+    //   // ..
+    // });
   };
   // signIn with email and password
 
@@ -42,7 +52,7 @@ const AuthProvider = ({ children }) => {
       photoURL: imgURL,
     });
   };
-  // update user password
+  // forget/reset user password
   const update_password = (email) => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
@@ -54,17 +64,19 @@ const AuthProvider = ({ children }) => {
         return {errorCode,errorMessage}
         // ..
       });
-
+  }
+  // Email verification
+  const email_verify=()=>{
+    sendEmailVerification(auth.currentUser)
+    .then(() => {
+      return {code: "successful"}
+    });
   }
 
   // sign Out
   const logOut = () => {
+    setLoading(true)
     return signOut(auth);
-  };
-
-  // email verification
-  const email_verification = () => {
-    return sendEmailVerification(auth.currentUser);
   };
 
 
@@ -82,21 +94,22 @@ const AuthProvider = ({ children }) => {
     });
 
     return () => {
-      return unsubscribe();
+      unsubscribe();
     };
   }, []);
 
   const info = {
     signIn_Google,
     update_profile,
-    email_verification,
     create_user_with_email,
     signIn_with_email,
     logOut,
     signInWithPopup,
     user,
     loading,
-    update_password
+    update_password,
+    email_verify,
+    sendEmailVerification
   };
 
   return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;

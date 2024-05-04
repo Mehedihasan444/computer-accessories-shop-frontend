@@ -2,16 +2,17 @@ import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SignIn = () => {
   const { signIn_with_email } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
-
+  const navigate=useNavigate()
   const onSubmit = (data) => {
     signIn_with_email(data?.email, data?.password)
       .then((res) => {
         console.log(res);
         toast.success('Successfully SignIn!!!');
+        navigate('/')
       })
       .catch((err) => {
         console.log(err);
