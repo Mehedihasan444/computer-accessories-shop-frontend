@@ -13,7 +13,7 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ToastContainer
-      // position="top-center"
+      position="top-center"
       // autoClose={1000}
       // hideProgressBar={false}
       // newestOnTop={false}
