@@ -107,7 +107,7 @@ const ProductDetails = () => {
         <div className="divider"></div>
 
         <div className="">
-          <Product_Details_Tabs />
+          <Product_Details_Tabs id={ProductDetails?._id}/>
         </div>
         <div className="divider"></div>
         <div className=" mt-10 space-y-4">

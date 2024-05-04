@@ -27,6 +27,10 @@ import Update_Product from "../dashboard/admin/Update_Product";
 import Offers from "../dashboard/admin/Offers";
 import RepairService from "../pages/Repair_Service/RepairService";
 import RepairServiceDetail from "../pages/Repair_Service/RepairServiceDetail";
+import Appointments from "../dashboard/admin/Appointments";
+import My_Appointments from "../dashboard/user/My_Appointments";
+import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
+import PaymentFailed from "../pages/PaymentFailed/PaymentFailed ";
 
 const Routes = createBrowserRouter([
   {
@@ -70,7 +74,7 @@ const Routes = createBrowserRouter([
         element: <RepairService />,
       },
       {
-        path: "/repair-services-details",
+        path: "/repair-services-details/:category",
         element: <RepairServiceDetail />,
       },
     
@@ -124,11 +128,11 @@ const Routes = createBrowserRouter([
           element: <Offers />,
         
       },
-      // {
-      //   path: "/dashboard/admin/admin_home",
-      //     element: <Admin_Home />,
+      {
+        path: "/dashboard/admin/appointments",
+          element: <Appointments />,
         
-      // },
+      },
       {
         path: "/dashboard/admin/reviews",
           element: <Reviews />,
@@ -161,9 +165,21 @@ const Routes = createBrowserRouter([
         path: "/dashboard/user/purchase_history",
           element: <Purchase_History />,
       },
+      {
+        path: "/dashboard/user/my_appointments",
+          element: <My_Appointments />,
+      },
     
     ],
-  }
+  },
+  {
+    path: "/api/v1/payment-complete/:transactionId",
+    element:<PaymentSuccess/>
+  },
+  {
+    path: "/api/v1/payment-failed/:transactionId",
+    element:<PaymentFailed />
+  },
   
 ]);
 

@@ -1,0 +1,51 @@
+[
+  {
+    "total_bill": 1000,
+    "discount": 0,
+    "phone": "0179743895",
+    "delivery_location": "Dhaka",
+    "products": [
+        {
+            "name": "Laptop",
+            "brand": "Dell",
+            "model": "XPS 13",
+            "price": 1299,
+            "discount_price": 1199,
+            "stock": 30,
+            "rating": 4.8,
+            "reviews": 90,
+            "description": "Powerful laptop with a stunning display.",
+            "category": "Laptops",
+            "tag":"featured",
+            "images":["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-2ahjzMqUuR4AktFRqSuw90UQcEWeRL2R1scLrX4qtA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZhwFpHGFd7h4qdUdbnuhfF2xXfg5RF6TL2HMofNo6-Q&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjcreSMxm7keXbxqMrioEHMnULE111yNIQJi_PBLlilSfCTUWjDLZaG6J0NbezkQS2fnA&usqp=CAU"]
+          },
+          {
+            
+            "name": "Smart TV",
+            "brand": "Samsung",
+            "model": "QLED Q90R",
+            "price": 1999,
+            "discount_price": 1799,
+            "stock": 20,
+            "rating": 4.7,
+            "reviews": 80,
+            "description": "Immersive viewing experience with 4K resolution.",
+            "category": "Televisions",
+            "tag":"top_selling",
+            "images":["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR83wZT6JW_NHRTT6QEHiPfWdIJHSyIRRp9SoZzOJDeQg&s","https://www.noelleeming.co.nz/dw/image/v2/BDMG_PRD/on/demandware.static/-/Sites-nlg-master-catalog/default/dw89f80c8d/images/hi-res/C8/C5/N219810_0.jpg?sw=292&sh=292","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNB5wiaLtj9u7Pu9Y6ulz7cDB4QJDi6HfInAK5HgUz1w&s"]
+          }
+    ],
+    "warranty": {
+        "available": true,
+        "warranty_id":"",
+        "duration": {
+            "days": 10,
+            "months": 1,
+            "years": 1
+        },
+        "Conditions":" "
+    },
+    "ordered_date": "04-05-2024",
+    "status": "pending"
+  }
+]

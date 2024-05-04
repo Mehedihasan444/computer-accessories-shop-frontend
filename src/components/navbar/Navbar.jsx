@@ -34,10 +34,11 @@ const [cart,setCart]=useState([])
       setCartCount(allData[5]?.length)
     }, [allData])
 
-
+// calculate all products price of wishlist
   const wishlistPrices = wishlist?.map((item) => item.price);
   const wishlistSubtotal = wishlistPrices?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   
+  // calculate all products price of cart
   const cartPrices = cart?.map((item) => item.price);
   const cartSubtotal = cartPrices?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   
@@ -49,6 +50,8 @@ const [cart,setCart]=useState([])
       .then((res) => {
         console.log(res);
         toast.success("Successfully logOut!!!");
+        window.location.reload(true);
+
       })
       .catch((err) => {
         console.log(err);

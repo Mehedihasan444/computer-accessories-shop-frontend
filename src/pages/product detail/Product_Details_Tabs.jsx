@@ -2,7 +2,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Reviews from './Reviews';
 
-const Product_Details_Tabs = () => {
+const Product_Details_Tabs = ({id}) => {
     return (
         <div>
               <Tabs>
@@ -16,7 +16,7 @@ const Product_Details_Tabs = () => {
     </TabPanel>
     <TabPanel>
       <h2>Any content 2</h2>
-      <Reviews/>
+      <Reviews id={id}/>
     </TabPanel>
   </Tabs>
         </div>

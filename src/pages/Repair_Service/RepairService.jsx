@@ -47,7 +47,7 @@ const RepairService = () => {
                 <div className="flex justify-center items-center my-2 "><hr className="w-[50px] border-2 border-[#00BFA5]" /></div>
                 <p className="text-center mt-2">Overcome faithful endless salvation enlightenment salvation overcome pious merciful <br /> ascetic madness holiest joy passion zarathustra.</p>
                 <div className="grid grid-cols-3 gap-5 mt-10">
-                    <Link to='/repair-services-details'>
+                    <Link to={`/repair-services-details/${'Laptop Repair'}`}>
                         <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
                             <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
                                 <FaLaptopCode className="text-6xl mb-3" />
@@ -56,7 +56,7 @@ const RepairService = () => {
                             <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
                     </Link>
-                    <Link to='/repair-services-details'>
+                    <Link to={`/repair-services-details/${'Desktop Repair'}`}>
                         <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
                             <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
                                 <TbDeviceDesktopCog className="text-6xl mb-3" />
@@ -65,7 +65,7 @@ const RepairService = () => {
                             <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
                     </Link>
-                    <Link to='/repair-services-details'>
+                    <Link to={`/repair-services-details/${'Printer Repair'}`}>
                         <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
                             <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
                                 <FiPrinter className="text-6xl mb-3" />
@@ -74,7 +74,7 @@ const RepairService = () => {
                             <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
                     </Link>
-                    <Link to='/repair-services-details'>
+                    <Link to={`/repair-services-details/${'Smartphone Repair'}`}>
                         <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
                             <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
                                 <MdOutlineSmartphone className="text-6xl mb-3" />
@@ -83,7 +83,7 @@ const RepairService = () => {
                             <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
                     </Link>
-                    <Link to='/repair-services-details'>
+                    <Link to={`/repair-services-details/${'Data Recovery'}`}>
                         <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
                             <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
                                 <LuHardDriveUpload className="text-6xl mb-3" />
@@ -92,7 +92,7 @@ const RepairService = () => {
                             <p className="text-justify px-10 pb-5">Our technicians are highly skilled and stay up-to-date with the latest technologies to provide you with the best solutions.</p>
                         </div>
                     </Link>
-                    <Link to='/repair-services-details'>
+                    <Link to={`/repair-services-details/${'Tablet Repair'}`}>
                         <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
                             <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
                                 <TbDeviceTabletCog className="text-6xl mb-3" />

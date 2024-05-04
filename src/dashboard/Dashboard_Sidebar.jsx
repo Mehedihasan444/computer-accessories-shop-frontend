@@ -43,6 +43,9 @@ const Dashboard_Sidebar = () => {
                 <li className="text-lg font-semibold">
                   <NavLink to="/dashboard/admin/reviews">Reviews</NavLink>
                 </li>
+                <li className="text-lg font-semibold">
+                  <NavLink to="/dashboard/admin/appointments">Appointments</NavLink>
+                </li>
               </>
             ) : (
               <>
@@ -63,6 +66,9 @@ const Dashboard_Sidebar = () => {
                   <NavLink to="/dashboard/user/my_reviews">My Reviews</NavLink>
                 </li>
                 <li className="text-lg font-semibold">
+                  <NavLink to="/dashboard/user/my_appointments">My Appointments</NavLink>
+                </li>
+                <li className="text-lg font-semibold">
                   <NavLink to="/dashboard/user/purchase_history">
                     Purchase History
                   </NavLink>
@@ -79,15 +85,7 @@ const Dashboard_Sidebar = () => {
           
         </div>
 
-        {/* <div className="drawer-content flex flex-col items-center justify-center ">
-        
-          <label
-            htmlFor="my-drawer-2"
-            className="text-2xl p-3   rounded-md drawer-button lg:hidden"
-          >
-            <FaBars />
-          </label>
-        </div> */}
+    
       </div>
     </>
   );

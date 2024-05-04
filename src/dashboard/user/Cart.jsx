@@ -13,7 +13,7 @@ const Cart = () => {
   const {allData,DataFetch}=useContext(DataContext)
   const [totalAmount, setTotalAmount] = useState(0);
 
-
+const date=new Date()
 
   useEffect(() => {
     let bill = 0;
@@ -26,18 +26,22 @@ const Cart = () => {
 
   const handlePayment = async () => {
     const info = {
-      totalBill: totalAmount,
-      userName: user.displayName,
-      userEmail: user.email,
+      total_bill: totalAmount,
+      discount:0,
+      phone:'',
+      delivery_location:'',
+      ordered_date:date,
+      quantity: 0,
+      userName: user?.displayName,
+      userEmail: user?.email,
       status: "pending",
       payment: "pending",
       transactionId: "",
       products: allData[5],
     };
-    // const res = await axiosSecure.post("/user/foods/payment", info);
-    // window.location.replace(res.data.url);
+    const res = await axiosSecure.post("/payment", info);
+    window.location.replace(res.data.url);
   };
-  // const item={_id:1,name:"laptop",description:"lorem10djk kjsdfhk kjdhfjksad",price:1000,image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-2ahjzMqUuR4AktFRqSuw90UQcEWeRL2R1scLrX4qtA&s",stock:10,category:"laptop"}
 
   return (
     <div className="relative min-h-screen">

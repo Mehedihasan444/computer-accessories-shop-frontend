@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const SSLCommerzPayment = require("sslcommerz-lts");
 // const cookieParser=require('cookie-parser')
 require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -26,6 +27,15 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
+
+// ssl commerz cresentials
+const store_id = process.env.storeID;
+const store_passwd = process.env.storePasswd;
+const is_live = false; //true for live, false for sandbox
+
+
+
 
 async function run() {
   try {
@@ -74,79 +84,9 @@ async function run() {
       next();
     };
 
-    // payment
+   
 
-    // app.post("/create-payment-intent", async (req, res) => {
-    //   const { price } = req.body;
-    //   const paymentIntent = await stripe.paymentIntents.create({
-    //     amount: parseInt(price*100),
-    //     currency: "usd",
-    //     payment_method_types:['card'],
-    //   });
-    //   res.send({
-    //     clientSecret: paymentIntent.client_secret,
-    //   });
-    // });
-    // app.get('/payments/:email', verifyToken, async (req, res) => {
-    //   const query = { email: req.params.email }
-    //   if (req.params.email !== req.decoded.email) {
-    //     return res.status(403).send({ message: 'forbidden access' });
-    //   }
-    //   const result = await payments.find(query).toArray();
-    //   res.send(result);
-    // })
-    // app.get('/payments', verifyToken, async (req, res) => {
-
-    //   const result = await payments.find().toArray();
-    //   res.send(result);
-    // })
-
-    // app.patch('/payments/status/update/:id', verifyToken, async (req, res) => {
-    //   const id=req.params.id;
-    //   const filter = {_id: new ObjectId(id)}
-    //   const updatedDoc = {
-    //     $set:{
-    //       status:'Done'
-    //     }
-    //   }
-    //   const result =  await payments.updateOne(filter,updatedDoc);
-    //   res.send(result);
-    // })
-
-    // app.post('/payments', async (req, res) => {
-    //   const payment = req.body;
-    //   const paymentResult = await payments.insertOne(payment);
-
-    //   //  carefully delete each item from the cart
-    //   console.log('payment info', payment);
-    //   const query = {
-    //     _id: {
-    //       $in: payment.cartIds.map(id => new ObjectId(id))
-    //     }
-    //   };
-    //   const deleteResult = await cart.deleteMany(query);
-
-    //   // send user email about payment confirmation
-    //   // mg.messages
-    //   //   .create(process.env.MAIL_SENDING_DOMAIN, {
-    //   //     from: "Mailgun Sandbox <postmaster@sandboxbdfffae822db40f6b0ccc96ae1cb28f3.mailgun.org>",
-    //   //     to: ["xyz@gmail.com"],
-    //   //     subject: "XYZ Order Confirmation",
-    //   //     text: "Testing some Mailgun awesomness!",
-    //   //     html: `
-    //   //       <div>
-    //   //         <h2>Thank you for your order</h2>
-    //   //         <h4>Your Transaction Id: <strong>${payment.transactionId}</strong></h4>
-    //   //         <p>We would like to get your feedback about the food</p>
-    //   //       </div>
-    //   //     `
-    //   //   })
-    //   //   .then(msg => console.log(msg)) // logs response data
-    //   //   .catch(err => console.log(err)); // logs any error`;
-
-    //   res.send({ paymentResult, deleteResult });
-    // })
-
+    
     // post method for products
     app.post("/api/v1/products", async (req, res) => {
       const test = req.body;
@@ -213,11 +153,179 @@ async function run() {
       const result = await orders.insertOne(test);
       res.send(result);
     });
-    app.post("/api/v1/payments", async (req, res) => {
-      const test = req.body;
-      const result = await payments.insertOne(test);
-      res.send(result);
+    // app.post("/api/v1/payments", async (req, res) => {
+    //   const test = req.body;
+    //   const result = await payments.insertOne(test);
+    //   res.send(result);
+    // });
+    // -----
+    const tran_id = new ObjectId().toString();
+
+    app.post("/api/v1/payment/:id", async (req, res) => {
+      const orderId = req.params.id;
+      const query = {
+        _id: new ObjectId(orderId),
+      };
+      const order = await orders.findOne(query);
+
+      const data = {
+        total_amount: order.price,
+        currency: "BDT",
+        tran_id: tran_id,
+        success_url: `http://localhost:5000/api/v1/user/payment/success/${tran_id}?orderId=${order._id}`,
+        fail_url: `http://localhost:5000/api/v1/user/payment/fail/${tran_id}?orderId=${order._id}`,
+        cancel_url: "http://localhost:3030/cancel",
+        ipn_url: "http://localhost:3030/ipn",
+        shipping_method: "Courier",
+        product_name: order?.products[0]?.name,
+        product_category: order?.products[0]?.category,
+        product_profile: "general",
+        cus_name: order?.userName,
+        cus_email: order?.userEmail,
+        cus_add1: "Dhaka",
+        cus_add2: "Dhaka",
+        cus_city: "Dhaka",
+        cus_state: "Dhaka",
+        cus_postcode: "1000",
+        cus_country: "Bangladesh",
+        cus_phone: "01711111111",
+        cus_fax: "01711111111",
+        ship_name: 'Customer Name',
+        ship_add1: "Dhaka",
+        ship_add2: "Dhaka",
+        ship_city: "Dhaka",
+        ship_state: "Dhaka",
+        ship_postcode: 1000,
+        ship_country: "Bangladesh",
+      };
+      const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+      sslcz.init(data).then((apiResponse) => {
+        // Redirect the user to payment gateway
+        let GatewayPageURL = apiResponse.GatewayPageURL;
+        res.send({ url: GatewayPageURL });
+        console.log("Redirecting to: ", GatewayPageURL);
+      });
+
+      app.post("/api/v1/user/payment/success/:tranId", async (req, res) => {
+        const result = await orders.updateOne(
+          { _id: new ObjectId(req.query.orderId) },
+          {
+            $set: {
+              payment: "complete",
+              transactionId: req.params.tranId,
+            },
+          }
+        );
+        if (result.modifiedCount > 0) {
+          res.redirect(
+            `http://localhost:5173/api/v1/payment-complete/${req.params.tranId}`
+          );
+        }
+      });
+      app.post("/api/v1/user/payment/fail/:tranId", async (req, res) => {
+        const result = await orders.updateOne(
+          { _id: new ObjectId(req.query.orderId) },
+          {
+            $set: {
+              payment: "failed",
+              // transactionId: req.params.tranId
+            },
+          }
+        );
+        if (result.modifiedCount > 0) {
+          res.redirect(
+            `http://localhost:5173/api/v1/payment-failed/${req.params.tranId}`
+          );
+        }
+      });
     });
+    app.post("/api/v1/payment", async (req, res) => {
+      const id = new ObjectId().toString();
+ 
+      const cartItem = req.body;
+      const info = {
+        ...cartItem,
+        code: id,
+      };
+      const result = await orders.insertOne(info);
+
+      const data = {
+        total_amount: cartItem?.total_bill,
+        currency: "BDT",
+        tran_id: tran_id,
+        success_url: `http://localhost:5000/api/v1/user/payment/success/${tran_id}?code=${id}`,
+        fail_url: `http://localhost:5000/api/v1/user/payment/fail/${tran_id}?code=${id}`,
+        cancel_url: "http://localhost:3030/cancel",
+        ipn_url: "http://localhost:3030/ipn",
+        shipping_method: "Courier",
+        product_name: "combine food",
+        product_category: "Mix category",
+        product_profile: "general",
+        cus_name: cartItem?.userName,
+        cus_email: cartItem?.userEmail,
+        cus_add1: "Dhaka",
+        cus_add2: "Dhaka",
+        cus_city: "Dhaka",
+        cus_state: "Dhaka",
+        cus_postcode: "1000",
+        cus_country: "Bangladesh",
+        cus_phone: "01711111111",
+        cus_fax: "01711111111",
+        ship_name: 'Customer Name',
+        ship_add1: "Dhaka",
+        ship_add2: "Dhaka",
+        ship_city: "Dhaka",
+        ship_state: "Dhaka",
+        ship_postcode: 1000,
+        ship_country: "Bangladesh",
+      };
+      const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+      sslcz.init(data).then((apiResponse) => {
+        // Redirect the user to payment gateway
+        let GatewayPageURL = apiResponse.GatewayPageURL;
+        res.send({ url: GatewayPageURL });
+        console.log("Redirecting to: ", GatewayPageURL);
+      });
+
+      app.post("/api/v1/user/payment/success/:tranId", async (req, res) => {
+        const result = await orders.updateOne(
+          { code: req.query.code },
+          {
+            $set: {
+              payment: "complete",
+              transactionId: req.params.tranId,
+            },
+          }
+        );
+        if (result.modifiedCount > 0) {
+          res.redirect(
+            `http://localhost:5173/api/v1/payment-complete/${req.params.tranId}`
+          );
+        }
+
+        const cartIds = await cart.find().toArray();
+        const ids = cartIds.map((x) => x._id);
+        const query = { _id: { $in: ids } };
+        await cart.deleteMany(query);
+      });
+      app.post("/api/v1/user/payment/fail/:tranId", async (req, res) => {
+        const result = await orders.updateOne(
+          { code: req.query.code },
+          {
+            $set: {
+              payment: "failed",
+              // transactionId: req.params.tranId
+            },
+          }
+        );
+        if (result.modifiedCount > 0) {
+          res.redirect(
+            `http://localhost:5173/api/v1/payment-failed/${req.params.tranId}`
+          );
+        }
+      });
+    });
+    // ----
     app.post("/api/v1/users", async (req, res) => {
       const user = req.body;
       const query = { email: user.email };
@@ -255,7 +363,7 @@ async function run() {
     app.delete("/api/v1/cart/:id", async (req, res) => {
       const id = req.params.id;
       console.log(id);
-      const query = { _id: id };
+      const query = { _id: new ObjectId(id) };
       const result = await cart.deleteOne(query);
       res.send(result);
     });
@@ -348,6 +456,7 @@ async function run() {
       const result = await offers.updateOne(filter, updatedDoc);
       res.send(result);
     });
+
 
     // get methods
     app.get("/api/v1/products", async (req, res) => {
@@ -443,7 +552,6 @@ async function run() {
       const result = await orders.find(query).toArray();
       res.send(result);
     });
-
     app.get("/api/v1/reviews", async (req, res) => {
       const result = await reviews.find().toArray();
       res.send(result);
@@ -454,12 +562,13 @@ async function run() {
       const result = await reviews.find(query).toArray();
       res.send(result);
     });
-    app.get("/api/v1/reviews/:email", async (req, res) => {
-      const email = req.params.email;
-      const query = { email: email };
+    
+    app.get("/api/v1/single/reviews/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { productId:id };
       const result = await reviews.find(query).toArray();
       res.send(result);
-    });
+    }); 
     app.get("/api/v1/payments", async (req, res) => {
       const result = await payments.find().toArray();
       res.send(result);
@@ -475,7 +584,13 @@ async function run() {
       res.send(result);
     });
     app.get("/api/v1/appointments", async (req, res) => {
-      const result = await appointments.findOne();
+      const result = await appointments.find().toArray();
+      res.send(result);
+    });
+    app.get("/api/v1/appointments/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const result = await appointments.find(query).toArray();
       res.send(result);
     });
 
