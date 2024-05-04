@@ -6,11 +6,12 @@ import instagram from "../../assets/instagram.png";
 import twitter from "../../assets/twitter.png";
 import pinterast from "../../assets//social.png";
 import Product_Image from "./Product_Image/Product_Image";
-import Product_Details_Tabs from "./Product_Details_Tabs";
+import ProductDetails_Tabs from "./Product_Details_Tabs";
 import { Link, useParams } from "react-router-dom";
 import { DataContext } from "../../DataProvider/DataProvider";
 import Product_Card from "../../components/Product_Card/Product_Card";
-
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 const ProductDetails = () => {
   const { id } = useParams();
   const { byId, allData } = useContext(DataContext);
@@ -53,11 +54,12 @@ const ProductDetails = () => {
     },
   ];
 
+
   return (
     <section className="mt-10">
       <div className="grid grid-cols-2 gap-5">
         <div>
-          <Product_Image items={images} />
+          <Product_Image items={img} />
         </div>
         <div className="space-y-5">
           <h1 className="text-5xl font-bold">{ProductDetails?.name}</h1>
@@ -114,7 +116,7 @@ const ProductDetails = () => {
         <div className="divider"></div>
 
         <div className="">
-          <Product_Details_Tabs />
+          <ProductDetails_Tabs />
         </div>
         <div className="divider"></div>
         <div className=" mt-10 space-y-4">
