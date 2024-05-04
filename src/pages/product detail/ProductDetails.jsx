@@ -10,8 +10,8 @@ import ProductDetails_Tabs from "./Product_Details_Tabs";
 import { Link, useParams } from "react-router-dom";
 import { DataContext } from "../../DataProvider/DataProvider";
 import Product_Card from "../../components/Product_Card/Product_Card";
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
+
+
 const ProductDetails = () => {
   const { id } = useParams();
   const { byId, allData } = useContext(DataContext);
@@ -27,44 +27,36 @@ const ProductDetails = () => {
     (product) => product?.category == ProductDetails?.category
   );
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const handelIncrease = () => {
     const x = count + 1;
     setCount(x);
   };
   const handelDecrease = () => {
-    if (count >= 1) {
+    if (count > 1) {
       const x = count - 1;
       setCount(x);
     }
   };
-  console.log(ProductDetails);
-  const images = [
-    {
-      original:
-        "https://754969b0.rocketcdn.me/partdo/phone/wp-content/uploads/sites/2/2022/11/3-29-500x500.jpg",
-      thumbnail:
-        "https://754969b0.rocketcdn.me/partdo/phone/wp-content/uploads/sites/2/2022/11/3-29-500x500.jpg",
-    },
-    {
-      original:
-        "https://754969b0.rocketcdn.me/partdo/phone/wp-content/uploads/sites/2/2022/11/2-33-500x500.jpg",
-      thumbnail:
-        "https://754969b0.rocketcdn.me/partdo/phone/wp-content/uploads/sites/2/2022/11/2-33-500x500.jpg",
-    },
-  ];
+
+
+  const images = ProductDetails?.images?.map(item => ({
+    original: item,
+    thumbnail: item
+  }));
 
 
   return (
     <section className="mt-10">
       <div className="grid grid-cols-2 gap-5">
         <div>
-          <Product_Image items={img} />
+          <Product_Image images={images} />
+       
         </div>
         <div className="space-y-5">
           <h1 className="text-5xl font-bold">{ProductDetails?.name}</h1>
           <h1 className="text-2xl text-red-600 font-bold">
-            <h1>Tk {ProductDetails?.price}</h1>
+            <h1>Tk {ProductDetails?.price*count}</h1>
           </h1>
           <p>{ProductDetails?.description} </p>
           <hr />
@@ -127,7 +119,7 @@ const ProductDetails = () => {
             {relatedProducts?.slice(0, 4)?.map((product) => {
               return (
                 // <Link to={`/product-detail/${product._id}`} key={product._id}>
-                  <Product_Card product={product} key={product._id}/>
+                <Product_Card product={product} key={product._id} />
                 // </Link>
               );
             })}

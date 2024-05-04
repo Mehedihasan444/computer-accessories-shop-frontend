@@ -5,15 +5,15 @@ import useAuth from "../../Hooks/useAuth";
 
 const My_Reviews = () => {
   const { user } = useAuth();
-  const { DataFetch, ByEmail } = useContext(DataContext);
+  const { DataFetch, byEmail } = useContext(DataContext);
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    ByEmail(user?.email)
+    byEmail(user?.email)
     .then((res) => {
       setReviews(res?.reviews?.data);
     });
-  }, [ByEmail, user]);
+  }, [byEmail, user]);
   return (
     <div className="text-center">
       <p className="">Given Product Reviews</p>

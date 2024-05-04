@@ -13,13 +13,13 @@ const Deal_Of_the_Week = () => {
   });
 
   return (
-    <section id="deals" className="space-y-5 h-[80vh] flex flex-col justify-center ">
-      <h1 className="text-4xl font-semibold">Deal Of The Week</h1>
+    <section id="deals" className="space-y-5 sm:h-[80vh] flex flex-col justify-center px-5">
+      <h1 className="text-4xl font-semibold text-center sm:text-left">Deal Of The Week</h1>
       <hr />
-      <div className="flex justify-between gap-5 ">
-        <div className="border rounded-md flex items-center justify-center px-10 bg-gray-200">
+      <div className="sm:flex justify-between gap-5 ">
+        <div className="flex-1 border rounded-md flex items-center justify-center px-10 bg-gray-200">
           <div className="space-y-3">
-            <h4 className="font-semibold text-red-500">Deal Of The Week</h4>
+            <h4 className="font-semibold text-red-500 mt-5">Deal Of The Week</h4>
             <h1 className="text-6xl font-bold  ">50% OFF</h1>
             <p className="">
               Deal of the Week for deals on consumer electronics.
@@ -29,7 +29,7 @@ const Deal_Of_the_Week = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="flex-1">
           <div className="overflow-y-scroll h-[400px]  p-5">
             <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3  gap-5">
               {products?.map((product) => (

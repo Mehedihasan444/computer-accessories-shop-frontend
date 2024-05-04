@@ -4,7 +4,7 @@ import Marquee from "react-fast-marquee";
 const Top_Header = () => {
     return (
         <div className="grid grid-cols-3 justify-between items-center">
-            <div className="grid col-span-2">
+            <div className="grid col-span-3 sm:col-span-2">
                 <Marquee>
                     <div className="flex-1 flex items-center p-3">
                         <h3 className="text-xs font-semibold text-red-600">May Edition Black Friday! 35% off Spare Parts.</h3>
@@ -16,7 +16,7 @@ const Top_Header = () => {
                     </div>
                 </Marquee>
             </div>
-            <div className="flex-1 flex justify-end gap-2 items-center">
+            <div className="flex-1 sm:flex justify-end gap-2 items-center hidden ">
                 <div className="">
 
                     <h3 className="font-bold">End Of time:

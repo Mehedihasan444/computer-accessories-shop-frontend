@@ -27,6 +27,7 @@ import Update_Product from "../dashboard/admin/Update_Product";
 import Offers from "../dashboard/admin/Offers";
 import RepairService from "../pages/Repair_Service/RepairService";
 import RepairServiceDetail from "../pages/Repair_Service/RepairServiceDetail";
+import ForgotPassword from "../pages/SignIn/ForgotPassword";
 
 const Routes = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const Routes = createBrowserRouter([
       {
         path: "/system-access/signIn",
         element: <SignIn />,
+      },
+      {
+        path: "/system-access/ForgotPassword",
+        element: <ForgotPassword />,
       },
       {
         path: "/system-access/signUp",

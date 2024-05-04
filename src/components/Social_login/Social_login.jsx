@@ -47,8 +47,6 @@ const Social_login = () => {
           onClick={handle_google_login}
         />
         <FaFacebook className="cursor-pointer" />
-        <FaGithub className="cursor-pointer" />
-        <AiFillTwitterCircle className="cursor-pointer" />
       </div>
       <div className="divider ">signIn with</div>
     </>
