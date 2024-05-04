@@ -7,7 +7,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 
 const Features = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-center flex-wrap  items-center my-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-center flex-wrap  items-center my-10 px-5">
      
       <div className="flex gap-5 justify-between items-center">
         <div className="text-6xl text-red-500">
