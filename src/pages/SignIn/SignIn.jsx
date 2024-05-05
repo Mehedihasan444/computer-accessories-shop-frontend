@@ -21,7 +21,7 @@ const SignIn = () => {
   };
   return (
     <div>
-      <div className="max-w-md mx-auto  ">
+      <div className="md:max-w-md mx-5 md:mx-auto">
         <form className=" space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full ">
             <div className="label">

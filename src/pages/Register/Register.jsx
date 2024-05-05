@@ -14,6 +14,7 @@ const Register = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    // checking if the password contain atleast one leter, one number and has 8 charecter (Regex)
     if (/"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"/.test(data?.password)){
       create_user_with_email(data?.email, data?.password)
         .then((res) => {
@@ -50,13 +51,14 @@ const Register = () => {
         });
 
     }else{
+      // showing toast error if the password is not strong enough
       toast.error("password: minimum eight characters, at least one letter and one number")
     }
   };
 
   return (
     <div>
-      <div className="max-w-md mx-auto  ">
+      <div className="max-w-md mx-5 md:mx-auto  ">
         <form className=" space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full ">
             <div className="label">
