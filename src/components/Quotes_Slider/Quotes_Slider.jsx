@@ -13,8 +13,8 @@ import './styles.css';
 import { Pagination, Navigation } from 'swiper/modules';
 
 const Quotes_Slider = () => {
-    return (
-        <>
+  return (
+    <>
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -28,40 +28,40 @@ const Quotes_Slider = () => {
         className="mySwiper  "
       >
         <SwiperSlide className='py-20 '>
-            <div className="flex flex-col justify-center items-center max-w-5xl ">
-                <div className="h-16 w-16 ">
-                     <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2022/03/avatar-3.jpg" alt="" className='rounded-full' />
-                </div>
-                
-        <p className="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat omnis, atque incidunt aliquam distinctio sed voluptate modi? Quibusdam ipsa sunt totam perspiciatis cumque, voluptatum aliquam tempore. </p>
+          <div className="flex flex-col justify-center items-center max-w-5xl ">
+            <div className="h-16 w-16 ">
+              <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2022/03/avatar-3.jpg" alt="" className='rounded-full' />
             </div>
-           
+
+            <p className="px-5 text-justify md:text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat omnis, atque incidunt aliquam distinctio sed voluptate modi? Quibusdam ipsa sunt totam perspiciatis cumque, voluptatum aliquam tempore. </p>
+          </div>
+
         </SwiperSlide>
         <SwiperSlide className='py-20 '>
-            <div className="flex flex-col justify-center items-center max-w-5xl">
-                <div className="h-16 w-16 ">
-                     <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2022/03/avatar-1.jpg" alt="" className='rounded-full' />
-                </div>
-                
-        <p className="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat omnis, atque incidunt aliquam distinctio sed voluptate modi? Quibusdam ipsa sunt totam perspiciatis cumque, voluptatum aliquam tempore. </p>
+          <div className="flex flex-col justify-center items-center max-w-5xl">
+            <div className="h-16 w-16 ">
+              <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2022/03/avatar-1.jpg" alt="" className='rounded-full' />
             </div>
-           
+
+            <p className="px-5 text-justify md:text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat omnis, atque incidunt aliquam distinctio sed voluptate modi? Quibusdam ipsa sunt totam perspiciatis cumque, voluptatum aliquam tempore. </p>
+          </div>
+
         </SwiperSlide>
         <SwiperSlide className='py-20 '>
-            <div className="flex flex-col justify-center items-center max-w-5xl">
-                <div className="h-16 w-16 ">
-                     <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2022/03/avatar-2.jpg" alt="" className='rounded-full' />
-                </div>
-                
-        <p className="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat omnis, atque incidunt aliquam distinctio sed voluptate modi? Quibusdam ipsa sunt totam perspiciatis cumque, voluptatum aliquam tempore. </p>
+          <div className="flex flex-col justify-center items-center max-w-5xl">
+            <div className="h-16 w-16 ">
+              <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2022/03/avatar-2.jpg" alt="" className='rounded-full' />
             </div>
-           
+
+            <p className="px-5 text-justify md:text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat omnis, atque incidunt aliquam distinctio sed voluptate modi? Quibusdam ipsa sunt totam perspiciatis cumque, voluptatum aliquam tempore. </p>
+          </div>
+
         </SwiperSlide>
-       
-        
+
+
       </Swiper>
     </>
-    );
+  );
 };
 
 export default Quotes_Slider;

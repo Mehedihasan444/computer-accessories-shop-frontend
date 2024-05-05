@@ -13,10 +13,10 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { useParams } from 'react-router-dom';
 const RepairServiceDetail = () => {
     const [booking, setBooking] = useState(new Date())
-    const {user}=useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const axiosPublic = useAxiosPublic();
-    const {category}=useParams()
-    const handelSubmit = async(e) => {
+    const { category } = useParams()
+    const handelSubmit = async (e) => {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
         const user_name = form.get('name');
@@ -26,7 +26,7 @@ const RepairServiceDetail = () => {
         const booking_date = form.get('bookingDate');
         const description = form.get('description');
 
-        const Appointment={user_name,email,phone,device_type,booking_date,description}
+        const Appointment = { user_name, email, phone, device_type, booking_date, description }
         const productInfo = await axiosPublic.post("/appointments", Appointment);
         if (productInfo?.data?.insertedId) {
             toast.success("appointment Successfully added!!!");
@@ -55,11 +55,10 @@ const RepairServiceDetail = () => {
                     </div>
                 </Swiper>
             </div>
-
             <div>
                 <div>
-                    <h1 className='text-4xl font-bold my-5'>Description:</h1>
-                    <p>
+                    <h1 className='text-3xl md:text-4xl font-bold my-5'>Description:</h1>
+                    <p className='px-10 text-justify'>
                         <span className='font-bold mb-5'>Screen Repair/Replacement:</span>
                         Address issues like cracks, display problems, or damage by replacing the screen.
                         <span className='font-bold mb-5'> Keyboard and Trackpad Repair:</span>
@@ -89,27 +88,28 @@ const RepairServiceDetail = () => {
                     <h2 className='text-3xl'>Book a Shedule</h2>
                     <img className='w-16 animate-spin' src={star} alt="" />
                 </div>
-                <div className='flex gap-5 mt-5'>
-                    <div className='flex justify-center items-center'>
+
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-10 mt-5'>
+                    <div className='flex justify-center items-center mx-5 md:mx-0'>
                         <img src={repair} alt="" />
                     </div>
-                    <div className='flex flex-col justify-center items-center'>
+                    <div className='flex justify-center items-center px-5'>
                         <section className="bg-white ">
-                            <div className=" px-4 mx-auto">
+                            <div className="">
                                 <namem action="#">
-                                    <form onSubmit={handelSubmit}>
-                                        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                    <form className='' onSubmit={handelSubmit}>
+                                        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 sm:gap-6">
                                             <div className="w-full">
                                                 <label name="name" className="block mb-2 text-sm font-medium text-black">Name</label>
-                                                <input required type="text" name="name" id="name" className="input input-bordered input-accent w-full bg-transparent" placeholder="your name"  />
+                                                <input required type="text" name="name" id="name" className="input input-bordered input-accent w-full bg-transparent" placeholder="your name" />
                                             </div>
                                             <div className="w-full">
                                                 <label name="email" className="block mb-2 text-sm font-medium text-black">Email</label>
-                                                <input readOnly value={user?.email} type="text" name="email" id="email" className="input input-bordered input-accent w-full bg-transparent" placeholder="email..."  />
+                                                <input readOnly value={user?.email} type="text" name="email" id="email" className="input input-bordered input-accent w-full bg-transparent" placeholder="email..." />
                                             </div>
                                             <div className="w-full">
                                                 <label name="phone" className="block mb-2 text-sm font-medium text-black">Phone</label>
-                                                <input required type="number" name="phone" id="phone" className="input input-bordered input-accent w-full bg-transparent" placeholder="phone"  />
+                                                <input required type="number" name="phone" id="phone" className="input input-bordered input-accent w-full bg-transparent" placeholder="phone" />
                                             </div>
                                             <div>
                                                 <label name="type" className="block mb-2 text-sm font-medium text-black">Laptop/Phone/Tablet</label>
@@ -127,7 +127,7 @@ const RepairServiceDetail = () => {
                                             </div>
                                             <div className="w-full">
                                                 <label name="category" className="block mb-2 text-sm font-medium text-black ">Category</label>
-                                                <input type="text" readOnly placeholder='Category'  value={category} className="input input-bordered input-accent w-full bg-transparent max-w-sm"/>
+                                                <input type="text" readOnly placeholder='Category' value={category} className="input input-bordered input-accent w-full bg-transparent max-w-sm" />
                                             </div>
                                             <div className="sm:col-span-2">
                                                 <label name="description" className="block mb-2 text-sm font-medium text-black">Description</label>

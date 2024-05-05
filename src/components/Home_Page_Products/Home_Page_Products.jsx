@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const Home_Page_Products = () => {
   return (
-    <div className="my-20 flex flex-col items-center space-y-4 ">
+    <div className="my-20 flex flex-col items-center space-y-4 sm:mx-20">
       <div className="menu menu-horizontal flex gap-10 justify-center">
         <NavLink
           to="/"
