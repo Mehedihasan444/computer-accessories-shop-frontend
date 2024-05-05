@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaPinterest, FaTwitter } from "react-icons/fa6
 const Team_Member_Card = () => {
     return (
         <div>
-            <div className="">
+            <div className=" flex justify-center items-center">
                 <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2021/04/team-1.jpg" alt="" className="rounded-md transform transition-transform duration-300 ease-in-out hover:scale-105 " />
             </div>
             <div className="text-center space-y-2 mt-2">

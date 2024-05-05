@@ -40,7 +40,7 @@ const About_Us = () => {
       </div>
       {/* ============ */}
 
-      <div className="flex  justify-center items-center gap-10 my-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 mx-5 justify-center items-center gap-10 my-10">
         <div className="space-y-3">
           <h1 className="text-3xl font-semibold"> Who We Are</h1>
           <p className="">
@@ -72,9 +72,9 @@ const About_Us = () => {
       {/* ================= */}
 
       <div className="my-20">
-        <h1 className="text-4xl font-bold mb-2">Our Team</h1>
-        <hr />
-        <div className="flex justify-center items-center gap-5 my-10">
+        <h1 className="text-4xl font-bold mb-2 text-center md:text-left">Our Team</h1>
+        <div className="flex justify-center md:justify-start items-center my-2 "><hr className="w-[50px] border-2 border-[#00BFA5]" /></div>
+        <div className="grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-5 my-10">
           <Team_Member_Card />
           <Team_Member_Card />
           <Team_Member_Card />
@@ -84,13 +84,13 @@ const About_Us = () => {
 
       {/* ================ */}
 
-      <div className="flex justify-between items-center gap-10">
-        <div className="flex-1 space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-10">
+        <div className="flex-1 space-y-4 text-center md:text-left">
           <p className="uppercase font-thin">our performance</p>
-          <h1 className="font-extrabold text-6xl ">We Believe In Quality Products</h1>
-          <p className="text-gray-300">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium mollis ex, vel interdum augue faucibus sit amet. Proin tempor purus ac suscipit sagittis. Nunc finibus euismod enim, eu finibus nunc ullamcorper et.</p>
+          <h1 className="font-extrabold text-4xl md:text-6xl ">We Believe In Quality Products</h1>
+          <p className="text-black px-5 md:px-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium mollis ex, vel interdum augue faucibus sit amet. Proin tempor purus ac suscipit sagittis. Nunc finibus euismod enim, eu finibus nunc ullamcorper et.</p>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 mx-5">
           <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2024/01/about-2.jpg" alt="" className="rounded-md" />
         </div>
       </div>
