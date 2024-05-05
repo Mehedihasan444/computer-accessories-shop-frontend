@@ -8,14 +8,14 @@ import useAdmin from "../../Hooks/useAdmin";
 // import './Navbar.css'
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const {allData, setSearchValue } = useContext(DataContext);
+  const { allData, setSearchValue } = useContext(DataContext);
   const [isAdmin] = useAdmin();
   const navigate = useNavigate();
   const closeButtonRef = useRef(null);
-const [wishlistCount,setWishlistCount] = useState(0)
-const [wishlist,setWishlist]=useState([])
-const [cartCount,setCartCount] = useState(0)
-const [cart,setCart]=useState([])
+  const [wishlistCount, setWishlistCount] = useState(0)
+  const [wishlist, setWishlist] = useState([])
+  const [cartCount, setCartCount] = useState(0)
+  const [cart, setCart] = useState([])
   // handleSubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,27 +27,27 @@ const [cart,setCart]=useState([])
   };
 
   useEffect(() => {
-   
-      setWishlist(allData[4])
-      setWishlistCount(allData[4]?.length)
-      setCart(allData[5])
-      setCartCount(allData[5]?.length)
-    }, [allData])
 
-// calculate all products price of wishlist
+    setWishlist(allData[4])
+    setWishlistCount(allData[4]?.length)
+    setCart(allData[5])
+    setCartCount(allData[5]?.length)
+  }, [allData])
+
+  // calculate all products price of wishlist
   const wishlistPrices = wishlist?.map((item) => item.price);
   const wishlistSubtotal = wishlistPrices?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-  
+
   // calculate all products price of cart
   const cartPrices = cart?.map((item) => item.price);
   const cartSubtotal = cartPrices?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-  
+
 
 
   // handle_logOut
   const handle_logOut = () => {
     logOut()
-     .then((res) => {
+      .then((res) => {
         console.log(res);
         toast.success("Successfully logOut!!!");
         // window.location.reload(true);
@@ -90,9 +90,11 @@ const [cart,setCart]=useState([])
                 </li>
               </Link>
 
-              <li className="font-bold">
-                <a>Products</a>
-              </li>
+              <Link to='/products'>
+                <li className="font-bold">
+                  <a>Products</a>
+                </li>
+              </Link>
               <Link to="/repair-services">
                 <li className="font-bold">
                   <a>Repair Service</a>
@@ -113,9 +115,11 @@ const [cart,setCart]=useState([])
               </li>
             </Link>
 
-            <li className="font-bold">
-              <a href="/products">Products</a>
-            </li>
+            <Link to='/products'>
+              <li className="font-bold">
+                <a>Products</a>
+              </li>
+            </Link>
             <Link to="/repair-services">
               <li className="font-bold">
                 <a>Repair Service</a>
@@ -184,7 +188,7 @@ const [cart,setCart]=useState([])
                     src="https://i.ibb.co/LY9MJK3/love.png"
                     alt=""
                   />
-                  <span className="badge badge-sm indicator-item">{wishlistCount>0?wishlistCount:0}</span>
+                  <span className="badge badge-sm indicator-item">{wishlistCount > 0 ? wishlistCount : 0}</span>
                 </div>
               </div>
               <div
@@ -192,8 +196,8 @@ const [cart,setCart]=useState([])
                 className="mt-3 z-[50] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">{wishlistCount>0?wishlistCount:0} Items</span>
-                  <span className="text-info">Subtotal: ${wishlistSubtotal>0?wishlistSubtotal:0}</span>
+                  <span className="font-bold text-lg">{wishlistCount > 0 ? wishlistCount : 0} Items</span>
+                  <span className="text-info">Subtotal: ${wishlistSubtotal > 0 ? wishlistSubtotal : 0}</span>
 
                   <div className="">
                     <Link
@@ -229,7 +233,7 @@ const [cart,setCart]=useState([])
                       d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                     />
                   </svg>
-                  <span className="badge badge-sm indicator-item">{cartCount>0?cartCount:0}</span>
+                  <span className="badge badge-sm indicator-item">{cartCount > 0 ? cartCount : 0}</span>
                 </div>
               </div>
               <div
@@ -237,8 +241,8 @@ const [cart,setCart]=useState([])
                 className="mt-3 z-[50] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">{cartCount>0?cartCount:0} Items</span>
-                  <span className="text-info">Subtotal: ${cartSubtotal>0?cartSubtotal:0}</span>
+                  <span className="font-bold text-lg">{cartCount > 0 ? cartCount : 0} Items</span>
+                  <span className="text-info">Subtotal: ${cartSubtotal > 0 ? cartSubtotal : 0}</span>
                   <div className="">
                     <Link to="/dashboard/user/Cart" className="card-actions">
                       <button className="btn btn-primary btn-block">
@@ -270,9 +274,8 @@ const [cart,setCart]=useState([])
                   >
                     <li>
                       <a
-                        href={`/dashboard/${
-                          isAdmin ? "admin_home" : "user/profile"
-                        }`}
+                        href={`/dashboard/${isAdmin ? "admin_home" : "user/profile"
+                          }`}
                       >
                         Dashboard
                       </a>
