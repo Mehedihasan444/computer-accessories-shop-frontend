@@ -40,9 +40,9 @@ const About_Us = () => {
       </div>
       {/* ============ */}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 mx-5 justify-center items-center gap-10 my-10">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semibold"> Who We Are</h1>
+      <div className="grid grid-cols-1 text-center md:grid-cols-3 mx-5 justify-center items-center gap-10 my-10">
+        <div className="space-y-3 border p-4 mb-5">
+          <h1 className="text-3xl font-semibold  "> Who We Are</h1>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
             pretium mollis ex, vel interdum augue faucibus sit amet. Proin
