@@ -21,7 +21,7 @@ const Register = () => {
           // updating user profile
           update_profile(data?.name, photo)
             .then(() => {
-              axiosPublic.post("/users", { ...data, image: photo, phone: '+8801xxxxxxxxx', no_orders: 0, total_spend: 0, role: 'user' }).then((res) => {
+              axiosPublic.post("/users", { ...data, image: photo, phone: '+8801xxxxxxxxx', no_orders: 0, total_spend: 0, role: 'user',address:'' }).then((res) => {
                 console.log(res.data);
                 if (res.data.insertedId) {
                   toast.success("Registration Complete!!!");

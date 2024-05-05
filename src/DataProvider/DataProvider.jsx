@@ -12,9 +12,9 @@ const DataProvider = ({ children }) => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const [searchValue,setSearchValue]=useState([])
-  // --------------------
+   //Here fetch all data centrally  
   const { data: allData = [], refetch } = useQuery({
-    queryKey: ["allData,"],
+    queryKey: ["allData",user?.email],
     queryFn: async () => {
       const res1 = await axiosPublic.get("/reviews");
       const res2 = await axiosPublic.get("/products");
@@ -26,11 +26,16 @@ const DataProvider = ({ children }) => {
       const res8 = await axiosSecure.get(`/appointments/${user?.email}`);
       const res9 = await axiosSecure.get(`/orders`);
       const res10 = await axiosSecure.get(`/orders/${user?.email}`);
-     
-      return [res1.data, res2.data.result, res3.data,res4.data,res5.data,res6.data,res7.data,res8.data,res9.data,res10.data];
+      const res11 = await axiosPublic.get(`/users/${user?.email}`);
+    const res12 = await axiosSecure.get(`/reviews/${user?.email}`);
+      return [res1.data, res2.data.result, res3.data,res4.data,res5.data,res6.data,res7.data,res8.data,res9.data,res10.data,res11.data,res12.data];
     },
   });
-  //--------------------
+
+
+
+
+  //Here fetch all data centrally by id 
 
   const byId = async (id) => {
     const product = await axiosPublic.get(`/products/${id}`);
@@ -40,28 +45,18 @@ const DataProvider = ({ children }) => {
     return [product.data, reviews.data];
   };
 
-  // ----------
-  const byEmail = async (email) => {
-    const user = await axiosPublic.get(`/users/${email}`);
-    const reviews = await axiosSecure.get(`/reviews/${email}`);
-    // const wishlist = await axiosSecure.get(`/wishlist/${email}`);
 
-    return [user, reviews];
-  };
 
-  //
-
-  // ---------------
+  // A function that refetch all data 
   const DataFetch = () => {
     refetch();
   };
 
-
+// A object which contains all the fetch data
   const all_data = {
     allData,
     DataFetch,
     byId,
-    byEmail,
     setSearchValue,
     searchValue
   };

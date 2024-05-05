@@ -19,10 +19,19 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [products, setProducts] = useState({});
-const location=useLocation()
-console.log(location)
-  const { data,isPending, refetch } = useQuery({
-    queryKey: ["data", searchValue, sortBy, currentPage, category, brand,itemsPerPage,numberOfPages],
+  // const location=useLocation()
+
+  const { data, isPending, refetch } = useQuery({
+    queryKey: [
+      "data",
+      searchValue,
+      sortBy,
+      currentPage,
+      category,
+      brand,
+      itemsPerPage,
+      numberOfPages,
+    ],
     queryFn: async () => {
       const res = await axiosPublic.get(
         `/products?productName=${searchValue}&category=${category}&brand=${brand}&sortField=price&sortOrder=${sortBy}&page=${currentPage}&limit=${itemsPerPage}`
@@ -80,11 +89,7 @@ console.log(location)
           <div className="flex justify-between items-center gap-5 mb-4 flex-1">
             {/* Render product list here */}
             <h2 className="text-lg font-semibold">
-              Product Found{" "}
-              {
-                products.result?.length
-            
-              }
+              Product Found {products.result?.length}
             </h2>
           </div>
 
@@ -105,7 +110,6 @@ console.log(location)
                   <option value="desc">High To Low</option>
                   <option value="asc">Low To High</option>
                   <option value="rating">Rating</option>
-               
                 </select>
               </div>
             </div>
@@ -133,7 +137,6 @@ console.log(location)
                 >
                   <FaThList />
                 </button>
-             
               </div>
             </div>
           </div>
@@ -146,29 +149,35 @@ console.log(location)
               : "grid-cols-1"
           }   gap-3 mb-8`}
         >
-          
-        
-          {isPending ? (
-          <div className="flex justify-center items-center w-[85vw]">
-            <h1 className="text-4xl font-semibold "> Loading...</h1>
-          </div>
-        ) :viewType === "grid" ? (
+          {
+            isPending ? (
+            <div className="flex justify-center items-center w-[85vw]">
+              <h1 className="text-4xl font-semibold "> Loading...</h1>
+            </div>
+          ) :
+           viewType === "grid" ? ( 
             <>
+            {
+              products?.result?.length==0?<h1 className="">Product not found</h1> :
+              <>
               {products?.result?.map((product) => (
-                // <Link to={`/product-detail/${product._id}`} >
-                
-                <Product_Card product={product}  key={product._id}/>
-                // </Link>
+                <Product_Card product={product} key={product._id} />
               ))}
+              </>
+            }
+              
             </>
           ) : (
             <>
-              {products?.result?.map((product) => (
-                // <Link to={`/product-detail/${product._id}`} >
-
-                  <Product_Card_ListView product={product}  key={product._id}/>
-                // </Link>
+                {
+              products?.result?.length==0?<h1 className="">Product not found</h1> :
+              <>
+               {products?.result?.map((product) => (
+                <Product_Card_ListView product={product} key={product._id} />
               ))}
+              </>
+            }
+             
             </>
           )}
         </div>
@@ -178,7 +187,7 @@ console.log(location)
             <button
               className="btn btn-accent mr-3 text-white"
               onClick={handlePreviousPage}
-              disabled={currentPage === 1? true : false}
+              disabled={currentPage === 1 ? true : false}
             >
               «
             </button>
@@ -188,7 +197,6 @@ console.log(location)
                   currentPage === page + 1 ? "btn-disabled" : "text-white"
                 } mr-2 btn btn-accent`}
                 key={page}
-                
                 onClick={() => setCurrentPage(page + 1)}
               >
                 {page + 1}
@@ -197,7 +205,7 @@ console.log(location)
             <button
               className="btn btn-accent text-white"
               onClick={handleNextPage}
-              disabled={currentPage === pages.length? true : false}
+              disabled={currentPage === pages.length ? true : false}
             >
               »
             </button>

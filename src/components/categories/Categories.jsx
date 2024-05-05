@@ -30,7 +30,7 @@ const handleSubmit = async (category) => {
             <p className="text-center">Get Your Desired Product from Featured Category!</p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-center items-center gap-3 lg:mx-52 pt-10 px-5">
                 
-                <div onClick={()=>handleSubmit()} style={mystyle}  className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('AC')} style={mystyle}  className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={ac} alt="air condisonar" />
                     <p>AC</p>
                 </div>
@@ -38,35 +38,35 @@ const handleSubmit = async (category) => {
                     <img src={laptop} alt="air condisonar" />
                     <p>Laptop</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('air condisonar')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={tv} alt="air condisonar" />
                     <p>TV</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
-                    <img src={lapAcessories} alt="air condisonar" />
-                    <p className='text-center'>Laptop Acessories</p>
+                <div onClick={()=>handleSubmit('Accessories')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                    <img src={lapAcessories} alt="Accessories" />
+                    <p className='text-center'>Accessories</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('Headphone')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={headphone} alt="air condisonar" />
                     <p>Headphone</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('Ear-buds')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={earbuds} alt="air condisonar" />
                     <p>Ear-buds</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('Speaker')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={bluethoot} alt="air condisonar" />
                     <p>Speaker</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('Drone')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={drone} alt="air condisonar" />
                     <p>Drone</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('Speaker')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={bluethoot} alt="air condisonar" />
                     <p>Speaker</p>
                 </div>
-                <div onClick={()=>handleSubmit()} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
+                <div onClick={()=>handleSubmit('Speaker')} style={mystyle} className='flex flex-col justify-center items-center hover:scale-105 hover:text-warning font-semibold hover:cursor-pointer'>
                     <img src={bluethoot} alt="air condisonar" />
                     <p>Speaker</p>
                 </div>

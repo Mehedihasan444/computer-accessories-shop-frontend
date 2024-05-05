@@ -50,9 +50,7 @@ const [cart,setCart]=useState([])
      .then((res) => {
         console.log(res);
         toast.success("Successfully logOut!!!");
-        window.location.reload(true);
-
-        navigate('/')
+        // window.location.reload(true);
       })
       .catch((err) => {
         console.log(err);
