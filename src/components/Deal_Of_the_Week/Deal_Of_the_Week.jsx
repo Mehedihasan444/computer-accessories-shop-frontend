@@ -8,12 +8,12 @@ const Deal_Of_the_Week = () => {
 
 
   return (
-    <section id="deals" className="space-y-5 sm:h-[80vh] flex flex-col justify-center px-5">
+    <div id="deals" className="space-y-5 sm:h-[80vh] flex flex-col justify-center px-5">
       <h1 className="text-4xl font-semibold text-center sm:text-left">Deal Of The Week</h1>
       <hr />
-      <div className="sm:flex justify-between gap-5 ">
+      <div className="  sm:flex justify-between gap-5  space-y-10">
         <div className="flex-1 border rounded-md flex items-center justify-center px-10 bg-gray-200">
-          <div className="space-y-3">
+          <div className=" flex flex-col justify-center items-center space-y-3">
             <h4 className="font-semibold text-red-500 mt-5">Deal Of The Week</h4>
             <h1 className="text-6xl font-bold  ">50% OFF</h1>
             <p className="">
@@ -25,8 +25,8 @@ const Deal_Of_the_Week = () => {
           </div>
         </div>
         <div className="flex-1">
-          <div className="overflow-y-scroll h-[400px]  p-5">
-            <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-5 sm:mt-10">
+          <div className="overflow-y-scroll h-[300px] sm:h-[400px]  p-5">
+            <div className=" grid grid-cols-2  md:grid-cols-1 lg:grid-cols-2  gap-5">
               {allData[1]?.slice(0,6)?.map((product) => (
                 <Product_Card key={product.id} product={product} />
               ))}
@@ -34,7 +34,7 @@ const Deal_Of_the_Week = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

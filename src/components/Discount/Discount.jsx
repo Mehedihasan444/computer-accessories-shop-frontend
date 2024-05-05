@@ -2,10 +2,10 @@
 
 const Discount = () => {
     return (
-        <div className="flex justify-between items-center my-20 bg-[#FFE9C2] p-10 rounded-md">
+        <div className="flex flex-col md:flex-row gap-5 justify-between items-center my-20 bg-[#FFE9C2] p-10 rounded-md">
             <div className="space-y-5 flex-1">
                 <p className="text-lg font-thin">EXCLUSIVE HEADPHONE</p>
-                <h1 className="text-6xl font-bold">Discounts 50% On All Headphone</h1>
+                <h1 className="text-4xl md:text-6xl font-bold">Discounts 50% On All Headphone</h1>
                 <button className="btn bg-red-500 text-white">Shop Now</button>
             </div>
             <div className="flex-1">

@@ -9,19 +9,19 @@ const Features = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-center flex-wrap  items-center my-10 px-5">
      
-      <div className="flex gap-5 justify-between items-center">
+      <div className="flex gap-5 justify-between items-center border p-5">
         <div className="text-6xl text-red-500">
           <GiReturnArrow />
         </div>
         <div className="">
-          <h3 className="font-semibold text-xl">Extended 30 day returns</h3>
+          <h3 className="font-semibold text-xl">Returns Policy</h3>
           <p className="text-sm">
             Dynar trefår decist semir. Lirad alkobom viktigt. Kabågon viren.
             Pimpa sperovis.
           </p>
         </div>
       </div>
-      <div className="flex gap-5 justify-between items-center">
+      <div className="flex gap-5 justify-between items-center border p-5">
         <div className="text-6xl text-red-500">
           <RiSecurePaymentFill />
         </div>
@@ -33,7 +33,7 @@ const Features = () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-5 justify-between items-center">
+      <div className="flex gap-5 justify-between items-center border p-5">
         <div className="text-6xl text-red-500">
           <TbTruckDelivery />
         </div>
@@ -45,7 +45,7 @@ const Features = () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-5 justify-between items-center">
+      <div className="flex gap-5 justify-between items-center border p-5">
         <div className="text-6xl text-red-500">
           <BiSupport />
         </div>

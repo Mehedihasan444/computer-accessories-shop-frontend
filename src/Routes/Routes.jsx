@@ -32,6 +32,8 @@ import My_Appointments from "../dashboard/user/My_Appointments";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 import PaymentFailed from "../pages/PaymentFailed/PaymentFailed ";
 import ForgotPassword from "../pages/SignIn/ForgotPassword";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const Routes = createBrowserRouter([
   {
@@ -102,88 +104,88 @@ const Routes = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <PrivateRoute> <Dashboard /></PrivateRoute> ,
     children: [
       {
         path: "/dashboard/admin_home",
-        element: <Admin_Home />,
+        element: <PrivateRoute> <AdminRoute><Admin_Home /></AdminRoute></PrivateRoute>,
       },
       {
         path: "/dashboard/admin/add_a_product",
-          element: <AddProduct />,
+          element:<PrivateRoute><AdminRoute><AddProduct /></AdminRoute></PrivateRoute> ,
         
       },
       {
         path: "/dashboard/admin/all_products",
-          element: <All_Products />,
+          element: <PrivateRoute><AdminRoute><All_Products /></AdminRoute></PrivateRoute>,
         
       },
       {
         path: "/dashboard/admin/update_products/:id",
-          element: <Update_Product />,
+          element: <PrivateRoute><AdminRoute><Update_Product /></AdminRoute></PrivateRoute>,
         
       },
       {
         path: "/dashboard/admin/all_users",
-          element: <All_Users />,
+          element: <PrivateRoute><AdminRoute><All_Users /></AdminRoute></PrivateRoute>,
         
       },
       {
         path: "/dashboard/admin/set_offers",
-          element: <Offers />,
+          element:<PrivateRoute><AdminRoute><Offers /></AdminRoute></PrivateRoute> ,
         
       },
       {
         path: "/dashboard/admin/appointments",
-          element: <Appointments />,
+          element:<PrivateRoute><AdminRoute><Appointments /></AdminRoute></PrivateRoute> ,
         
       },
       {
         path: "/dashboard/admin/reviews",
-          element: <Reviews />,
+          element: <PrivateRoute><AdminRoute><Reviews /></AdminRoute></PrivateRoute> ,
         
       },
       // user routes
 
       {
         path: "/dashboard/user/profile",
-          element: <Profile />,
+          element:<PrivateRoute> <Profile /></PrivateRoute>,
       },
       {
         path: "/dashboard/user/Cart",
-          element: <Cart />,
+          element: <PrivateRoute><Cart /></PrivateRoute>,
       },
       {
         path: "/dashboard/user/wishlist",
-          element: <Wishlist />,
+          element:<PrivateRoute> <Wishlist /></PrivateRoute>,
       },
     
       {
         path: "/dashboard/user/orders",
-          element: <Order />,
+          element:<PrivateRoute> <Order /></PrivateRoute>,
       },
       {
         path: "/dashboard/user/my_reviews",
-          element: <My_Reviews />,
+          element:<PrivateRoute> <My_Reviews /></PrivateRoute>,
       },
       {
         path: "/dashboard/user/purchase_history",
-          element: <Purchase_History />,
+          element: <PrivateRoute><Purchase_History /></PrivateRoute>,
       },
       {
         path: "/dashboard/user/my_appointments",
-          element: <My_Appointments />,
+          element:<PrivateRoute> <My_Appointments /></PrivateRoute>,
       },
     
     ],
   },
   {
     path: "/api/v1/payment-complete/:transactionId",
-    element:<PaymentSuccess/>
+    element:<PrivateRoute><PaymentSuccess/></PrivateRoute>
   },
   {
     path: "/api/v1/payment-failed/:transactionId",
-    element:<PaymentFailed />
+    element:<PrivateRoute><PaymentFailed /></PrivateRoute>
   },
   
 ]);
