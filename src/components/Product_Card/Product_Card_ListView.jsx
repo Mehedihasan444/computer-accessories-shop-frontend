@@ -3,7 +3,7 @@ import RatingStar from "../../Utilities/RatingStar/RatingStar";
 import { LuPackage } from "react-icons/lu";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { DataContext } from "../../DataProvider/DataProvider";
@@ -14,6 +14,8 @@ const Product_Card_ListView = ({product}) => {
   const { DataFetch } = useContext(DataContext)
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalIdRef = useRef(null);
+  const navigate =useNavigate()
+
 
   useEffect(() => {
     return () => {
@@ -33,8 +35,11 @@ const Product_Card_ListView = ({product}) => {
     setCurrentImageIndex(0); // Reset to the first image when mouse leaves
   };
 
+  // wishlist function
   const handleWishlist = async () => {
-    const res = await axiosPublic.post(`/wishlist`, {
+
+    if(user){
+         const res = await axiosPublic.post(`/wishlist`, {
       ...product,
       email: user?.email,
     });
@@ -45,9 +50,16 @@ const Product_Card_ListView = ({product}) => {
     } else if (res.data.message) {
       toast.error(`${product?.name} ${res.data.message} in the wishlist`);
     }
+    }else{
+      navigate('/system-access/signIn')
+    }
+ 
   };
   const handleCart = async () => {
-    const res = await axiosPublic.post(`/cart`, {
+
+
+    if (user) {
+       const res = await axiosPublic.post(`/cart`, {
       ...product,
       email: user?.email,
     });
@@ -58,6 +70,10 @@ const Product_Card_ListView = ({product}) => {
     } else if (res.data.message) {
       toast.error(`${product?.name} ${res.data.message} in the wishlist`);
     }
+    }else{
+      navigate('/system-access/signIn')
+    }
+   
   };
 
 

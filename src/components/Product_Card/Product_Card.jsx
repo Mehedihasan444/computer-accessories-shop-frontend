@@ -5,7 +5,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { DataContext } from "../../DataProvider/DataProvider";
 const Product_Card = ({ product }) => {
@@ -14,7 +14,7 @@ const Product_Card = ({ product }) => {
   const { DataFetch } = useContext(DataContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalIdRef = useRef(null);
-
+const navigate =useNavigate()
   useEffect(() => {
     return () => {
       clearInterval(intervalIdRef.current); // Clean up interval on component unmount
@@ -36,7 +36,8 @@ const Product_Card = ({ product }) => {
   };
 
   const handleWishlist = async () => {
-    const res = await axiosPublic.post(`/wishlist`, {
+    if (user) {
+       const res = await axiosPublic.post(`/wishlist`, {
       ...product,
       email: user?.email,
     });
@@ -47,9 +48,15 @@ const Product_Card = ({ product }) => {
     } else if (res.data.message) {
       toast.error(`${product?.name} ${res.data.message} in the wishlist`);
     }
+    }else{
+      navigate('/system-access/signIn')
+    }
+   
   };
   const handleCart = async () => {
-    const res = await axiosPublic.post(`/cart`, {
+
+if (user) {
+   const res = await axiosPublic.post(`/cart`, {
       ...product,
       email: user?.email,
     });
@@ -60,6 +67,12 @@ const Product_Card = ({ product }) => {
     } else if (res.data.message) {
       toast.error(`${product?.name} ${res.data.message} in the wishlist`);
     }
+}
+else{
+  navigate('/system-access/signIn')
+}
+
+   
   };
 
   return (

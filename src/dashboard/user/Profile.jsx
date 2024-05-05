@@ -191,7 +191,7 @@ const Profile = () => {
               type="tel"
               id="address"
               name="address"
-              defaultValue={userInfo?.phone}
+              defaultValue={userInfo?.address}
               className="input-bordered input h-8 ml-2"
             />
           </div>

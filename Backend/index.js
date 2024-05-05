@@ -369,7 +369,7 @@ async function run() {
     });
     app.delete("/api/v1/wishlist/:id", async (req, res) => {
       const id = req.params.id;
-      const query = { _id: id };
+      const query = { _id: new ObjectId(id) };
       const result = await wishlist.deleteOne(query);
       res.send(result);
     });

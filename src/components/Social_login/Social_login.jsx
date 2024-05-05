@@ -24,7 +24,8 @@ const Social_login = () => {
           phone:'+8801xxxxxxxxx',
           no_orders:0,
           total_spend: 0,
-          password:''
+          password:'',
+          address:''
         };
         axiosPublic.post("/users", userInfo).then((res) => {
           console.log(res.data);

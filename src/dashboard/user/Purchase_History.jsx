@@ -16,8 +16,8 @@ const endDateISOString = endDate.toISOString();
 
   return (
     <div className="text-center">
-      <p className="">....</p>
-      <h1 className="text-4xl font-bold">Purchases History</h1>
+      <p className="mt-5">Your order record list </p>
+      <h1 className="text-4xl font-bold">Purchases History ({allData[8]?.length})</h1>
 
       <div className="overflow-x-auto mt-5">
         <table className="table table-md text-center border">
@@ -29,7 +29,7 @@ const endDateISOString = endDate.toISOString();
               <th>Warranty </th>
               <th>Ordered Date</th>
               <th>Status</th>
-              <th className="text-center">Action</th>
+              <th className="text-center">Payment</th>
             </tr>
           </thead>
           <tbody className="">
@@ -74,12 +74,15 @@ const endDateISOString = endDate.toISOString();
 
                   {order?.warranty?.available?"Warranty available":"Warranty not available"}
                     </span>
-                 
-                  <WarrantyCountdown endDate={'2024-12-31T00:00:00.000Z'}/>
+                 {
+                  order?.warranty?.available?
+                  <WarrantyCountdown endDate={'2024-12-31T00:00:00.000Z'}/>:""
+                 }
                   </div>
                   </td>
                 <td>{order?.ordered_date}</td>
                 <td>{order?.status}</td>
+                <td>{order?.payment}</td>
               </tr>
             ))}
           </tbody>
