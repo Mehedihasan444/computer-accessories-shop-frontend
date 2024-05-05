@@ -55,11 +55,10 @@ const RepairServiceDetail = () => {
                     </div>
                 </Swiper>
             </div>
-
             <div>
                 <div>
-                    <h1 className='text-4xl font-bold my-5'>Description:</h1>
-                    <p>
+                    <h1 className='text-3xl md:text-4xl font-bold my-5'>Description:</h1>
+                    <p className='px-10 text-justify'>
                         <span className='font-bold mb-5'>Screen Repair/Replacement:</span>
                         Address issues like cracks, display problems, or damage by replacing the screen.
                         <span className='font-bold mb-5'> Keyboard and Trackpad Repair:</span>
@@ -89,15 +88,16 @@ const RepairServiceDetail = () => {
                     <h2 className='text-3xl'>Book a Shedule</h2>
                     <img className='w-16 animate-spin' src={star} alt="" />
                 </div>
-                <div className='flex gap-5 mt-5'>
-                    <div className='flex justify-center items-center'>
+
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-10 mt-5'>
+                    <div className='flex justify-center items-center mx-5 md:mx-0'>
                         <img src={repair} alt="" />
                     </div>
-                    <div className='flex flex-col justify-center items-center'>
+                    <div className='flex flex-col justify-center items-center mx16'>
                         <section className="bg-white ">
-                            <div className=" px-4 mx-auto">
+                            <div className=" md:px-4 mx-auto">
                                 <namem action="#">
-                                    <form onSubmit={handelSubmit}>
+                                    <form className='px-10 md:px-0' onSubmit={handelSubmit}>
                                         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                                             <div className="w-full">
                                                 <label name="name" className="block mb-2 text-sm font-medium text-black">Name</label>

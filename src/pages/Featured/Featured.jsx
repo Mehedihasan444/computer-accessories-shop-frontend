@@ -9,7 +9,7 @@ const Featured = () => {
   return (
     <div className="">
       <hr />
-      <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
+      <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10 sm:px-20">
         {Featured?.slice(0,7)?.map((product, idx) => (
             <Product_Card product={product} key={idx}/>
         ))}
