@@ -13,9 +13,9 @@ const Purchase_History = () => {
   //   const endDateISOString = endDate.toISOString();
   //   return endDateISOString;
   // };
-
+console.log(allData[8])
   return (
-    <div className="text-center">
+    <div className="text-center h-screen overflow-y-auto">
       <p className="mt-5">Your order record list </p>
       <h1 className="text-4xl font-bold">
         Purchases History ({allData[8]?.length})
@@ -83,39 +83,44 @@ const Purchase_History = () => {
                 <td>
                   {/* onChange={()=>getEndDate( 31,  11,2024)} */}
                   <div className="">
-                    <span
+                    {
+                      order?.products?.map((product,i)=><div key={i}>
+                       <span
                       className={`${
-                        order?.warranty?.available
+                        product?.warranty?.available
                           ? "text-green-500"
                           : "text-red-500"
                       }`}
                     >
-                      {order?.warranty?.available
+                      {product?.warranty?.available
                         ? "Warranty available"
                         : "Warranty not available"}
                     </span>
-                    {order?.warranty?.available ? (
+                    {product?.warranty?.available ? (
                       <>
                         <h4 className="">
                           {" "}
                           <span className="font-semibold"> Warranty :</span>
-                          {order?.warranty?.years} Years
+                          {product?.warranty?.years} Years
                         </h4>
                         <h4 className="">
                           {" "}
                           <span className="font-semibold">Warranty Id :</span>
-                           {order?.warranty?.warranty_id}{" "}
+                           {product?.warranty?.warranty_id}{" "}
                         </h4>
                       </>
                     ) : (
                       ""
                     )}
 
-                    {order?.warranty?.available ? (
-                      <WarrantyCountdown endDate={order?.warranty?.duration} />
+                    {product?.warranty?.available ? (
+                      <WarrantyCountdown endDate={product?.warranty?.duration} />
                     ) : (
                       ""
                     )}
+                      </div>)
+                    }
+                   
                   </div>
                 </td>
                 <td>{order?.ordered_date}</td>

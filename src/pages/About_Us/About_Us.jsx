@@ -40,8 +40,8 @@ const About_Us = () => {
       </div>
       {/* ============ */}
 
-      <div className="flex  justify-center items-center gap-10 my-10">
-        <div className="space-y-3">
+      <div className="sm:flex text-center  justify-center items-center gap-10 my-10">
+        <div className="space-y-3 border p-4 mb-5">
           <h1 className="text-3xl font-semibold"> Who We Are</h1>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
@@ -50,7 +50,7 @@ const About_Us = () => {
             finibus nunc ullamcorper et.
           </p>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 border p-4 mb-5">
           <h1 className="text-3xl font-semibold">Our History</h1>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
@@ -59,7 +59,7 @@ const About_Us = () => {
             finibus nunc ullamcorper et.
           </p>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 border p-4 mb-5">
           <h1 className="text-3xl font-semibold">Our Mission</h1>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
@@ -74,7 +74,7 @@ const About_Us = () => {
       <div className="my-20">
         <h1 className="text-4xl font-bold mb-2">Our Team</h1>
         <hr />
-        <div className="flex justify-center items-center gap-5 my-10">
+        <div className="grid grid-cols-1  justify-center items-center gap-5 my-10">
           <Team_Member_Card />
           <Team_Member_Card />
           <Team_Member_Card />

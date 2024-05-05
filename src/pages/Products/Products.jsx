@@ -18,7 +18,7 @@ const Products = () => {
   const [sortBy, setSortBy] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
-  const [products, setProducts] = useState({});
+  const [products, setProducts] = useState([]);
   // const location=useLocation()
 
   const { data, isPending, refetch } = useQuery({
