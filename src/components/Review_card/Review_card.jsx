@@ -1,9 +1,10 @@
 import { FaTrash } from "react-icons/fa";
 import RatingStar from "../../Utilities/RatingStar/RatingStar";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { toast } from "react-toastify";
+
 import { useContext } from "react";
 import { DataContext } from "../../DataProvider/DataProvider";
+import Swal from "sweetalert2";
 
 const Review_card = ({ review }) => {
   const axiosSecure = useAxiosSecure();
@@ -11,14 +12,35 @@ const Review_card = ({ review }) => {
   const {DataFetch}=useContext(DataContext)
 
 //   delete function
-  const handleDelete = async (id) => {
-    const res = await axiosSecure.delete(`/admin/reviews/${id}`);
-    if (res.data.deletedCount > 0) {
-      toast.success("Review deleted successfully");
-      DataFetch()
-    } else {
-      toast.error("Something went wrong");
-    }
+  const handleDelete =  (id) => {
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+  axiosSecure.delete(`/admin/reviews/${id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.deletedCount > 0) {
+        DataFetch();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong.",
+          icon: "error",
+        });
+      }
+    });}})
   };
 
 

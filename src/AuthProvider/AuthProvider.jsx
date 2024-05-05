@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext,  useState } from "react";
 import auth from "../Firebase/firebase.config";
 import {
   GoogleAuthProvider,
@@ -19,7 +19,6 @@ const provider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   // create user with email and password
 
   const create_user_with_email = (email, password) => {

@@ -4,8 +4,8 @@ import { LuPackage } from "react-icons/lu";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { toast } from "react-toastify";
 import { DataContext } from "../../DataProvider/DataProvider";
+import Swal from "sweetalert2";
 
 const Admin_Product_Card = ({ product }) => {
   const {DataFetch}=useContext(DataContext)
@@ -37,14 +37,33 @@ const Admin_Product_Card = ({ product }) => {
   //   delete product
   const handleDelete = async(id) => {
 
-
-    const res =await axiosSecure.delete(`/admin/products/${id}`);
-    if (res.data.deletedCount > 0) {
-      toast.success("Product deleted successfully");
-      DataFetch()
-    } else {
-      toast.error("Something went wrong");
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+  axiosSecure.delete(`/admin/products/${id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.deletedCount > 0) {
+        DataFetch();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong.",
+          icon: "error",
+        });
+      }
+    });}})
   };
 
   return (
