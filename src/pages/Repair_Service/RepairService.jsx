@@ -1,4 +1,5 @@
 import Count_Up from "../../Utilities/Count_Up/Count_Up";
+// importing icons from react icon
 import { FaLaptopCode } from "react-icons/fa";
 import { TbDeviceDesktopCog } from "react-icons/tb";
 import { FiPrinter } from "react-icons/fi";
@@ -16,7 +17,7 @@ const RepairService = () => {
         <section>
             <div>
                 <div
-                    className="bg-fixed rounded-md lg:mt-10"
+                    className="bg-fixed rounded-md mx-1 md:mx-0 lg:mt-10"
                     style={{
                         backgroundImage: `url("https://i.ibb.co/MMGKfR3/upperbanner.jpg")`,
                         backgroundRepeat: "no-repeat",
@@ -27,7 +28,7 @@ const RepairService = () => {
                     <div className=" bg-[#000000d0]  rounded-md">
                         <div className="text-center max-w-4xl mx-auto space-y-3 text-white p-10">
                             <p className="">HOME {'>'} SERVICES</p>
-                            <h1 className="text-5xl font-bold">
+                            <h1 className="text-3xl md:text-5xl font-bold">
                                 We Help Everyone By our <br /> Amazing Service
                             </h1>
                             <div className="flex justify-center gap-20 items-center pt-5">
@@ -46,7 +47,7 @@ const RepairService = () => {
                 <h1 className="text-center font-bold text-4xl">OUR SERVICES</h1>
                 <div className="flex justify-center items-center my-2 "><hr className="w-[50px] border-2 border-[#00BFA5]" /></div>
                 <p className="text-center mt-2">Overcome faithful endless salvation enlightenment salvation overcome pious merciful <br /> ascetic madness holiest joy passion zarathustra.</p>
-                <div className="grid grid-cols-3 gap-5 mt-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
                     <Link to={`/repair-services-details/${'Laptop Repair'}`}>
                         <div className="space-y-3 hover:shadow-lg rounded-lg hover:cursor-pointer hover:scale-105 hover:transition hover:duration-500 hover:bg-slate-50">
                             <div className="hover:text-warning flex flex-col justify-center items-center pt-5">
@@ -103,7 +104,7 @@ const RepairService = () => {
                     </Link>
                 </div>
             </div>
-            <div className="mt-20 grid grid-cols-4 bg-[#152F45] text-white ">
+            <div className="mt-20 grid grid-cols-1 md:grid-cols-4 bg-[#152F45] text-white ">
                 <div className="space-y-3 flex flex-col justify-center items-center px-5 py-10">
                     <AiOutlineFieldTime className="text-6xl" />
                     <h2 className="text-2xl font-semibold">FAST <span className="text-[#00BFA5]">SERVICE</span></h2>
@@ -130,9 +131,9 @@ const RepairService = () => {
                 </div>
             </div>
             <div className="mt-20">
-                <h1 className="text-center font-bold text-4xl">WHAT OUR CUSTOMERS SAID</h1>
+                <h1 className="text-center font-bold text-3xl md:text-4xl">WHAT OUR CUSTOMERS SAID</h1>
                 <div className="flex justify-center items-center my-2 "><hr className="w-[50px] border-2 border-[#00BFA5]" /></div>
-                <p className="text-center">Overcome faithful endless salvation enlightenment salvation overcome pious merciful <br />
+                <p className="text-center px-5">Overcome faithful endless salvation enlightenment salvation overcome pious merciful <br />
                     ascetic madness holiest joy passion zarathustra suicide overcome snare.</p>
                 <div className="my-20 bg-slate-400 p-5">
                     <Quotes_Slider />

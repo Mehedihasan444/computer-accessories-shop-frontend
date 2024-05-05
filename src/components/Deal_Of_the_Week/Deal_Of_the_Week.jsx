@@ -26,7 +26,7 @@ const Deal_Of_the_Week = () => {
         </div>
         <div className="flex-1">
           <div className="overflow-y-scroll h-[400px]  p-5">
-            <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3  gap-5">
+            <div className=" grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-5 sm:mt-10">
               {allData[1]?.slice(0,6)?.map((product) => (
                 <Product_Card key={product.id} product={product} />
               ))}

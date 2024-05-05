@@ -66,7 +66,7 @@ console.log(location)
   return (
     <div className="flex">
       {/* Sidebar with filter options */}
-      <div className="w-1/4 p-4 bg-gray-100">
+      <div className="w-1/4 p-4 bg-gray-100 hidden md:flex-col md:flex">
         <ProductsPageSideBer
           category={category}
           setCategory={setCategory}
@@ -75,8 +75,8 @@ console.log(location)
         />
       </div>
       {/* Product list section */}
-      <div className="w-3/4 p-4">
-        <div className="flex justify-between items-center gap-10">
+      <div className="md:w-3/4 p-4 mx-5 md:mx-0">
+        <div className="flex justify-between items-center md:gap-10">
           <div className="flex justify-between items-center gap-5 mb-4 flex-1">
             {/* Render product list here */}
             <h2 className="text-lg font-semibold">
@@ -150,7 +150,7 @@ console.log(location)
         
           {isPending ? (
           <div className="flex justify-center items-center w-[85vw]">
-            <h1 className="text-4xl font-semibold "> Loading...</h1>
+            <h1 className="text-4xl font-semibold text-center"> Loading...</h1>
           </div>
         ) :viewType === "grid" ? (
             <>
