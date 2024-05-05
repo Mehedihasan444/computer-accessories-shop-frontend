@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 // ==========middleware==========
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173","https://cute-caramel-bdc846.netlify.app"],
     credentials: true,
   })
 );
@@ -111,6 +111,7 @@ async function run() {
         tag: item.tag,
         images: item.images,
         email: item.email,
+        warranty: item.warranty
       };
 
       const query = { id: item._id, email: item.email };

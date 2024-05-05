@@ -87,7 +87,7 @@ const ProductDetails = () => {
 
     if (user) {
         const res = await axiosPublic.post(`/cart`, {
-      ProductDetails,
+      ...ProductDetails,
       email: user?.email,
     });
     if (res.data.insertedId) {
