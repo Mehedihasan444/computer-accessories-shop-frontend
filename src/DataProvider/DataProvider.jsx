@@ -20,11 +20,11 @@ const DataProvider = ({ children }) => {
       const res2 = await axiosPublic.get("/products");
       const res3 = await axiosSecure.get(`/users`);
       const res4 = await axiosSecure.get(`/offers`);
+      const res7 = await axiosSecure.get(`/appointments`);
+      const res9 = await axiosSecure.get(`/orders`);
       const res5 = await axiosSecure.get(`/wishlist/${user?.email}`);
       const res6 = await axiosSecure.get(`/cart/${user?.email}`);
-      const res7 = await axiosSecure.get(`/appointments`);
       const res8 = await axiosSecure.get(`/appointments/${user?.email}`);
-      const res9 = await axiosSecure.get(`/orders`);
       const res10 = await axiosSecure.get(`/orders/${user?.email}`);
       const res11 = await axiosPublic.get(`/users/${user?.email}`);
     const res12 = await axiosSecure.get(`/reviews/${user?.email}`);

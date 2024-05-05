@@ -1,11 +1,12 @@
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useContext } from "react";
 import { DataContext } from "../../DataProvider/DataProvider";
+import Swal from "sweetalert2";
 
 const All_Users = () => {
   const axiosSecure = useAxiosSecure();
   const { allData, DataFetch } = useContext(DataContext);
-
+// A function that convert normal user to admin
   const handleMakeAdmin = async (email) => {
     await axiosSecure.patch(`/users/admin/${email}`).then((res) => {
       console.log(res.data);
@@ -13,11 +14,37 @@ const All_Users = () => {
     });
   };
 
-  const handleDelete = async (email) => {
-    await axiosSecure.delete(`/users/admin/${email}`).then((res) => {
+
+  // A function that delete user 
+  const handleDelete =  (email) => {
+  
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+  axiosSecure.delete(`/users/admin/${email}`).then((res) => {
       console.log(res.data);
-      DataFetch();
-    });
+      if (res.data.deletedCount > 0) {
+        DataFetch();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong.",
+          icon: "error",
+        });
+      }
+    });}})
   };
 
   return (
