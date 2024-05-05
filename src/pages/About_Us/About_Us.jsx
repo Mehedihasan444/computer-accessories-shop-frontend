@@ -50,7 +50,7 @@ const About_Us = () => {
             finibus nunc ullamcorper et.
           </p>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 border p-4 mb-5">
           <h1 className="text-3xl font-semibold">Our History</h1>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
@@ -59,7 +59,7 @@ const About_Us = () => {
             finibus nunc ullamcorper et.
           </p>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 border p-4 mb-5">
           <h1 className="text-3xl font-semibold">Our Mission</h1>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque

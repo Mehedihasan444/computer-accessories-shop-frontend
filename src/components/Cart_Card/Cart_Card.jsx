@@ -56,7 +56,7 @@ const Cart_card = ({ product,DataFetch,  setTotalAmount, totalAmount }) => {
 
   return (
     <div
-      className="flex items-center gap-5 w-[700px]  "
+      className="flex items-center justify-center gap-5  w-full"
       onChange={() => setTotalAmount(totalAmount + parseInt(price))}
     >
       <div

@@ -111,6 +111,7 @@ async function run() {
         tag: item.tag,
         images: item.images,
         email: item.email,
+        warranty: item.warranty
       };
 
       const query = { id: item._id, email: item.email };

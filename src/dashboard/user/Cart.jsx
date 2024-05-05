@@ -11,7 +11,7 @@ const Cart = () => {
   const { user } = useAuth();
   const {allData,DataFetch}=useContext(DataContext)
   const [totalAmount, setTotalAmount] = useState(0);
-
+// Genarate todays date
 const date=new Date()
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const date=new Date()
     setTotalAmount(bill);
     DataFetch()
   }, [allData,DataFetch]);
-
+// payment function
   const handlePayment = async () => {
     const info = {
       total_bill: totalAmount,
@@ -43,12 +43,15 @@ const date=new Date()
   };
 
   return (
-    <div className="relative min-h-screen">
-      <h1 className="text-xl font-semibold max-w-5xl mx-auto text-center mt-5">
+    <div className="relative h-screen w-full flex justify-between gap-5">
+      <div className="">
+        <h1 className="text-xl font-semibold max-w-5xl mx-auto text-center mt-5">
         Available items: {allData[5]?.length}
       </h1>
       <div className="divider max-w-5xl mx-auto"></div>
-      <div className="grid grid-cols-1 justify-center items-center">
+      <div className="h-[85vh] overflow-y-auto">
+
+      <div className="grid grid-cols-1 justify-center items-center px-5">
         <div className="space-y-5 my-10 max-w-5xl mx-auto mb-40">
           { allData[5]?.length == 0 ? (
             <div className="">
@@ -70,8 +73,13 @@ const date=new Date()
           )}
         </div>
       </div>
+      </div>
 
-      <div className="z-50 right-0 bottom-3 left-0 absolute max-w-5xl bg-slate-200 mx-auto flex justify-between items-center border p-5" style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 1px 3px 0px" }}>
+      </div>
+      <div className="flex items-center justify-center w-1/3">
+
+         <div className=" border p-5" style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 1px 3px 0px" }}>
+
         <div className="">
           <h1 className="text-xl font-semibold">
             Total amount: ${totalAmount}
@@ -81,6 +89,8 @@ const date=new Date()
           checkout
         </button>
       </div>
+      </div>
+     
     </div>
   );
 };
