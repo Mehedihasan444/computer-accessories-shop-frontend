@@ -14,7 +14,7 @@ const WarrantyCountdown = ({ endDate }) => {
             return <span className='text-yellow-300'>Expired</span>;
           } else {
             return (
-              <span>
+              <span >
                 {days} days {hours} hours {minutes} minutes {seconds} seconds
               </span>
             );

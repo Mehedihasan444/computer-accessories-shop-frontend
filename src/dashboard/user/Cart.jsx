@@ -56,7 +56,7 @@ const date=new Date()
           { allData[5]?.length == 0 ? (
             <div className="">
               <h1 className="text-xl font-semibold">
-                You have not added any food yet!
+                You have not added any product yet!
               </h1>
             </div>
           ) : (

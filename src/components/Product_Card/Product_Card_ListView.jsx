@@ -66,10 +66,10 @@ const Product_Card_ListView = ({ product }) => {
     });
     if (res.data.insertedId) {
       console.log(res.data);
-      toast.success(`${product?.name} has been added to the wishlist.`);
+      toast.success(`${product?.name} has been added to the cart.`);
       DataFetch();
     } else if (res.data.message) {
-      toast.error(`${product?.name} ${res.data.message} in the wishlist`);
+      toast.error(`${product?.name} ${res.data.message} in the cart`);
     }
     }else{
       navigate('/system-access/signIn')
