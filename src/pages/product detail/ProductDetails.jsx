@@ -50,6 +50,8 @@ const ProductDetails = () => {
     }
   };
 
+
+
 // creating dynamic images array
   const images = ProductDetails?.images?.map(item => ({
     original: item,
@@ -61,7 +63,7 @@ const ProductDetails = () => {
   const handlePayment = async () => {
     if (user) {
        const info = {
-      total_bill: ProductDetails.price*count,
+      total_bill: (ProductDetails.price*count),
       discount:0,
       phone:'',
       delivery_location:'',
@@ -72,7 +74,7 @@ const ProductDetails = () => {
       status: "pending",
       payment: "pending",
       transactionId: "",
-      products: allData[5],
+      products: [ProductDetails],
     };
     const res = await axiosSecure.post("/payment", info);
     window.location.replace(res.data.url);
