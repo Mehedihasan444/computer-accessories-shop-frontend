@@ -28,8 +28,6 @@ const AddProduct = () => {
     return targetDate;
   }
 
-console.log(new Date(getDateAfterYears(2)))
-
 
   const onSubmit = async (data) => {
     const targetDate = getDateAfterYears(data.warranty_Duration);
