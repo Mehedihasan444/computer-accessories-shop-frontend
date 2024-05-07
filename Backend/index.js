@@ -154,93 +154,12 @@ async function run() {
       const result = await orders.insertOne(test);
       res.send(result);
     });
-    // app.post("/api/v1/payments", async (req, res) => {
-    //   const test = req.body;
-    //   const result = await payments.insertOne(test);
-    //   res.send(result);
-    // });
+
     // -----
-    const tran_id = new ObjectId().toString();
-
-    app.post("/api/v1/payment/:id", async (req, res) => {
-      const orderId = req.params.id;
-      const query = {
-        _id: new ObjectId(orderId),
-      };
-      const order = await orders.findOne(query);
-
-      const data = {
-        total_amount: order.price,
-        currency: "BDT",
-        tran_id: tran_id,
-        success_url: `http://localhost:5000/api/v1/user/payment/success/${tran_id}?orderId=${order._id}`,
-        fail_url: `http://localhost:5000/api/v1/user/payment/fail/${tran_id}?orderId=${order._id}`,
-        cancel_url: "http://localhost:3030/cancel",
-        ipn_url: "http://localhost:3030/ipn",
-        shipping_method: "Courier",
-        product_name: order?.products[0]?.name,
-        product_category: order?.products[0]?.category,
-        product_profile: "general",
-        cus_name: order?.userName,
-        cus_email: order?.userEmail,
-        cus_add1: "Dhaka",
-        cus_add2: "Dhaka",
-        cus_city: "Dhaka",
-        cus_state: "Dhaka",
-        cus_postcode: "1000",
-        cus_country: "Bangladesh",
-        cus_phone: "01711111111",
-        cus_fax: "01711111111",
-        ship_name: 'Customer Name',
-        ship_add1: "Dhaka",
-        ship_add2: "Dhaka",
-        ship_city: "Dhaka",
-        ship_state: "Dhaka",
-        ship_postcode: 1000,
-        ship_country: "Bangladesh",
-      };
-      const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
-      sslcz.init(data).then((apiResponse) => {
-        // Redirect the user to payment gateway
-        let GatewayPageURL = apiResponse.GatewayPageURL;
-        res.send({ url: GatewayPageURL });
-        console.log("Redirecting to: ", GatewayPageURL);
-      });
-
-      app.post("/api/v1/user/payment/success/:tranId", async (req, res) => {
-        const result = await orders.updateOne(
-          { _id: new ObjectId(req.query.orderId) },
-          {
-            $set: {
-              payment: "complete",
-              transactionId: req.params.tranId,
-            },
-          }
-        );
-        if (result.modifiedCount > 0) {
-          res.redirect(
-            `http://localhost:5173/api/v1/payment-complete/${req.params.tranId}`
-          );
-        }
-      });
-      app.post("/api/v1/user/payment/fail/:tranId", async (req, res) => {
-        const result = await orders.updateOne(
-          { _id: new ObjectId(req.query.orderId) },
-          {
-            $set: {
-              payment: "failed",
-              // transactionId: req.params.tranId
-            },
-          }
-        );
-        if (result.modifiedCount > 0) {
-          res.redirect(
-            `http://localhost:5173/api/v1/payment-failed/${req.params.tranId}`
-          );
-        }
-      });
-    });
+    
+    
     app.post("/api/v1/payment", async (req, res) => {
+      const tran_id = new ObjectId().toString();
       const id = new ObjectId().toString();
  
       const cartItem = req.body;
@@ -549,7 +468,8 @@ async function run() {
     });
     app.get("/api/v1/orders/:email", async (req, res) => {
       const email = req.params.email;
-      const query = { email: email };
+      const query = { 
+        userEmail: email };
       const result = await orders.find(query).toArray();
       res.send(result);
     });

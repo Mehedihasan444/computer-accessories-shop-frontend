@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { DataContext } from "../../DataProvider/DataProvider";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -8,17 +7,11 @@ import WarrantyCountdown from "../../Utilities/WarrantyCountdown/WarrantyCountdo
 const Purchase_History = () => {
   const { allData } = useContext(DataContext);
 
-  // const getEndDate = (days, months, years) => {
-  //   const endDate = new Date(years, months, days); // December 31, 2024
-  //   const endDateISOString = endDate.toISOString();
-  //   return endDateISOString;
-  // };
-console.log(allData[8])
   return (
     <div className="text-center h-screen overflow-y-auto">
       <p className="mt-5">Your order record list </p>
       <h1 className="text-4xl font-bold">
-        Purchases History ({allData[8]?.length})
+        Purchases History ({allData[9]?.length})
       </h1>
 
       <div className="overflow-x-auto mt-5">
@@ -29,13 +22,13 @@ console.log(allData[8])
               <th>Purchase Info</th>
               <th>Products</th>
               <th>Warranty </th>
-              <th>Ordered Date</th>
+          
               <th>Status</th>
               <th className="text-center">Payment</th>
             </tr>
           </thead>
           <tbody className="">
-            {allData[8]?.map((order, i) => (
+            {allData[9]?.map((order, i) => (
               <tr className="hover" key={i}>
                 <th>{i + 1}</th>
                 <td>
@@ -50,6 +43,9 @@ console.log(allData[8])
                     <p className="font-semibold">Number :{order?.phone}</p>
                     <p className="font-semibold">
                       Delivery Location :{order?.delivery_location}
+                    </p>
+                    <p className="font-semibold">
+                      Ordered date :{order?.ordered_date}
                     </p>
                   </div>
                 </td>
@@ -81,22 +77,22 @@ console.log(allData[8])
                   ))}
                 </td>
                 <td>
-                  {/* onChange={()=>getEndDate( 31,  11,2024)} */}
+       
                   <div className="">
                     {
                       order?.products?.map((product,i)=><div key={i}>
                        <span
                       className={`${
-                        product?.warranty?.available
+                        product?.warranty?.available=='true'
                           ? "text-green-500"
                           : "text-red-500"
                       }`}
                     >
-                      {product?.warranty?.available
+                      {product?.warranty?.available=='true'
                         ? "Warranty available"
                         : "Warranty not available"}
                     </span>
-                    {product?.warranty?.available ? (
+                    {product?.warranty?.available =='true'? (
                       <>
                         <h4 className="">
                           {" "}
@@ -113,7 +109,7 @@ console.log(allData[8])
                       ""
                     )}
 
-                    {product?.warranty?.available ? (
+                    {product?.warranty?.available=='true' ? (
                       <WarrantyCountdown endDate={product?.warranty?.duration} />
                     ) : (
                       ""
@@ -123,7 +119,7 @@ console.log(allData[8])
                    
                   </div>
                 </td>
-                <td>{order?.ordered_date}</td>
+                
                 <td>{order?.status}</td>
                 <td>{order?.payment}</td>
               </tr>
