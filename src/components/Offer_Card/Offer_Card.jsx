@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { LuPackage } from "react-icons/lu";
 import {  FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { DataContext } from "../../DataProvider/DataProvider";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 const Offer_Card = ({ product }) => {
   const { allData,DataFetch } = useContext(DataContext);
   const axiosSecure = useAxiosSecure();
@@ -32,13 +32,15 @@ const Offer_Card = ({ product }) => {
 // console.log(allData[3]?.products)
   const handle_add_product = async(product) => {
     await axiosSecure
-      .patch("/offers", {
+      .patch("/offers-products", {
         products: [...allData[3].products, product],
       })
       .then((res) => {
         if (res.data.modifiedCount>0) {
-          
+          toast.success('Product added in the offer list')
           DataFetch()
+        }else{
+          toast.error('Something went wrong')
         }
         console.log(res.data);
       });
