@@ -48,7 +48,7 @@ const All_Users = () => {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center ">
       <p className="">How Many??</p>
       <h1 className="text-4xl font-bold ">Manage all users</h1>
       <div className="flex justify-around ">
@@ -58,7 +58,7 @@ const All_Users = () => {
       </div>
       {/* table */}
 
-      <div className="overflow-x-auto mt-3">
+      <div className="overflow-x-auto mt-3 h-[80vh] overflow-y-auto">
         <table className="table table-md text-center border">
           {/* head */}
           <thead className="text-base ">

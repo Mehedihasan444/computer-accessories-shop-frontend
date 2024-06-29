@@ -85,7 +85,9 @@ const date=new Date()
             Total amount: ${totalAmount}
           </h1>
         </div>
-        <button className="btn btn-accent text-white" onClick={handlePayment}>
+        <button className="btn btn-accent text-white"
+        disabled={allData[5].length ===0}
+        onClick={handlePayment}>
           checkout
         </button>
       </div>

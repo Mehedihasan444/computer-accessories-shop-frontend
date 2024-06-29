@@ -1,8 +1,19 @@
+import axios from "axios";
 import Count_Up from "../../Utilities/Count_Up/Count_Up";
 import Quotes_Slider from "../../components/Quotes_Slider/Quotes_Slider";
 import Team_Member_Card from "../../components/Team_Member_Card/Team_Member_Card";
+import { useEffect, useState } from "react";
 
 const About_Us = () => {
+  const [data, setData] = useState([]);
+
+  
+  useEffect(() => {
+    axios.get("/team_members.json").then((data) => {
+      setData(data.data);
+    });
+  }, []);
+
   return (
     <div className="">
       <div
@@ -72,13 +83,16 @@ const About_Us = () => {
       {/* ================= */}
 
       <div className="my-20">
-        <h1 className="text-4xl font-bold mb-2 text-center md:text-left">Our Team</h1>
-        <div className="flex justify-center md:justify-start items-center my-2 "><hr className="w-[50px] border-2 border-[#00BFA5]" /></div>
+        <h1 className="text-4xl font-bold mb-2 text-center md:text-left">
+          Our Team
+        </h1>
+        <div className="flex justify-center md:justify-start items-center my-2 ">
+          <hr className="w-[50px] border-2 border-[#00BFA5]" />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-5 my-10">
-          <Team_Member_Card />
-          <Team_Member_Card />
-          <Team_Member_Card />
-          <Team_Member_Card />
+          {data?.map((item, idx) => {
+            return <Team_Member_Card key={idx} member={item} />;
+          })}
         </div>
       </div>
 
@@ -87,11 +101,22 @@ const About_Us = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-10">
         <div className="flex-1 space-y-4 text-center md:text-left">
           <p className="uppercase font-thin">our performance</p>
-          <h1 className="font-extrabold text-4xl md:text-6xl ">We Believe In Quality Products</h1>
-          <p className="text-black px-5 md:px-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium mollis ex, vel interdum augue faucibus sit amet. Proin tempor purus ac suscipit sagittis. Nunc finibus euismod enim, eu finibus nunc ullamcorper et.</p>
+          <h1 className="font-extrabold text-4xl md:text-6xl ">
+            We Believe In Quality Products
+          </h1>
+          <p className="text-black px-5 md:px-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+            pretium mollis ex, vel interdum augue faucibus sit amet. Proin
+            tempor purus ac suscipit sagittis. Nunc finibus euismod enim, eu
+            finibus nunc ullamcorper et.
+          </p>
         </div>
         <div className="flex-1 mx-5">
-          <img src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2024/01/about-2.jpg" alt="" className="rounded-md" />
+          <img
+            src="https://ecomall-be87.kxcdn.com/ecomall/wp-content/uploads/2024/01/about-2.jpg"
+            alt=""
+            className="rounded-md"
+          />
         </div>
       </div>
 

@@ -12,7 +12,7 @@ const Appointments = () => {
       <h1 className="text-4xl font-bold">Appointments</h1>
      <h3 className="">Appointments found ({ allData[6]?.length})</h3>
 
-      <div className="overflow-x-auto mt-5">
+      <div className="overflow-x-auto mt-5 h-[80vh] overflow-y-auto">
         <table className="table table-md text-center border">
           <thead className="border">
             <tr className="text-base">
