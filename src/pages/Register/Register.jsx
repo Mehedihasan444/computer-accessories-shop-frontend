@@ -15,7 +15,7 @@ const Register = () => {
   const onSubmit = (data) => {
     console.log(data);
     // checking if the password contain atleast one leter, one number and has 8 charecter (Regex)
-    if (/"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"/.test(data?.password)){
+    // if (/"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"/.test(data?.password)){
       create_user_with_email(data?.email, data?.password)
         .then((res) => {
           console.log("after mail verification", res);
@@ -50,10 +50,10 @@ const Register = () => {
           toast.error(`Error : ${err.code}`);
         });
 
-    }else{
-      // showing toast error if the password is not strong enough
-      toast.error("password: minimum eight characters, at least one letter and one number")
-    }
+    // }else{
+    //   // showing toast error if the password is not strong enough
+    //   toast.error("password: minimum eight characters, at least one letter and one number")
+    // }
   };
 
   return (

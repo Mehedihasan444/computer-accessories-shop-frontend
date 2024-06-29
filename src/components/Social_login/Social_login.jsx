@@ -1,5 +1,3 @@
-import { FaFacebook, FaGithub } from "react-icons/fa";
-import { AiFillTwitterCircle } from "react-icons/ai";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -42,12 +40,16 @@ const Social_login = () => {
   };
   return (
     <>
-      <div className=" flex text-4xl  justify-center items-center gap-5 ">
+      <div className=" flex  justify-center items-center gap-5 ">
+        <button className="btn btn-outline btn-lg w-full" onClick={handle_google_login}>
+
         <AiFillGoogleCircle
-          className="cursor-pointer"
-          onClick={handle_google_login}
+          className="cursor-pointer text-4xl text-red-500"
+          
         />
-        <FaFacebook className="cursor-pointer" />
+        Google Login
+        </button>
+  
       </div>
       <div className="divider ">signIn with</div>
     </>

@@ -26,17 +26,17 @@ const ProductsPageSideBer = ({category,setCategory,brand,setBrand}) => {
           </select>
         </div>
         {/* Price range filter */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <h3 className="text-sm font-semibold mb-2">Price Range</h3>
 
-          <input type="range" min={0} max="100" value="40" className="range range-xs" /> 
+          <input type="range" min={0} max={100} value={30} className="range range-xs" /> 
           <div className="">
             <span className="label-text font-semibold">
               Price range
             </span>
           </div>
      
-        </div>
+        </div> */}
       
        
         <div className="mb-4">
