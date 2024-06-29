@@ -62,7 +62,7 @@ const axiosSecure =useAxiosSecure()
           onMouseLeave={handleMouseLeave}
         >
           <img
-            className="w-44 h-auto"
+            className="w-44 h-44 object-contain"
             src={product.images[currentImageIndex]}
             alt=""
           />
