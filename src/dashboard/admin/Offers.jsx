@@ -166,7 +166,7 @@ const Offers = () => {
         </div>
       </div>
       <div className="p-5">
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div></div>
           <div className="form-control">
             <label className="label cursor-pointer">
@@ -174,7 +174,7 @@ const Offers = () => {
               <input  {...register("display", { required: true })} type="checkbox" className="toggle" defaultChecked />
             </label>
           </div>
-        </div>
+        </div> */}
         <h3 className="text-xl font-semibold">Select Product</h3>
         <div className="overflow-y-auto h-[80vh] shadow-inner p-3 rounded-md mt-2">
           <div className="grid grid-cols-1 my-10 sm:grid-cols-2 lg:grid-cols-3 gap-5">
