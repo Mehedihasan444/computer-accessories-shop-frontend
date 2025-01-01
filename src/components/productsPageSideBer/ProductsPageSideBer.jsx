@@ -1,6 +1,6 @@
 const ProductsPageSideBer = ({ category, setCategory, brand, setBrand }) => {
   return (
-    <>
+    <div className="sticky top-5">
       <h2 className="text-lg font-semibold mb-4">Filter Options</h2>
       {/* Category filter */}
       <div className="mb-4">
@@ -57,7 +57,7 @@ const ProductsPageSideBer = ({ category, setCategory, brand, setBrand }) => {
           {/* Add more options as needed */}
         </select>
       </div>
-    </>
+    </div>
   );
 };
 

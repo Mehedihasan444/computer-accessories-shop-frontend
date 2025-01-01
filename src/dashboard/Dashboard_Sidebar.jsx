@@ -1,6 +1,23 @@
 import { NavLink } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
-
+import { 
+  MdDashboard, 
+  MdLocalOffer, 
+  MdPeople, 
+  MdAddBox,
+  MdReviews,
+  MdDateRange
+} from "react-icons/md";
+import {
+  FaUser,
+  FaShoppingCart,
+  FaClipboardList,
+  FaHeart,
+  FaComments,
+  FaCalendarAlt,
+  FaHistory,
+  FaHome
+} from "react-icons/fa";
 const Dashboard_Sidebar = () => {
   const [isAdmin,isAdminLoading]=useAdmin()
   return (
@@ -22,55 +39,72 @@ const Dashboard_Sidebar = () => {
               <>
                 {/* Admin Routes */}
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/admin_home">Admin Home</NavLink>
+                  <NavLink to="/dashboard/admin_home">
+                    <MdDashboard /> Admin Home
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/admin/set_offers">Set Offers</NavLink>
+                  <NavLink to="/dashboard/admin/set_offers">
+                    <MdLocalOffer /> Set Offers
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/admin/all_users">All Users</NavLink>
+                  <NavLink to="/dashboard/admin/all_users">
+                    <MdPeople /> All Users
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
                   <NavLink to="/dashboard/admin/add_a_product">
-                    Add a Product
+                    <MdAddBox /> Add a Product
                   </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/admin/all_products">
-                    All Products
+                  <NavLink to="/dashboard/admin/reviews">
+                    <MdReviews /> Reviews
                   </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/admin/reviews">Reviews</NavLink>
-                </li>
-                <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/admin/appointments">Appointments</NavLink>
+                  <NavLink to="/dashboard/admin/appointments">
+                    <MdDateRange /> Appointments
+                  </NavLink>
                 </li>
               </>
             ) : (
               <>
-                {/* User Routes */}
-                <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/user/profile">Profile</NavLink>
+                 {/* User Routes */}
+                 <li className="text-lg font-semibold">
+                  <NavLink to="/dashboard/user/profile">
+                    <FaUser /> Profile
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/user/orders">Orders</NavLink>
+                  <NavLink to="/dashboard/user/orders">
+                    <FaClipboardList /> Orders
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/user/cart">Cart</NavLink>
+                  <NavLink to="/dashboard/user/cart">
+                    <FaShoppingCart /> Cart
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/user/wishlist">Wishlist</NavLink>
+                  <NavLink to="/dashboard/user/wishlist">
+                    <FaHeart /> Wishlist
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/user/my_reviews">My Reviews</NavLink>
+                  <NavLink to="/dashboard/user/my_reviews">
+                    <FaComments /> My Reviews
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
-                  <NavLink to="/dashboard/user/my_appointments">My Appointments</NavLink>
+                  <NavLink to="/dashboard/user/my_appointments">
+                    <FaCalendarAlt /> My Appointments
+                  </NavLink>
                 </li>
                 <li className="text-lg font-semibold">
                   <NavLink to="/dashboard/user/purchase_history">
-                    Purchase History
+                    <FaHistory /> Purchase History
                   </NavLink>
                 </li>
               </>
@@ -79,7 +113,10 @@ const Dashboard_Sidebar = () => {
             
           </div>
             <li className="text-lg font-semibold">
-              <NavLink to="/">Back To Home</NavLink>
+            
+              <NavLink to="/">
+              <FaHome/>
+              Back To Home</NavLink>
             </li>
           </ul>
           

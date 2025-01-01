@@ -73,14 +73,15 @@ const Products = () => {
     }
   };
   return (
-    <div className="flex">
+    <div className="flex mt-4">
       {/* Sidebar with filter options */}
-      <div className="w-1/4 p-4 bg-gray-100 hidden md:flex-col md:flex">
+      <div className="w-1/4 p-4 shadow  hidden md:flex-col md:flex ">
         <ProductsPageSideBer
           category={category}
           setCategory={setCategory}
           brand={brand}
           setBrand={setBrand}
+          
         />
       </div>
       {/* Product list section */}
@@ -152,7 +153,7 @@ const Products = () => {
           {
             isPending ? (
             <div className="flex justify-center items-center w-[85vw]">
-              <h1 className="text-4xl font-semibold "> Loading...</h1>
+              <h1 className="text-2xl font-semibold "> Loading...</h1>
             </div>
           ) :
            viewType === "grid" ? ( 
