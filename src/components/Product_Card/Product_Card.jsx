@@ -87,7 +87,7 @@ else{
           onMouseLeave={handleMouseLeave}
         >
           <img
-            className="w-44"
+            className="w-44 h-44 object-contain"
             src={product?.images[currentImageIndex]}
             alt=""
           />

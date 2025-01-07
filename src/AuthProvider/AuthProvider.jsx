@@ -1,16 +1,6 @@
 import { createContext,  useState } from "react";
 import auth from "../Firebase/firebase.config";
-import {
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  sendEmailVerification,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  updateProfile,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import {GoogleAuthProvider,createUserWithEmailAndPassword,onAuthStateChanged,sendEmailVerification,signInWithEmailAndPassword,signInWithPopup,signOut,updateProfile,sendPasswordResetEmail} from "firebase/auth";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 export const AuthContext = createContext(null);
@@ -84,7 +74,6 @@ const AuthProvider = ({ children }) => {
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        console.log(currentUser);
         setUser(currentUser);
         setLoading(false);
       } else {
@@ -94,7 +83,7 @@ const AuthProvider = ({ children }) => {
     });
 
     return () => {
-      unsubscribe();
+      return unsubscribe();
     };
   }, [user]);
 

@@ -50,6 +50,8 @@ const ProductDetails = () => {
     }
   };
 
+
+
 // creating dynamic images array
   const images = ProductDetails?.images?.map(item => ({
     original: item,
@@ -78,6 +80,7 @@ const ProductDetails = () => {
         const res = await axiosSecure.post("/payment", info);
         window.location.replace(res.data.url);
        }
+
     }else{
       navigate('/system-access/signIn')
     }

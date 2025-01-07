@@ -6,7 +6,7 @@ import Dashboard_Sidebar from "./Dashboard_Sidebar";
 const Dashboard = () => {
     return (
         <div className="">
-        <div className="bg-red-950 w-screen text-white flex justify-between items-center px-5 lg:hidden">
+        <div className="bg-slate-500 w-screen text-white flex justify-between items-center px-5 lg:hidden">
           <div className="">
             <h1 className="font-bold text-2xl ">XYZ</h1>
           </div>

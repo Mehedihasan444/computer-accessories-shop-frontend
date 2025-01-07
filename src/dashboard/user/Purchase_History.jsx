@@ -67,7 +67,7 @@ const Purchase_History = () => {
                         <p className="">TK {i?.price}</p>
                       </div>
                       <div className="flex-1  ">
-                        <Link to={`/product-detail/${i?._id}`}>
+                        <Link to={`/product-detail/${i?.id}`}>
                           <button className="btn text-xl">
                             <FaEye></FaEye>
                           </button>

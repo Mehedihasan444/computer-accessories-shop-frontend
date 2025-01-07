@@ -34,7 +34,7 @@ const Footer = () => {
 
         <footer className="bg-[#212529] footer footer-center p-4 text-gray-400 border-t border-t-1 border-gray-400">
   <aside>
-    <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
+    <p>Copyright © 2024 - All right reserved by XYZ Industries Ltd</p>
   </aside>
 </footer>
         </div>

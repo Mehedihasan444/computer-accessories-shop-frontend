@@ -15,10 +15,12 @@ const Update_Product = () => {
   const { id } = useParams();
   const { byId,refetch } = useContext(DataContext);
   const [product, setProduct] = useState({});
+  const [warranty, setWarranty] = useState("");
+
 
   useEffect(() => {
     byId(id).then((res) => {
-      setProduct(res[0].data);
+      setProduct(res[0]);
     });
   }, [byId, id]);
 
@@ -74,7 +76,7 @@ const Update_Product = () => {
   };
 
   return (
-    <section className="bg-white ">
+    <section className="bg-white h-screen overflow-y-auto w-full">
       <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
         <h2 className="mb-10 text-2xl font-bold text-black ">
           Update a product
@@ -239,6 +241,51 @@ const Update_Product = () => {
                 placeholder="0"
                 
               />
+            </div>
+            <div>
+              <label
+                name="category"
+                className="block mb-2 text-sm font-medium text-black"
+              >
+                Warranty
+              </label>
+              <select
+                name="warranty"
+                defaultValue={product?.warranty?.available=="true"?"Yes":"No"}
+                onChange={(e) => setWarranty(e.target.value)}
+                // {...register("warranty", { required: true })}
+                className="input input-bordered input-accent w-full bg-transparent"
+              >
+                <option selected="" disabled>
+                  Select a Warranty
+                </option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                name="category"
+                className="block mb-2 text-sm font-medium text-black"
+              >
+                Warranty Duration
+              </label>
+              <select
+                disabled={product?.warranty?.available=="false"}
+                name="warranty_Duration"
+                {...register("warranty_Duration", { required: true })}
+                className="input input-bordered input-accent w-full bg-transparent"
+              >
+                <option selected="" disabled>
+                  Select a Warranty Duration
+                </option>
+                <option value="4">4 years</option>
+                <option value="3">3 year</option>
+                <option value="2">2 years</option>
+                <option value="1">1 year</option>
+                <option value="0.5">6 months</option>
+              </select>
             </div>
             <div className="sm:col-span-2">
               <label

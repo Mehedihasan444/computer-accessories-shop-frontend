@@ -58,6 +58,7 @@ const Navbar = () => {
       });
   };
 
+
   return (
     <div>
       <hr className=" w-full" />
@@ -263,7 +264,7 @@ const Navbar = () => {
                   >
                     <div className="w-10 rounded-full">
                       <img
-                        alt="Tailwind CSS Navbar component"
+                        alt="user profile"
                         src={user?.photoURL}
                       />
                     </div>

@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { LuPackage } from "react-icons/lu";
-import {  FaMinus} from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { DataContext } from "../../DataProvider/DataProvider";
+import { toast } from "react-toastify";
 const Offer_Card_Minus = ({ product }) => {
+  const { allData, DataFetch } = useContext(DataContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalIdRef = useRef(null);
-
+const axiosSecure =useAxiosSecure()
   useEffect(() => {
     return () => {
       clearInterval(intervalIdRef.current); // Clean up interval on component unmount
@@ -25,8 +29,26 @@ const Offer_Card_Minus = ({ product }) => {
     setCurrentImageIndex(0); // Reset to the first image when mouse leaves
   };
 
+  // 
   //   delete product
-  const handleDelete = (id) => {};
+  const handleDelete = async(id) => {
+    const handle_selected_product=allData[3].products.filter((product) =>product._id !== id)
+
+
+    await axiosSecure.patch("/offers-products", {
+      products: [...handle_selected_product],
+    })
+    .then((res) => {
+      if (res.data.modifiedCount>0) {
+        toast.success('product remove from the offer list')
+        DataFetch()
+      }else{
+        toast.error('something went wrong')
+      }
+    
+    });
+
+  };
 
   return (
     <div
@@ -40,12 +62,11 @@ const Offer_Card_Minus = ({ product }) => {
           onMouseLeave={handleMouseLeave}
         >
           <img
-            className="w-44 h-auto"
+            className="w-44 h-44 object-contain"
             src={product.images[currentImageIndex]}
             alt=""
           />
         </div>
-   
       </div>
       <div className="pt-4 text-center">
         <h3 className="text-lg font-semibold ">{product?.name}</h3>
@@ -64,10 +85,9 @@ const Offer_Card_Minus = ({ product }) => {
           </span>
         </p>
         <div className="flex justify-center items-center py-2 ">
-<div className="flex justify-center cursor-pointer items-center text-2xl border rounded-full w-10 h-10">
-
-        <FaMinus className=""/>
-</div>
+          <div onClick={()=>handleDelete(product?._id)} className="flex justify-center cursor-pointer items-center text-2xl border rounded-full w-10 h-10">
+            <FaMinus className="" />
+          </div>
         </div>
       </div>
     </div>

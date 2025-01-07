@@ -1,55 +1,66 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Offer_Card from "../../components/Offer_Card/Offer_Card";
 import Offer_Card_Minus from "../../components/Offer_Card/Offer_Card_Minus";
 import { DataContext } from "../../DataProvider/DataProvider";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const Offers = () => {
-  const { allData } = useContext(DataContext);
+  const { allData, DataFetch } = useContext(DataContext);
   const { register, handleSubmit } = useForm();
   const axiosSecure = useAxiosSecure();
+  const [selectedProduct, setSelectedProduct] = useState([]);
 
-const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj2 => obj1._id === obj2._id));
+  useEffect(() => {
+    if (allData && Array.isArray(allData) && allData.length >= 4) {
+      const filtered = allData[1].filter(
+        (obj1) => !allData[3]?.products.some((obj2) => obj1._id === obj2._id)
+      );
+      setSelectedProduct(filtered);
+    }
+  }, [allData]);
 
+  useEffect(() => {
+    DataFetch();
+  }, [DataFetch]);
 
-  console.log(selectedProduct)
-
-  const onSubmit = (data) => {
-    console.log(data);
-
+  const onSubmit = async (data) => {
     const info = {
       ...data,
       category: "offer",
-      products: [],
+      // products: [],
     };
-
-    axiosSecure.patch("/offers", info);
+// console.log(data)
+    try {
+      const res = await axiosSecure.patch("/offers-text", info);
+      if (res.data.modifiedCount > 0) {
+        console.log(res.data);
+        toast.success('Offers updated successfully')
+        DataFetch(); // Fetch updated data after successful patch
+      }else{
+        toast.error('Something went wrong!')
+      }
+    } catch (error) {
+      console.error("Error updating offers:", error);
+    }
   };
-  // console.log(...allData[3].products)
-  // const handle_add_product=()=>{
-  //   axiosSecure.patch('/offers',[...offer.products,item])
 
-  // }
-  // const handle_remove_product = () => {
-  //   axiosSecure.patch("/offers", info);
-  // };
-  //   const durationInSeconds =
-  //     days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
-  //   console.log("Offer duration in seconds:", durationInSeconds);
+  if (!allData || !Array.isArray(allData) || allData.length < 4) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section
       id="offers"
       className="min-h-screen w-full flex justify-between gap-5"
     >
-      <div className="flex-1  overflow-hidden border-r">
+      <div className="flex-1 overflow-hidden border-r">
         <h1 className="text-4xl font-bold text-center mt-10">Offers</h1>
 
-        <div className="sticky top-0 left-0 bottom-0 p-5 bg-white  ">
+        <div className="sticky top-0 left-0 bottom-0 p-5 bg-white">
           <form onSubmit={handleSubmit(onSubmit)} className="">
-            <label className="form-control w-full ">
+            <label className="form-control w-full">
               <div className="label">
                 <span className="label-text font-semibold">Offer Title</span>
               </div>
@@ -60,7 +71,7 @@ const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj
                 className="input input-bordered max-w-sm"
               />
             </label>
-            <label className="form-control w-full ">
+            <label className="form-control w-full">
               <div className="label">
                 <span className="label-text font-semibold">
                   Offer percentage
@@ -75,7 +86,7 @@ const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj
                 className="input input-bordered w-[100px]"
               />
             </label>
-            <label className="form-control w-full ">
+            <label className="form-control w-full">
               <div className="label">
                 <span className="label-text font-semibold">Offer Duration</span>
               </div>
@@ -103,7 +114,7 @@ const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj
                     type="number"
                     id="hours"
                     min={0}
-                    max={60}
+                    max={24}
                     {...register("hours", { required: true })}
                     placeholder="0"
                   />
@@ -145,7 +156,7 @@ const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj
           <div className="mt-3">
             <h3 className="text-xl font-semibold">Selected Product</h3>
             <div className="overflow-y-auto h-[38vh] shadow-inner p-3 rounded-md mt-2">
-              <div className="grid grid-cols-1 my-10 sm:grid-cols-2  gap-5 ">
+              <div className="grid grid-cols-1 my-10 sm:grid-cols-2 gap-5">
                 {allData[3]?.products?.map((product) => (
                   <Offer_Card_Minus key={product._id} product={product} />
                 ))}
@@ -154,24 +165,22 @@ const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj
           </div>
         </div>
       </div>
-      <div className="    ">
-        <div className="p-5">
-          <div className="flex justify-between">
-            <div className=""></div>
-            <div className="form-control">
-              <label className="label cursor-pointer">
-                <span className="label-text mr-2">Enable Offers</span>
-                <input type="checkbox" className="toggle" checked />
-              </label>
-            </div>
+      <div className="p-5">
+        {/* <div className="flex justify-between">
+          <div></div>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text mr-2">Enable Offers</span>
+              <input  {...register("display", { required: true })} type="checkbox" className="toggle" defaultChecked />
+            </label>
           </div>
-          <h3 className="text-xl font-semibold">Select Product</h3>
-          <div className="overflow-y-auto h-[80vh] shadow-inner p-3 rounded-md mt-2">
-            <div className="grid grid-cols-1 my-10 sm:grid-cols-2 lg:grid-cols-3  gap-5 ">
-              {selectedProduct?.map((product) => (
-                <Offer_Card key={product._id} product={product} />
-              ))}
-            </div>
+        </div> */}
+        <h3 className="text-xl font-semibold">Select Product</h3>
+        <div className="overflow-y-auto h-[80vh] shadow-inner p-3 rounded-md mt-2">
+          <div className="grid grid-cols-1 my-10 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {selectedProduct?.map((product) => (
+              <Offer_Card key={product._id} product={product} />
+            ))}
           </div>
         </div>
       </div>
@@ -180,6 +189,7 @@ const selectedProduct = allData[1].filter(obj1 => !allData[3]?.products.some(obj
 };
 
 export default Offers;
+
 
 // <section id="offers" className="min-h-screen w-full">
 //   <h1 className="text-4xl font-bold text-center ">Offers</h1>
