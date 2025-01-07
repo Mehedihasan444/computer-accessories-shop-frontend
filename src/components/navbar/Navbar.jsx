@@ -98,7 +98,7 @@ const Navbar = () => {
               </Link>
               <Link to="/repair-services">
                 <li className="font-bold">
-                  <a>Repair Service</a>
+                  <a>Support</a>
                 </li>
               </Link>
               <li className="font-bold">
@@ -106,7 +106,7 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">XYZ</a>
+          <a className="btn btn-ghost text-xl font-bold text-red-600 ">End-To-End CSS</a>
         </div>
         <div className="navbar-center hidden z-[50] lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -123,7 +123,7 @@ const Navbar = () => {
             </Link>
             <Link to="/repair-services">
               <li className="font-bold">
-                <a>Repair Service</a>
+                <a>Support</a>
               </li>
             </Link>
             <li className="font-bold">

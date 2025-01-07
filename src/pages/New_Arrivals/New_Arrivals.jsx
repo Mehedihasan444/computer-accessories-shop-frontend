@@ -4,7 +4,6 @@ import { DataContext } from "../../DataProvider/DataProvider";
 
 const New_Arrivals = () => {
   const { allData } = useContext(DataContext);
-console.log(allData)
   const New_Arrivals = allData[1]?.filter(
     (product) => product.tag === "new_arrivals"
   );
