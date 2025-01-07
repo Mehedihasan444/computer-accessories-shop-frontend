@@ -12,19 +12,19 @@ const Count_Down = ({ days, hours, minutes, seconds }) => {
                 
                     <div className="flex items-center ">
                         <div className="grid grid-cols-4 gap-1\ my-2 h-[35px] gap-3">
-                            <div className=" rounded-2xl bg-red-200 p-3   text-center  ">
+                            <div className=" rounded-2xl bg-blue-200 p-3   text-center  ">
                                 <span className=" text-[#EF233C] font-extrabold text-2xl">{days}</span>
                                 <span className="block text-xs font-semibold  ">Days</span>
                             </div>
-                            <div className="  text-center   rounded-2xl bg-red-200 p-3  ">
+                            <div className="  text-center   rounded-2xl bg-blue-200 p-3  ">
                                 <span className="text-2xl font-extrabold  text-[#EF233C] ">{hours}</span>
                                 <span className="block text-xs font-semibold  ">Hours</span>
                             </div>
-                            <div className="  text-center   rounded-2xl bg-red-200 p-3  ">
+                            <div className="  text-center   rounded-2xl bg-blue-200 p-3  ">
                                 <span className="text-2xl font-extrabold text-[#EF233C] ">{minutes}</span>
                                 <span className="block text-xs font-semibold  ">Minutes</span>
                             </div>
-                            <div className="  text-center   rounded-2xl bg-red-200 p-3  ">
+                            <div className="  text-center   rounded-2xl bg-blue-200 p-3  ">
                                 <span className="text-2xl font-extrabold text-[#EF233C] ">{seconds}</span>
                                 <span className="block text-xs font-semibold  ">Seconds</span>
                             </div>

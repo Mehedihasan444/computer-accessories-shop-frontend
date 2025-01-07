@@ -10,7 +10,7 @@ const Home_Page_Products = () => {
             isPending
               ? "pending"
               : isActive
-              ? "active text-red-500 font-semibold text-xl uppercase"
+              ? "active text-blue-500 font-semibold text-xl uppercase"
               : "text-gray-500 font-semibold text-xl uppercase"
           }
         >
@@ -23,7 +23,7 @@ const Home_Page_Products = () => {
             isPending
               ? "pending"
               : isActive
-              ? "active text-red-500  font-semibold text-xl uppercase"
+              ? "active text-blue-500  font-semibold text-xl uppercase"
               : "text-gray-500 font-semibold text-xl uppercase"
           }
         >
@@ -36,7 +36,7 @@ const Home_Page_Products = () => {
             isPending
               ? "pending"
               : isActive
-              ? "active text-red-500 font-semibold text-xl uppercase"
+              ? "active text-blue-500 font-semibold text-xl uppercase"
               : "text-gray-500 font-semibold text-xl uppercase"
           }
         >

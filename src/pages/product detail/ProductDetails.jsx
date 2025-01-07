@@ -62,22 +62,25 @@ const ProductDetails = () => {
   // payment function
   const handlePayment = async () => {
     if (user) {
-       const info = {
-      total_bill: (ProductDetails.price*count),
-      discount:0,
-      phone:'',
-      delivery_location:'',
-      ordered_date:date,
-      quantity: count,
-      userName: user?.displayName,
-      userEmail: user?.email,
-      status: "pending",
-      payment: "pending",
-      transactionId: "",
-      products: [ProductDetails],
-    };
-    const res = await axiosSecure.post("/payment", info);
-    window.location.replace(res.data.url);
+       if(ProductDetails?.name){
+        const info = {
+          total_bill: ProductDetails.price*count,
+          discount:0,
+          phone:'',
+          delivery_location:'',
+          ordered_date:date,
+          quantity: count,
+          userName: user?.displayName,
+          userEmail: user?.email,
+          status: "pending",
+          payment: "pending",
+          transactionId: "",
+          products: allData[5],
+        };
+        const res = await axiosSecure.post("/payment", info);
+        window.location.replace(res.data.url);
+       }
+
     }else{
       navigate('/system-access/signIn')
     }
