@@ -14,13 +14,13 @@ const System_Access = () => {
       <div className="menu menu-horizontal flex gap-10 justify-center">
         <NavLink
           to="/system-access/signIn"
-          className={`text-gray-500 font-semibold text-xl uppercase ${isLoginPage ? 'text-red-500' : ''}`}
+          className={`text-gray-500 font-semibold text-xl uppercase ${isLoginPage ? 'text-blue-500' : ''}`}
         >
           SignIn
         </NavLink>
         <NavLink
           to="/system-access/signUp"
-          className={`text-gray-500 font-semibold text-xl uppercase ${!isLoginPage ? 'text-red-500' : ''}`}
+          className={`text-gray-500 font-semibold text-xl uppercase ${!isLoginPage ? 'text-blue-500' : ''}`}
         >
           Register
         </NavLink>
