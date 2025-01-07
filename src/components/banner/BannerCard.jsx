@@ -10,7 +10,7 @@ const BannerCard = ({ banner }) => {
       backgroundSize: "cover"
     }}>
       <div className="md:space-y-5 space-y-3 ml-5 md:ml-10 text-left">
-        <h3 className="text-xs bg-red-600 font-semibold text-white text-center px-5 py-1 rounded-full inline-block  mb-2">{subHeading}</h3>
+        <h3 className="text-xs bg-blue-600 font-semibold text-white text-center px-5 py-1 rounded-full inline-block  mb-2">{subHeading}</h3>
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{title}</h2>
         <p className="text-sm text-gray-700 mb-4">{description}</p>
         {/* <p className="text-lg font-bold text-gray-900 mb-4">${price}</p>
